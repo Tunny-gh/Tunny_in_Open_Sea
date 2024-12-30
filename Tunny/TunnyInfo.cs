@@ -10,7 +10,7 @@ namespace Tunny
     public class Tunny : GH_AssemblyInfo
     {
         public override string Name => "Tunny";
-        public override string Version => "1.0.100";
+        public override string Version => "1.0.101";
         public override Bitmap Icon => Resource.TunnyIcon;
         public override string Description => "Tunny is an optimization component wrapped in optuna.";
         public override Guid Id => new Guid("01E58960-AFAA-48FF-BC90-174FDC4A9D64");
