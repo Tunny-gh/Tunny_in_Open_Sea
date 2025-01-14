@@ -1,3 +1,5 @@
+using Python.Runtime;
+
 namespace Optuna.Sampler
 {
     ///  <summary>
@@ -8,8 +10,9 @@ namespace Optuna.Sampler
         public double[] ReferencePoints { get; set; }
         public int DividingParameter { get; set; } = 3;
 
-        public dynamic ToPython(dynamic optuna, bool hasConstraints)
+        public new dynamic ToPython(bool hasConstraints)
         {
+            dynamic optuna = Py.Import("optuna");
             return optuna.samplers.NSGAIIISampler(
                 population_size: PopulationSize,
                 mutation_prob: MutationProb,
@@ -17,7 +20,9 @@ namespace Optuna.Sampler
                 swapping_prob: SwappingProb,
                 seed: Seed,
                 crossover: SetCrossover(optuna, Crossover),
-                constraints_func: hasConstraints ? ConstraintFunc() : null
+                constraints_func: hasConstraints ? ConstraintFunc() : null,
+                reference_points: ReferencePoints == null || ReferencePoints.Length == 0 ? null : ReferencePoints,
+                dividing_parameter: DividingParameter
             );
         }
     }
