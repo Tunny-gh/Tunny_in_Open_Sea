@@ -36,6 +36,9 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - Remove Geometry & Direction input from ConstructFishAttribute component.
   - Study direction can set in new Tunny UI.
   - If you need save geometry, Please use artifact feature.
+- Update Grasshopper UI enable/disable timing.
+  - Disable when Tunny UI wake up
+  - Enable when Tunny UI closed
 - Update optuna v4.0
 - Update python v3.10 to v3.12
 
