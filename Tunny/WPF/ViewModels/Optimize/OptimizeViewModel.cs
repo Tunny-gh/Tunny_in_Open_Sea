@@ -470,7 +470,6 @@ namespace Tunny.WPF.ViewModels.Optimize
 
         private void SetupWindow()
         {
-            SharedItems.GH_DocumentEditor?.DisableUI();
             RhinoView.EnableDrawing = !_settings.Optimize.DisableViewportDrawing;
 
             if (_settings.Optimize.MinimizeRhinoWindow)
@@ -482,7 +481,6 @@ namespace Tunny.WPF.ViewModels.Optimize
         {
             EnableRunOptimizeButton = true;
             EnableStopOptimizeButton = false;
-            SharedItems.GH_DocumentEditor?.EnableUI();
             RhinoView.EnableDrawing = true;
 
             if (_settings.Optimize.MinimizeRhinoWindow)

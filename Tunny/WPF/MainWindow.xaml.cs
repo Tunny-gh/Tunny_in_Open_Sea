@@ -15,8 +15,8 @@ namespace Tunny.WPF
         public MainWindow(OptimizeComponentBase component)
         {
             TLog.MethodStart();
-            SharedItems.Clear();
             SharedItems.TunnyWindow = this;
+            SharedItems.GH_DocumentEditor.DisableUI();
             component.GhInOutInstantiate();
             if (!component.GhInOut.IsLoadCorrectly)
             {
@@ -35,7 +35,16 @@ namespace Tunny.WPF
             }
 
             InitializeComponent();
-            Closing += (sender, e) => ((MainWindowViewModel)DataContext).SaveSettingsFile();
+            Closing += ClosingEventHandler;
+        }
+
+        private void ClosingEventHandler(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            TLog.MethodStart();
+            ((MainWindowViewModel)DataContext).SaveSettingsFile();
+            SharedItems.GH_DocumentEditor.EnableUI();
+
+            SharedItems.Clear();
         }
     }
 }
