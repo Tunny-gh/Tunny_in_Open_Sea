@@ -376,7 +376,7 @@ namespace Tunny.Solver
             {
                 TellPruned(optInfo, trialNum, trial);
             }
-            else if (result.Attribute.TryGetValue("IsFAIL", out List<string> isFail) && isFail.Contains("True"))
+            else if (result.Attributes.TryGetValue("IsFAIL", out List<string> isFail) && isFail.Contains("True"))
             {
                 TellFailed(optInfo, trialNum, trial);
             }
@@ -616,7 +616,7 @@ namespace Tunny.Solver
         private static void SetTrialUserAttr(TrialGrasshopperItems result, TrialWrapper trial, OptimizationHandlingInfo optSet)
         {
             TLog.MethodStart();
-            if (result.Attribute != null)
+            if (result.Attributes != null)
             {
                 SetNonGeometricAttr(result, trial);
             }
@@ -643,7 +643,7 @@ namespace Tunny.Solver
         private static void SetNonGeometricAttr(TrialGrasshopperItems result, TrialWrapper trial)
         {
             TLog.MethodStart();
-            foreach (KeyValuePair<string, List<string>> pair in result.Attribute)
+            foreach (KeyValuePair<string, List<string>> pair in result.Attributes)
             {
                 PyObject pyReportValues;
                 if (pair.Key == "Constraint")
