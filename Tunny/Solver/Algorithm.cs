@@ -357,7 +357,7 @@ namespace Tunny.Solver
             }
             finally
             {
-                RunGC(result);
+                RunGC();
             }
 
             return result;
@@ -548,7 +548,7 @@ namespace Tunny.Solver
                 BestValues = bestValues,
                 Parameter = parameter,
                 HypervolumeRatio = 0,
-                OptunaTrial = trial,
+                TrialWrapper = trial,
                 Pruner = pruner,
                 EstimatedTimeRemaining = optSet.Timeout <= 0
                     ? TimeSpan.FromSeconds((DateTime.Now - startTime).TotalSeconds * (optSet.NTrials - trialNum) / (trialNum + 1))
@@ -589,12 +589,11 @@ namespace Tunny.Solver
             return study;
         }
 
-        private void RunGC(TrialGrasshopperItems result)
+        private void RunGC()
         {
             TLog.MethodStart();
             GcAfterTrial gcAfterTrial = _settings.Optimize.GcAfterTrial;
-            if ((gcAfterTrial != GcAfterTrial.Always) &&
-                ((result.GeometryJson.Length <= 0) || (gcAfterTrial != GcAfterTrial.HasGeometry)))
+            if (gcAfterTrial != GcAfterTrial.Always)
             {
                 return;
             }
@@ -617,11 +616,6 @@ namespace Tunny.Solver
         private static void SetTrialUserAttr(TrialGrasshopperItems result, TrialWrapper trial, OptimizationHandlingInfo optSet)
         {
             TLog.MethodStart();
-            if (result.GeometryJson.Length != 0)
-            {
-                trial.SetUserAttribute("Geometry", result.GeometryJson);
-            }
-
             if (result.Attribute != null)
             {
                 SetNonGeometricAttr(result, trial);

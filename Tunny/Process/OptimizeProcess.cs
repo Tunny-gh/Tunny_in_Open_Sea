@@ -133,7 +133,6 @@ namespace Tunny.Process
             return new TrialGrasshopperItems
             {
                 Objectives = component.GhInOut.Objectives,
-                GeometryJson = component.GhInOut.GetGeometryJson(),
                 Attribute = component.GhInOut.GetAttributes(),
                 Artifacts = component.GhInOut.Artifacts,
             };
@@ -145,7 +144,7 @@ namespace Tunny.Process
                 && pState.Pruner.GetPrunerStatus() == PrunerStatus.Runnable
                 && DateTime.Now - timer > TimeSpan.FromSeconds(pState.Pruner.EvaluateIntervalSeconds))
             {
-                step = ReportPruner(pState.OptunaTrial, step, pState.Pruner);
+                step = ReportPruner(pState.TrialWrapper, step, pState.Pruner);
                 timer = DateTime.Now;
             }
         }

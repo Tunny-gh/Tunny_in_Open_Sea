@@ -71,33 +71,15 @@ namespace Tunny.Type
             }
         }
 
-        private void SetAttributeEachItem(StringBuilder sb, KeyValuePair<string, object> attr)
+        private static void SetAttributeEachItem(StringBuilder sb, KeyValuePair<string, object> attr)
         {
             var valueStrings = new StringBuilder();
-            if (attr.Key == "Geometry")
+            if (attr.Value is IEnumerable<string> values)
             {
-                List<GeometryBase> geometries = Value.GetGeometries();
-                int maxLength = geometries.Count > 5 ? 5 : geometries.Count;
-                for (int i = 0; i < maxLength; i++)
+                foreach (string val in values)
                 {
-                    string geomString = GooConverter.GeometryBaseToGoo(geometries[i]).ToString();
-                    valueStrings.Append("\n    ");
-                    valueStrings.Append(geomString);
-                }
-                if (geometries.Count > 5)
-                {
-                    valueStrings.Append(".....");
-                }
-            }
-            else
-            {
-                if (attr.Value is IEnumerable<string> values)
-                {
-                    foreach (string val in values)
-                    {
-                        valueStrings.Append(val);
-                        valueStrings.Append(", ");
-                    }
+                    valueStrings.Append(val);
+                    valueStrings.Append(", ");
                 }
             }
             sb.AppendLine("  " + attr.Key + ": " + valueStrings);

@@ -17,7 +17,7 @@ namespace Tunny.Core.Handler
         public double HypervolumeRatio { get; set; }
         public TimeSpan EstimatedTimeRemaining { get; set; }
         public bool IsReportOnly { get; set; }
-        public TrialWrapper OptunaTrial { get; set; }
+        public TrialWrapper TrialWrapper { get; set; }
         public Pruner Pruner { get; set; }
         public int PercentComplete { get; set; }
 

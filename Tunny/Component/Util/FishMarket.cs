@@ -87,16 +87,16 @@ namespace Tunny.Component.Util
             var arrayedGeometries = new GH_Structure<IGH_GeometricGoo>();
             _fishes = fishObjects.Select(x => (GH_Fish)x).ToList();
 
-            while (true)
-            {
-                var fishGeometries = _fishes.Select(x => x.Value.GetGeometries()).ToList();
-                bool remainGeometry = SetGeometryToResultArray(countY, arrayedGeometries, fishGeometries);
-                if (!remainGeometry)
-                {
-                    break;
-                }
-                countY++;
-            }
+            // while (true)
+            // {
+            //     var fishGeometries = _fishes.Select(x => x.Value.GetGeometries()).ToList();
+            //     bool remainGeometry = SetGeometryToResultArray(countY, arrayedGeometries, fishGeometries);
+            //     if (!remainGeometry)
+            //     {
+            //         break;
+            //     }
+            //     countY++;
+            // }
 
             return arrayedGeometries;
         }

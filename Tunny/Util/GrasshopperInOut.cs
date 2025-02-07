@@ -442,28 +442,6 @@ namespace Tunny.Util
             }
         }
 
-        public string[] GetGeometryJson()
-        {
-            TLog.MethodStart();
-            var json = new List<string>();
-
-            if (_attributes.Value == null
-                || !_attributes.Value.TryGetValue("Geometry", out object value) || !(value is List<object> geometries))
-            {
-                return json.ToArray();
-            }
-
-            foreach (object param in geometries)
-            {
-                if (param is IGH_Goo goo)
-                {
-                    json.Add(GooConverter.GooToString(goo, true));
-                }
-            }
-
-            return json.ToArray();
-        }
-
         public Dictionary<string, List<string>> GetAttributes()
         {
             TLog.MethodStart();
@@ -475,11 +453,6 @@ namespace Tunny.Util
 
             foreach (string key in _attributes.Value.Keys)
             {
-                if (key == "Geometry")
-                {
-                    continue;
-                }
-
                 var value = new List<string>();
                 if (key == "Constraint")
                 {

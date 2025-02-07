@@ -40,19 +40,6 @@ namespace Tunny.Type
             }
         }
 
-        public List<GeometryBase> GetGeometries()
-        {
-            TLog.MethodStart();
-            var geometries = new List<GeometryBase>();
-            if (Attributes == null)
-            {
-                return geometries;
-            }
-
-            bool hasGeometry = Attributes.ContainsKey("Geometry");
-            return hasGeometry ? Attributes["Geometry"] as List<GeometryBase> : geometries;
-        }
-
         public string SerializeToJson()
         {
             TLog.MethodStart();

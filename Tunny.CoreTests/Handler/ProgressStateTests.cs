@@ -32,7 +32,7 @@ namespace Tunny.Core.Handler.Tests
                 HypervolumeRatio = 0,
                 EstimatedTimeRemaining = new System.TimeSpan(),
                 IsReportOnly = false,
-                OptunaTrial = new TrialWrapper(1),
+                TrialWrapper = new TrialWrapper(1),
                 Pruner = new Pruner(),
                 PercentComplete = 0
             };
@@ -44,7 +44,7 @@ namespace Tunny.Core.Handler.Tests
             Assert.Equal(0, progressState.HypervolumeRatio);
             Assert.Equal(new System.TimeSpan(), progressState.EstimatedTimeRemaining);
             Assert.False(progressState.IsReportOnly);
-            Assert.Equal(1, progressState.OptunaTrial.PyInstance);
+            Assert.Equal(1, progressState.TrialWrapper.PyInstance);
             Assert.Equal(PrunerType.None, progressState.Pruner.Type);
             Assert.Equal(0, progressState.PercentComplete);
         }
