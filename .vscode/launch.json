@@ -1,16 +1,32 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run Rhino8",
+      "name": "Rhino8 - netcore",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
       "program": "C:/Program Files/Rhino 8/System/Rhino.exe",
-      "args": ["/nosplash"],
+      "targetArchitecture": "x86_64",
+      "args": "/netcore /nosplash /runscript=\"_Grasshopper\"",
+      "env": {
+        "RHINO_PACKAGE_DIRS": "${workspaceFolder}/bin/Debug"
+      },
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopAtEntry": true
+    },
+    {
+      "name": "Rhino8 - netfx",
+      "type": "clr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "C:/Program Files/Rhino 8/System/Rhino.exe",
+      "targetArchitecture": "x86_64",
+      "args": "/netfx /nosplash /runscript=\"_Grasshopper\"",
+      "env": {
+        "RHINO_PACKAGE_DIRS": "${workspaceFolder}/bin/Debug"
+      },
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",
       "stopAtEntry": true
@@ -21,7 +37,7 @@
       "request": "launch",
       "preLaunchTask": "build",
       "program": "C:/Program Files/Rhino 7/System/Rhino.exe",
-      "args": ["/nosplash"],
+      "args": "/nosplash /runscript=\"_Grasshopper\"",
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",
       "stopAtEntry": true
