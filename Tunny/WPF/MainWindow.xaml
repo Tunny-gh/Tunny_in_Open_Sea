@@ -9,9 +9,10 @@
     Title="{Binding WindowTitle}"
     Width="1200"
     Height="900"
+    MinWidth="700"
+    MinHeight="900"
     Background="#F0F4F8"
     Icon="Assets/Icon/Tunny.png"
-    ResizeMode="CanMinimize"
     mc:Ignorable="d">
     <Window.DataContext>
         <viewModels:MainWindowViewModel />
