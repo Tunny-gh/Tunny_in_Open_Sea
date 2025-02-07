@@ -177,6 +177,11 @@ namespace Tunny.Solver
             TLog.MethodStart();
             if (nObjective == 1 && _objective.HumanInTheLoopType != HumanInTheLoopType.Preferential)
             {
+                if (!study.Trials.Any())
+                {
+                    OptimalParameters = parameter;
+                    return;
+                }
                 PyObject[] pyBestParams = study.PyInstance.best_params.values();
                 string[] values = pyBestParams.Select(x => x.ToString()).ToArray();
                 string[] keys = (string[])study.PyInstance.best_params.keys();

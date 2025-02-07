@@ -13,6 +13,7 @@ namespace Optuna.Study
         public dynamic PyInstance { get; private set; }
         public bool StopFlag => PyInstance._stop_flag;
         public int Id => PyInstance._study_id;
+        public PyList Trials => PyInstance.trials;
         public double[][] BestTrials
         {
             get
