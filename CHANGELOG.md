@@ -39,7 +39,7 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - Update Grasshopper UI enable/disable timing.
   - Disable when Tunny UI wake up
   - Enable when Tunny UI closed
-- Update optuna v4.0
+- Update optuna v4.2
 - Update python v3.10 to v3.12
 
 ### Removed

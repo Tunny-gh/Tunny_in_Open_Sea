@@ -26,10 +26,10 @@ multipledispatch==1.0.0
 networkx==3.4.2
 numpy==1.26.4
 opt_einsum==3.4.0
-optuna==4.1.0
+optuna==4.2.0
 optuna-dashboard==0.17.0
-optuna-integration==4.1.0
-optunahub==0.1.0
+optuna-integration==4.2.0
+optunahub==0.2.0
 packaging==24.2
 pillow==11.0.0
 plotly==5.24.1

@@ -42,10 +42,10 @@ summary
 | networkx           | 3.4.2     | BSD License                                         |
 | numpy              | 1.26.4    | BSD License                                         |
 | opt_einsum         | 3.4.0     | MIT License                                         |
-| optuna             | 4.1.0     | MIT License                                         |
+| optuna             | 4.2.0     | MIT License                                         |
 | optuna-dashboard   | 0.17.0    | MIT License                                         |
-| optuna-integration | 4.1.0     | MIT License                                         |
-| optunahub          | 0.1.0     | MIT License                                         |
+| optuna-integration | 4.2.0     | MIT License                                         |
+| optunahub          | 0.2.0     | MIT License                                         |
 | packaging          | 24.2      | Apache Software License; BSD License                |
 | pillow             | 11.0.0    | CMU License (MIT-CMU)                               |
 | pip                | 24.2      | MIT License                                         |
@@ -2822,7 +2822,7 @@ SOFTWARE.
 
 
 optuna
-4.1.0
+4.2.0
 MIT License
 https://optuna.org/
 MIT License
@@ -2901,7 +2901,7 @@ SOFTWARE.
 
 
 optuna-integration
-4.1.0
+4.2.0
 MIT License
 UNKNOWN
 MIT License
@@ -2928,7 +2928,7 @@ SOFTWARE.
 
 
 optunahub
-0.1.0
+0.2.0
 MIT License
 https://hub.optuna.org/
 MIT License
