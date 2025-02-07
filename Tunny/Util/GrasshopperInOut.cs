@@ -31,17 +31,48 @@ namespace Tunny.Util
         private readonly List<Guid> _inputGuids;
         private readonly GH_Component _component;
         private List<GalapagosGeneListObject> _genePool;
-        private GH_FishAttribute _attributes;
         private List<GH_NumberSlider> _sliders;
         private List<TunnyValueList> _valueLists;
-
-        public Objective Objectives { get; private set; }
         public List<VariableBase> Variables { get; private set; }
-        public Artifact Artifacts { get; private set; }
         public List<FishEgg> FishEggs { get; private set; }
-        public bool HasConstraint { get; private set; }
         public bool IsMultiObjective => Objectives.Length > 1;
         public bool IsLoadCorrectly { get; }
+        private Objective _objectives;
+        public Objective Objectives
+        {
+            get
+            {
+                GetObjectives();
+                return _objectives;
+            }
+        }
+        private GH_FishAttribute _fishAttributes;
+        public Dictionary<string, List<string>> Attributes
+        {
+            get
+            {
+                GetFishAttributes();
+                return FishAttributesToDict();
+            }
+        }
+        private Artifact _artifacts;
+        public Artifact Artifacts
+        {
+            get
+            {
+                GetArtifacts();
+                return _artifacts;
+            }
+        }
+        private bool _hasConstraint;
+        public bool HasConstraint
+        {
+            get
+            {
+                GetFishAttributes();
+                return _hasConstraint;
+            }
+        }
 
         public GrasshopperInOut(GH_Component component, bool getVariableOnly = false)
         {
@@ -52,7 +83,7 @@ namespace Tunny.Util
 
             IsLoadCorrectly = getVariableOnly
                 ? SetVariables()
-                : SetVariables() && SetObjectives() && SetAttributes() && SetArtifacts();
+                : SetVariables() && GetObjectives() && GetFishAttributes() && GetArtifacts();
         }
 
         private bool SetVariables()
@@ -229,7 +260,7 @@ namespace Tunny.Util
             }
         }
 
-        private bool SetObjectives()
+        private bool GetObjectives()
         {
             TLog.MethodStart();
             if (_component.Params.Input[1].SourceCount == 0)
@@ -254,7 +285,7 @@ namespace Tunny.Util
                 return ShowIncorrectObjectiveInputMessage(unsupportedObjectives);
             }
             if (!CheckObjectiveNicknameDuplication(_component.Params.Input[1].Sources.ToArray())) { return false; }
-            Objectives = new Objective(_component.Params.Input[1].Sources.ToList());
+            _objectives = new Objective(_component.Params.Input[1].Sources.ToList());
             return true;
         }
 
@@ -284,10 +315,10 @@ namespace Tunny.Util
             return false;
         }
 
-        private bool SetAttributes()
+        private bool GetFishAttributes()
         {
             TLog.MethodStart();
-            _attributes = new GH_FishAttribute();
+            _fishAttributes = new GH_FishAttribute();
             if (_component.Params.Input[2].SourceCount == 0)
             {
                 return true;
@@ -302,8 +333,8 @@ namespace Tunny.Util
             {
                 if (goo is GH_FishAttribute fishAttr)
                 {
-                    _attributes = fishAttr;
-                    HasConstraint = fishAttr.Value.ContainsKey("Constraint");
+                    _fishAttributes = fishAttr;
+                    _hasConstraint = fishAttr.Value.ContainsKey("Constraint");
                     break;
                 }
             }
@@ -420,9 +451,9 @@ namespace Tunny.Util
             ExpireInput(_component.Params.Input[1]); // objectives
             ExpireInput(_component.Params.Input[3]); // artifacts
             await RecalculateAsync();
-            SetObjectives();
-            SetAttributes();
-            SetArtifacts();
+            GetObjectives();
+            GetFishAttributes();
+            GetArtifacts();
         }
 
         private void ExpireInput(IGH_Param input)
@@ -442,21 +473,21 @@ namespace Tunny.Util
             }
         }
 
-        public Dictionary<string, List<string>> GetAttributes()
+        private Dictionary<string, List<string>> FishAttributesToDict()
         {
             TLog.MethodStart();
             var attrs = new Dictionary<string, List<string>>();
-            if (_attributes.Value == null)
+            if (_fishAttributes.Value == null)
             {
                 return attrs;
             }
 
-            foreach (string key in _attributes.Value.Keys)
+            foreach (string key in _fishAttributes.Value.Keys)
             {
                 var value = new List<string>();
                 if (key == "Constraint")
                 {
-                    object obj = _attributes.Value[key];
+                    object obj = _fishAttributes.Value[key];
                     if (obj is List<double> val)
                     {
                         value.AddRange(val.Select(v => v.ToString(CultureInfo.InvariantCulture)));
@@ -475,7 +506,7 @@ namespace Tunny.Util
         private void AddGooValues(string key, List<string> value)
         {
             TLog.MethodStart();
-            if (_attributes.Value[key] is List<object> objList)
+            if (_fishAttributes.Value[key] is List<object> objList)
             {
                 foreach (object param in objList)
                 {
@@ -487,10 +518,10 @@ namespace Tunny.Util
             }
         }
 
-        private bool SetArtifacts()
+        private bool GetArtifacts()
         {
             TLog.MethodStart();
-            Artifacts = new Artifact();
+            _artifacts = new Artifact();
             if (_component.Params.Input[3].SourceCount == 0)
             {
                 return true;
@@ -504,24 +535,24 @@ namespace Tunny.Util
                     bool result = goo.CastTo(out GeometryBase geometry);
                     if (result)
                     {
-                        Artifacts.Geometries.Add(geometry);
+                        _artifacts.Geometries.Add(geometry);
                         continue;
                     }
 
                     if (goo is GH_FishPrint fishPrint)
                     {
-                        Artifacts.Images.Add(fishPrint.Value);
+                        _artifacts.Images.Add(fishPrint.Value);
                         continue;
                     }
 
                     result = goo.CastTo(out string path);
                     if (result)
                     {
-                        Artifacts.AddFilePathToArtifact(path);
+                        _artifacts.AddFilePathToArtifact(path);
                     }
                 }
             }
-            return Artifacts.Count() != 0;
+            return _artifacts.Count() != 0;
         }
     }
 }

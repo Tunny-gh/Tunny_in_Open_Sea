@@ -133,7 +133,7 @@ namespace Tunny.Process
             return new TrialGrasshopperItems
             {
                 Objectives = component.GhInOut.Objectives,
-                Attribute = component.GhInOut.GetAttributes(),
+                Attributes = component.GhInOut.Attributes,
                 Artifacts = component.GhInOut.Artifacts,
             };
         }
