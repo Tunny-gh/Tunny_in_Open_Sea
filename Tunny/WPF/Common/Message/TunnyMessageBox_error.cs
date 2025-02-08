@@ -6,6 +6,16 @@ namespace Tunny.WPF.Common
 {
     internal static partial class TunnyMessageBox
     {
+        internal static void Error_NoArtifactFound()
+        {
+            TLog.MethodStart();
+            Show(
+                "Failed to load Artifact. Please check the value.",
+                "Tunny",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+
         internal static void Error_IncorrectVariableInput()
         {
             TLog.MethodStart();

@@ -552,6 +552,10 @@ namespace Tunny.Util
                     }
                 }
             }
+            if (_artifacts.Count() == 0)
+            {
+                TunnyMessageBox.Error_NoArtifactFound();
+            }
             return _artifacts.Count() != 0;
         }
     }
