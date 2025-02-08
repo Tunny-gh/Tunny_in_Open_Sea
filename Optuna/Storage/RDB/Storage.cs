@@ -306,7 +306,7 @@ namespace Optuna.Storage.RDB
             throw new NotImplementedException();
         }
 
-        public void SetTrialIntermediateValue(int trialId, int step, double intermediateValue)
+        public void SetTrialIntermediateValue(int trialId, int intermediateStep, double intermediateValue)
         {
             throw new NotImplementedException();
         }
@@ -610,7 +610,7 @@ namespace Optuna.Storage.RDB
         {
             string key = reader.GetString(0);
             string value = reader.GetString(1);
-            if (!string.IsNullOrEmpty(value) && value.Contains("[") && value.Contains("]"))
+            if (!string.IsNullOrEmpty(value) && value.Contains('[') && value.Contains(']'))
             {
                 //FIXME: This is a hack to handle the case where the value is a list of strings.
                 if (key.Contains("preference"))
@@ -626,7 +626,7 @@ namespace Optuna.Storage.RDB
                     }
                     catch (JsonReaderException)
                     {
-                        if (value.Contains("\""))
+                        if (value.Contains('"'))
                         {
                             value = value.Replace("\"", "");
                         }
@@ -636,7 +636,7 @@ namespace Optuna.Storage.RDB
             }
             else
             {
-                if (value.Contains("\""))
+                if (value.Contains('"'))
                 {
                     value = value.Replace("\"", "");
                 }

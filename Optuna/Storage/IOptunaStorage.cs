@@ -28,7 +28,7 @@ namespace Optuna.Storage
         int GetTrialNumberFromId(int trialId);
         double GetTrialParam(int trialId, string paramName);
         bool SetTrialStateValue(int trialId, TrialState state, double[] values = null);
-        void SetTrialIntermediateValue(int trialId, int step, double intermediateValue);
+        void SetTrialIntermediateValue(int trialId, int intermediateStep, double intermediateValue);
         void SetTrialUserAttr(int trialId, string key, object value);
         void SetTrialSystemAttr(int trialId, string key, object value);
 

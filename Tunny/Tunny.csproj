@@ -2,11 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-    <Version>1.0.101</Version>
-    <Title>Tunny</Title>
-    <Description>Tunny is an optimization component wrapped in optuna.</Description>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
     <TargetExt>.gha</TargetExt>
-    <Authors>hrntsm</Authors>
+    <NoWarn>NU1701;NETSDK1086</NoWarn>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <AssemblyName>Tunny</AssemblyName>
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
@@ -15,17 +13,24 @@
     <NeutralLanguage>en</NeutralLanguage>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest-recommended</AnalysisLevel>
-    <PackageProjectUrl>https://github.com/hrntsm/Tunny</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/hrntsm/Tunny</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageIcon>TunnyIcon.png</PackageIcon>
-    <UseWPF>true</UseWPF>
     <Platform>x64</Platform>
     <Platforms>$(Platform)</Platforms>
     <PlatformName>$(Platform)</PlatformName>
     <PlatformTarget>$(Platform)</PlatformTarget>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>1.0.101</Version>
+    <Title>Tunny</Title>
+    <Description>Tunny is an optimization component wrapped in optuna.</Description>
+    <Authors>hrntsm</Authors>
+    <Company>hrntsm</Company>
+    <PackageProjectUrl>https://github.com/hrntsm/Tunny</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/hrntsm/Tunny</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>TunnyIcon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -53,7 +58,7 @@
 
   <ItemGroup>
     <PackageReference Include="CefSharp.Wpf" Version="131.3.10" />
-    <PackageReference Include="Grasshopper" Version="7.13.21348.13001" IncludeAssets="compile;build" />
+    <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
     <PackageReference Include="Prism.Core" Version="9.0.537" />
     <PackageReference Include="System.Resources.Extensions" Version="9.0.0">
@@ -140,6 +145,17 @@
       <PackagePath>\</PackagePath>
       <Pack>True</Pack>
     </Resource>
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.Contains('-windows')) or $(TargetFramework.StartsWith('net4'))">
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup Condition="!($(TargetFramework.Contains('-windows')) or $(TargetFramework.StartsWith('net4')))">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" ExcludeAssets="all" GeneratePathProperty="true" />
+    <Reference Include="$(PkgMicrosoft_NETFramework_ReferenceAssemblies_net48)\build\.NETFramework\v4.8\System.Windows.Forms.dll" Private="False" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" ExcludeAssets="runtime" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(Configuration) == 'Debug' AND $([MSBuild]::IsOSPlatform(Windows))">

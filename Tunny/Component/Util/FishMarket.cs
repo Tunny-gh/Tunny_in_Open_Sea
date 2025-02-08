@@ -22,7 +22,7 @@ namespace Tunny.Component.Util
     public class FishMarket : GH_Component
     {
         private readonly List<Plane> _tagPlanes = new List<Plane>();
-        private List<GH_Fish> _fishes = new List<GH_Fish>();
+        private readonly List<GH_Fish> _fishes = new List<GH_Fish>();
         private double _size = 1;
         private Settings _settings = new Settings();
 
@@ -83,9 +83,10 @@ namespace Tunny.Component.Util
 
         private GH_Structure<IGH_GeometricGoo> ArrayedGeometries(IEnumerable<object> fishObjects)
         {
-            int countY = 0;
-            var arrayedGeometries = new GH_Structure<IGH_GeometricGoo>();
-            _fishes = fishObjects.Select(x => (GH_Fish)x).ToList();
+            throw new NotImplementedException();
+            // int countY = 0;
+            // var arrayedGeometries = new GH_Structure<IGH_GeometricGoo>();
+            // _fishes = fishObjects.Select(x => (GH_Fish)x).ToList();
 
             // while (true)
             // {
@@ -98,7 +99,7 @@ namespace Tunny.Component.Util
             //     countY++;
             // }
 
-            return arrayedGeometries;
+            // return arrayedGeometries;
         }
 
         private bool SetGeometryToResultArray(int countY, GH_Structure<IGH_GeometricGoo> arrayedGeometries, List<List<GeometryBase>> fishGeometries)
