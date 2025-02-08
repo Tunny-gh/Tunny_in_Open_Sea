@@ -17,12 +17,6 @@ namespace Tunny.WPF
             TLog.MethodStart();
             SharedItems.TunnyWindow = this;
             SharedItems.GH_DocumentEditor.DisableUI();
-            component.GhInOutInstantiate();
-            if (!component.GhInOut.IsLoadCorrectly)
-            {
-                TunnyMessageBox.Error_ComponentLoadFail();
-                Close();
-            }
             SharedItems.Component = component;
 
             if (!TSettings.TryLoadFromJson(out TSettings settings))

@@ -26,8 +26,16 @@ namespace Tunny.Component.Optimizer
             SharedItems.GH_DocumentEditor = Instances.DocumentEditor;
             TEnvVariables.GrasshopperWindowHandle = SharedItems.GH_DocumentEditor.Handle;
 
-            MainWindow = new MainWindow(this);
-            MainWindow.Show();
+            GhInOutInstantiate();
+            if (!GhInOut.IsLoadCorrectly)
+            {
+                TunnyMessageBox.Error_ComponentLoadFail();
+            }
+            else
+            {
+                MainWindow = new MainWindow(this);
+                MainWindow.Show();
+            }
         }
 
         public override void CreateAttributes()
