@@ -430,5 +430,16 @@ namespace Tunny.WPF.ViewModels
                 viewModel.UpdateExistStudySummaries();
             }
         }
+
+        private bool? _showTopmost;
+        public bool? ShowTopmost
+        {
+            get => _showTopmost;
+            set
+            {
+                SetProperty(ref _showTopmost, value);
+                SharedItems.Instance.TunnyWindow.Topmost = value == true;
+            }
+        }
     }
 }

@@ -42,7 +42,8 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
                 NumNeighbors = MoeadNeighborsTextBox.Text == "AUTO"
                     ? -1
                     : int.Parse(MoeadNeighborsTextBox.Text, CultureInfo.InvariantCulture),
-                ScalarAggregation = (ScalarAggregationType)MoeadScalarAggregationComboBox.SelectedIndex
+                ScalarAggregation = (ScalarAggregationType)MoeadScalarAggregationComboBox.SelectedIndex,
+                ForceReload = MoeadForceReloadCheckBox.IsChecked == true
             };
         }
 
@@ -64,6 +65,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             page.MoeadNeighborsTextBox.Text = moead.NumNeighbors == -1
                 ? "AUTO"
                 : moead.NumNeighbors.ToString(CultureInfo.InvariantCulture);
+            page.MoeadForceReloadCheckBox.IsChecked = false;
             return page;
         }
 
@@ -111,6 +113,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             MoeadCrossoverComboBox.SelectedIndex = 1;
             MoeadNeighborsTextBox.Text = "AUTO";
             MoeadScalarAggregationComboBox.SelectedIndex = 1;
+            MoeadForceReloadCheckBox.IsChecked = false;
         }
     }
 }

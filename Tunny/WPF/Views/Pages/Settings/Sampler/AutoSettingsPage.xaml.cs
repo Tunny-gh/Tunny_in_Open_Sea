@@ -28,6 +28,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
                 Seed = AutoSeedTextBox.Text == "AUTO"
                     ? null
                     : (int?)int.Parse(AutoSeedTextBox.Text, CultureInfo.InvariantCulture),
+                ForceReload = AutoForceReloadCheckBox.IsChecked == true
             };
         }
 
@@ -51,6 +52,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
             AutoSeedTextBox.Text = "AUTO";
+            AutoForceReloadCheckBox.IsChecked = false;
         }
     }
 }

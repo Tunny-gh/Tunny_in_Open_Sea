@@ -31,6 +31,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
                 PopulationSize = MoCmaEsPopulationSizeTextBox.Text == "AUTO"
                     ? null
                     : (int?)int.Parse(MoCmaEsPopulationSizeTextBox.Text, CultureInfo.InvariantCulture),
+                ForceReload = MoCmaEsForceReloadCheckBox.IsChecked == true
             };
         }
 
@@ -44,6 +45,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             page.MoCmaEsPopulationSizeTextBox.Text = cmaEs.PopulationSize == null
                 ? "AUTO"
                 : cmaEs.PopulationSize?.ToString(CultureInfo.InvariantCulture);
+            page.MoCmaEsForceReloadCheckBox.IsChecked = false;
             return page;
         }
 
@@ -65,6 +67,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
         {
             MoCmaEsSeedTextBox.Text = "AUTO";
             MoCmaEsPopulationSizeTextBox.Text = "AUTO";
+            MoCmaEsForceReloadCheckBox.IsChecked = false;
         }
     }
 }
