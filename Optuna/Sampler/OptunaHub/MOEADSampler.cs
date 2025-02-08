@@ -15,6 +15,7 @@ namespace Optuna.Sampler.OptunaHub
         public double SwappingProb { get; set; } = 0.5;
         public ScalarAggregationType ScalarAggregation { get; set; } = ScalarAggregationType.tchebycheff;
         public int NumNeighbors { get; set; } = -1;
+        public bool ForceReload { get; set; }
 
         public dynamic ToPython()
         {
@@ -25,7 +26,7 @@ namespace Optuna.Sampler.OptunaHub
             {
                 NumNeighbors = PopulationSize / 5;
             }
-            dynamic module = optunahub.load_module(package: Package);
+            dynamic module = optunahub.load_module(package: Package, force_reload: ForceReload);
             return module.MOEADSampler(
                 population_size: PopulationSize,
                 mutation_prob: MutationProb,

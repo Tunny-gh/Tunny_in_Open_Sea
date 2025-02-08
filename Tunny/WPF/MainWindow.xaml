@@ -47,6 +47,10 @@
                         Command="{Binding QuickAccessStorageFileOpenCommand}"
                         SmallImageSource="{StaticResource OpenFolderOutline}"
                         ToolTip="Open Optimization Result File" />
+                    <RibbonCheckBox
+                        IsChecked="{Binding ShowTopmost}"
+                        Label="Show Topmost"
+                        ToolTip="Show Topmost" />
                 </RibbonQuickAccessToolBar>
             </Ribbon.QuickAccessToolBar>
 
@@ -92,15 +96,8 @@
                         Label="GP BoTorch"
                         LargeImageSource="{StaticResource Torch}"
                         SmallImageSource="{StaticResource Torch}" />
-                    <RibbonButton
-                        Command="{Binding SelectSamplerCommand}"
-                        CommandParameter="{x:Static common:SelectSamplerType.GpPreferential}"
-                        IsEnabled="False"
-                        Label="GP Preferential"
-                        LargeImageSource="{StaticResource Compare}"
-                        SmallImageSource="{StaticResource Compare}" />
                 </RibbonGroup>
-                <RibbonGroup Header="Genetic Algorithm">
+                <RibbonGroup Header="Evolution Algorithm">
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.NSGAII}"
@@ -113,6 +110,13 @@
                         Label="NSGA-III"
                         LargeImageSource="{StaticResource EggEaster}"
                         SmallImageSource="{StaticResource EggEaster}" />
+                    <RibbonButton
+                        Command="{Binding SelectSamplerCommand}"
+                        CommandParameter="{x:Static common:SelectSamplerType.MOEAD}"
+                        IsEnabled="{Binding IsMultiObjective}"
+                        Label="MOEA/D"
+                        LargeImageSource="{StaticResource WrapDisabled}"
+                        SmallImageSource="{StaticResource WrapDisabled}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Evolution Strategy">
                     <RibbonButton
@@ -129,15 +133,6 @@
                         Label="MO CMA-ES"
                         LargeImageSource="{StaticResource CircleMultiple}"
                         SmallImageSource="{StaticResource CircleMultiple}" />
-                </RibbonGroup>
-                <RibbonGroup Header="Evolution Algorithm">
-                    <RibbonButton
-                        Command="{Binding SelectSamplerCommand}"
-                        CommandParameter="{x:Static common:SelectSamplerType.MOEAD}"
-                        IsEnabled="{Binding IsMultiObjective}"
-                        Label="MOEA/D"
-                        LargeImageSource="{StaticResource WrapDisabled}"
-                        SmallImageSource="{StaticResource WrapDisabled}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Misc">
                     <RibbonButton
@@ -158,6 +153,15 @@
                         Label="BruteForce"
                         LargeImageSource="{StaticResource AllInclusiveBox}"
                         SmallImageSource="{StaticResource AllInclusiveBox}" />
+                </RibbonGroup>
+                <RibbonGroup Header="Human in the loop">
+                    <RibbonButton
+                        Command="{Binding SelectSamplerCommand}"
+                        CommandParameter="{x:Static common:SelectSamplerType.GpPreferential}"
+                        IsEnabled="False"
+                        Label="GP Preferential"
+                        LargeImageSource="{StaticResource Compare}"
+                        SmallImageSource="{StaticResource Compare}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Optuna Hub">
                     <RibbonButton
