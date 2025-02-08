@@ -76,7 +76,7 @@ namespace Tunny.Type
             byte[] bytes = Convert.FromBase64String(base64);
             using (var ms = new MemoryStream(bytes))
             {
-                return (Bitmap)new BinaryFormatter().Deserialize(ms);
+                return new Bitmap(ms);
             }
         }
 
@@ -84,7 +84,7 @@ namespace Tunny.Type
         {
             using (var ms = new MemoryStream())
             {
-                new BinaryFormatter().Serialize(ms, value);
+                value.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 return Convert.ToBase64String(ms.ToArray());
             }
         }

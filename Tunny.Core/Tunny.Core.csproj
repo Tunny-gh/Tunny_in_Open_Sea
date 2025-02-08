@@ -1,11 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net48; net7.0-windows;</TargetFrameworks>
+    <TargetFrameworks>net48; net7.0-windows</TargetFrameworks>
     <NoWarn>NU1701;NETSDK1086</NoWarn>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest-recommended</AnalysisLevel>
-    <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

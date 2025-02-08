@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Json;
 
 using GH_IO.Serialization;
 
@@ -73,19 +74,13 @@ namespace Tunny.Type
         private static FishEgg FromBase64(string base64)
         {
             byte[] bytes = Convert.FromBase64String(base64);
-            using (var ms = new MemoryStream(bytes))
-            {
-                return (FishEgg)new BinaryFormatter().Deserialize(ms);
-            }
+            return JsonSerializer.Deserialize<FishEgg>(bytes);
         }
 
         private static string ToBase64(FishEgg value)
         {
-            using (var ms = new MemoryStream())
-            {
-                new BinaryFormatter().Serialize(ms, value);
-                return Convert.ToBase64String(ms.ToArray());
-            }
+            byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(value);
+            return Convert.ToBase64String(bytes);
         }
 
         public override string ToString()

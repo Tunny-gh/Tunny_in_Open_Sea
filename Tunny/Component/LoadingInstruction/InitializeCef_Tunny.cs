@@ -1,7 +1,5 @@
 using System;
 
-using CefSharp;
-
 using Grasshopper.Kernel;
 
 using Tunny.Core.Util;
@@ -21,7 +19,9 @@ namespace Tunny.Component.LoadingInstruction
         {
             try
             {
-                CefRuntime.SubscribeAnyCpuAssemblyResolver(TEnvVariables.ComponentFolder);
+#if NET48
+                CefSharp.CefRuntime.SubscribeAnyCpuAssemblyResolver(TEnvVariables.ComponentFolder);
+#endif
             }
             catch (Exception e)
             {

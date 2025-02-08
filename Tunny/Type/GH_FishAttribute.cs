@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Text.Json;
 
 using GH_IO.Serialization;
 
@@ -113,19 +114,15 @@ namespace Tunny.Type
         private static Dictionary<string, object> FromBase64(string base64)
         {
             byte[] bytes = Convert.FromBase64String(base64);
-            using (var ms = new MemoryStream(bytes))
-            {
-                return (Dictionary<string, object>)new BinaryFormatter().Deserialize(ms);
-            }
+            string jsonString = Encoding.UTF8.GetString(bytes);
+            return JsonSerializer.Deserialize<Dictionary<string, object>>(jsonString);
         }
 
         private static string ToBase64(Dictionary<string, object> value)
         {
-            using (var ms = new MemoryStream())
-            {
-                new BinaryFormatter().Serialize(ms, value);
-                return Convert.ToBase64String(ms.ToArray());
-            }
+            string jsonString = JsonSerializer.Serialize(value);
+            byte[] bytes = Encoding.UTF8.GetBytes(jsonString);
+            return Convert.ToBase64String(bytes);
         }
     }
 }
