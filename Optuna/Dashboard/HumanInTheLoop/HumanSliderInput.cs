@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -75,7 +76,8 @@ namespace Optuna.Dashboard.HumanInTheLoop
                 string path = $"{_tmpPath}/image_{study.Id}_{trial.Id}.png";
                 bitmap?.Save(path, System.Drawing.Imaging.ImageFormat.Png);
                 dynamic artifactId = uploadArtifact(_artifactBackend, trial.PyInstance, path);
-                noteText.AppendLine($"![](/artifacts/{study.Id}/{trial.Id}/{artifactId})");
+                string str = $"![](/artifacts/{study.Id}/{trial.Id}/{artifactId})";
+                noteText.AppendLine(str);
             }
 
             dynamic textWrap = _importedLibrary.Get("textwrap");

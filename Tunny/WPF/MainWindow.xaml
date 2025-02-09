@@ -117,6 +117,13 @@
                         Label="MOEA/D"
                         LargeImageSource="{StaticResource WrapDisabled}"
                         SmallImageSource="{StaticResource WrapDisabled}" />
+                    <RibbonButton
+                        Command="{Binding SelectSamplerCommand}"
+                        CommandParameter="{x:Static common:SelectSamplerType.DE}"
+                        IsEnabled="{Binding IsSingleObjective}"
+                        Label="DE"
+                        LargeImageSource="{StaticResource VectorDifference}"
+                        SmallImageSource="{StaticResource VectorDifference}" />
                 </RibbonGroup>
                 <RibbonGroup Header="Evolution Strategy">
                     <RibbonButton

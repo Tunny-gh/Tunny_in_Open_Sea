@@ -366,7 +366,7 @@ namespace Optuna.Storage.Journal
             GetTrial(trialId).Params[paramName] = paramValueInternal;
         }
 
-        public void SetTrialIntermediateValue(int trialId, int step, double intermediateValue)
+        public void SetTrialIntermediateValue(int trialId, int intermediateStep, double intermediateValue)
         {
             throw new NotImplementedException();
         }

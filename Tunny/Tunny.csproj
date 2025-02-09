@@ -1,12 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
-    <Version>1.0.101</Version>
-    <Title>Tunny</Title>
-    <Description>Tunny is an optimization component wrapped in optuna.</Description>
+    <TargetFrameworks>net48; net7.0-windows</TargetFrameworks>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
     <TargetExt>.gha</TargetExt>
-    <Authors>hrntsm</Authors>
+    <NoWarn>NU1701;NETSDK1086;CA2263</NoWarn>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <AssemblyName>Tunny</AssemblyName>
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
@@ -15,18 +13,76 @@
     <NeutralLanguage>en</NeutralLanguage>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest-recommended</AnalysisLevel>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>1.0.101</Version>
+    <Title>Tunny</Title>
+    <Description>Tunny is an optimization component wrapped in optuna.</Description>
+    <Authors>hrntsm</Authors>
+    <Company>hrntsm</Company>
     <PackageProjectUrl>https://github.com/hrntsm/Tunny</PackageProjectUrl>
     <RepositoryUrl>https://github.com/hrntsm/Tunny</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>TunnyIcon.png</PackageIcon>
-    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <!-- Rhino7 -->
+  <PropertyGroup Condition="$(TargetFramework) == 'net48'">
     <Platform>x64</Platform>
     <Platforms>$(Platform)</Platforms>
     <PlatformName>$(Platform)</PlatformName>
     <PlatformTarget>$(Platform)</PlatformTarget>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
   </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework) == 'net48'">
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <PackageReference Include="Grasshopper" Version="7.13.21348.13001" IncludeAssets="compile;build" />
+    <PackageReference Include="System.Resources.Extensions" Version="7.0.0">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+    <PackageReference Include="CefSharp.Wpf" Version="132.3.11" />
+  </ItemGroup>
+
+  <!-- Rhino8-win -->
+  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-windows'">
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework) == 'net7.0-windows'">
+    <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="132.3.11" />
+  </ItemGroup>
+
+  <!-- Rhino8-mac -->
+  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-macos'">
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework) == 'net7.0-macos'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" ExcludeAssets="all" GeneratePathProperty="true" />
+    <Reference Include="$(PkgMicrosoft_NETFramework_ReferenceAssemblies_net48)\build\.NETFramework\v4.8\System.Windows.Forms.dll" Private="False" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" ExcludeAssets="runtime" />
+  </ItemGroup>
+
+  <!-- common local items -->
+  <ItemGroup>
+    <ProjectReference Include="..\Optuna\Optuna.csproj" />
+    <ProjectReference Include="..\Tunny.Core\Tunny.Core.csproj" />
+    <Reference Include="GalapagosComponents">
+      <HintPath>Lib\GalapagosComponents.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- common nuget items -->
+  <ItemGroup>
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
+    <PackageReference Include="Prism.Core" Version="9.0.537" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="WPF\Assets\DesignExplorer.png" />
@@ -51,28 +107,6 @@
     <EmbeddedResource Include="Solver\Python\check_duplication.py" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="CefSharp.Wpf" Version="131.3.10" />
-    <PackageReference Include="Grasshopper" Version="7.13.21348.13001" IncludeAssets="compile;build" />
-    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
-    <PackageReference Include="Prism.Core" Version="9.0.537" />
-    <PackageReference Include="System.Resources.Extensions" Version="9.0.0">
-      <TreatAsUsed>true</TreatAsUsed>
-    </PackageReference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <ProjectReference Include="..\Optuna\Optuna.csproj" />
-    <ProjectReference Include="..\Tunny.Core\Tunny.Core.csproj" />
-    <Reference Include="GalapagosComponents">
-      <HintPath>Lib\GalapagosComponents.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Resource.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -141,6 +175,11 @@
       <Pack>True</Pack>
     </Resource>
   </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.Contains('-windows')) or $(TargetFramework.StartsWith('net4'))">
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration) == 'Debug' AND $([MSBuild]::IsOSPlatform(Windows))">
     <StartProgram>C:\Program Files\Rhino 7\System\Rhino.exe</StartProgram>

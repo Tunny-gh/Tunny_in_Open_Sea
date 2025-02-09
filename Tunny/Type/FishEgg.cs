@@ -43,7 +43,8 @@ namespace Tunny.Type
             var sb = new StringBuilder();
             foreach (KeyValuePair<string, string> item in _paramDict)
             {
-                sb.Append($"\"{item.Key}\": {item.Value}, ");
+                string str = $"\"{item.Key}\": {item.Value}, ";
+                sb.Append(str);
             }
             return sb.ToString();
         }

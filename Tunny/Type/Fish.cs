@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-
-using Newtonsoft.Json;
+using System.Text;
+using System.Text.Json;
 
 using Optuna.Trial;
-
-using Rhino.Geometry;
 
 using Tunny.Core.Input;
 using Tunny.Core.Util;
@@ -40,18 +37,6 @@ namespace Tunny.Type
             }
         }
 
-        public string SerializeToJson()
-        {
-            TLog.MethodStart();
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        public static Fish DeserializeFromJson(string json)
-        {
-            TLog.MethodStart();
-            return JsonConvert.DeserializeObject<Fish>(json);
-        }
-
         public Parameter[] GetParameterClassFormatVariables()
         {
             TLog.MethodStart();
@@ -78,11 +63,9 @@ namespace Tunny.Type
         public static string ToBase64(Fish fish)
         {
             TLog.MethodStart();
-            using (var ms = new MemoryStream())
-            {
-                new BinaryFormatter().Serialize(ms, fish);
-                return Convert.ToBase64String(ms.ToArray());
-            }
+            string json = JsonSerializer.Serialize(fish);
+            byte[] bytes = Encoding.UTF8.GetBytes(json);
+            return Convert.ToBase64String(bytes);
         }
 
         public static Fish FromBase64(string base64String)
@@ -91,7 +74,11 @@ namespace Tunny.Type
             byte[] bytes = Convert.FromBase64String(base64String);
             using (var ms = new MemoryStream(bytes))
             {
-                return (Fish)new BinaryFormatter().Deserialize(ms);
+                using (var reader = new StreamReader(ms))
+                {
+                    string json = reader.ReadToEnd();
+                    return JsonSerializer.Deserialize<Fish>(json);
+                }
             }
         }
     }

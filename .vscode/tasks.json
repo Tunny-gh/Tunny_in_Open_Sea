@@ -16,6 +16,23 @@
                 "clear": true
             },
             "group": "build",
+        },
+        {
+            "label": "build-net7.0",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "/p:TargetFramework=net7.0-windows",
+                "/clp:NoSummary",
+                "${workspaceFolder}/Tunny/Tunny.csproj"
+            ],
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            },
+            "group": "build",
         }
     ]
 }

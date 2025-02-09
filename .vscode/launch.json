@@ -5,7 +5,7 @@
       "name": "Rhino8 - netcore",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
+      "preLaunchTask": "build-net7.0",
       "program": "C:/Program Files/Rhino 8/System/Rhino.exe",
       "targetArchitecture": "x86_64",
       "args": "/netcore /nosplash /runscript=\"_Grasshopper\"",
@@ -25,7 +25,7 @@
       "targetArchitecture": "x86_64",
       "args": "/netfx /nosplash /runscript=\"_Grasshopper\"",
       "env": {
-        "RHINO_PACKAGE_DIRS": "${workspaceFolder}/bin/Debug"
+        "RHINO_PACKAGE_DIRS": "${workspaceFolder}/bin"
       },
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",
@@ -38,6 +38,9 @@
       "preLaunchTask": "build",
       "program": "C:/Program Files/Rhino 7/System/Rhino.exe",
       "args": "/nosplash /runscript=\"_Grasshopper\"",
+      "env": {
+        "RHINO_PACKAGE_DIRS": "${workspaceFolder}/bin"
+      },
       "cwd": "${workspaceFolder}",
       "console": "internalConsole",
       "stopAtEntry": true
