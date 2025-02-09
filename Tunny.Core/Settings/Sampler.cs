@@ -17,6 +17,7 @@ namespace Tunny.Core.Settings
         public AutoSampler Auto { get; set; } = new AutoSampler();
         public MOEADSampler MOEAD { get; set; } = new MOEADSampler();
         public MoCmaEsSampler MoCmaEs { get; set; } = new MoCmaEsSampler();
+        public DESampler DE { get; set; } = new DESampler();
 
         // Optuna
         public RandomSampler Random { get; set; } = new RandomSampler();
@@ -70,6 +71,9 @@ namespace Tunny.Core.Settings
                     break;
                 case SamplerType.MoCmaEs:
                     optunaSampler = MoCmaEs.ToPython();
+                    break;
+                case SamplerType.DE:
+                    optunaSampler = DE.ToPython();
                     break;
                 default:
                     throw new ArgumentException("Invalid sampler type.");

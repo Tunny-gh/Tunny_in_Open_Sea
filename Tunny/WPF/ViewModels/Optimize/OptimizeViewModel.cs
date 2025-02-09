@@ -46,6 +46,7 @@ namespace Tunny.WPF.ViewModels.Optimize
         private Lazy<AutoSettingsPage> _autoPage;
         private Lazy<MOEADSettingsPage> _moeadPage;
         private Lazy<MoCmaEsSettingsPage> _moCmaEsPage;
+        private Lazy<DESettingsPage> _dePage;
 
         private string _trialNumberParam1Label;
         public string TrialNumberParam1Label { get => _trialNumberParam1Label; set => SetProperty(ref _trialNumberParam1Label, value); }
@@ -221,6 +222,7 @@ namespace Tunny.WPF.ViewModels.Optimize
             _autoPage = new Lazy<AutoSettingsPage>(() => AutoSettingsPage.FromSettings(_settings));
             _moeadPage = new Lazy<MOEADSettingsPage>(() => MOEADSettingsPage.FromSettings(_settings));
             _moCmaEsPage = new Lazy<MoCmaEsSettingsPage>(() => MoCmaEsSettingsPage.FromSettings(_settings));
+            _dePage = new Lazy<DESettingsPage>(() => DESettingsPage.FromSettings(_settings));
         }
 
         public void ChangeTargetSampler(SamplerType samplerType)
@@ -275,6 +277,10 @@ namespace Tunny.WPF.ViewModels.Optimize
                 case SamplerType.MoCmaEs:
                     param = _moCmaEsPage.Value;
                     OptimizeSettingsPage = _moCmaEsPage.Value;
+                    break;
+                case SamplerType.DE:
+                    param = _dePage.Value;
+                    OptimizeSettingsPage = _dePage.Value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(samplerType), samplerType, null);
@@ -542,7 +548,8 @@ namespace Tunny.WPF.ViewModels.Optimize
                 BruteForce = _bruteForcePage.Value.ToSettings(),
                 Auto = _autoPage.Value.ToSettings(),
                 MOEAD = _moeadPage.Value.ToSettings(),
-                MoCmaEs = _moCmaEsPage.Value.ToSettings()
+                MoCmaEs = _moCmaEsPage.Value.ToSettings(),
+                DE = _dePage.Value.ToSettings()
             };
 
             int param1 = int.Parse(TrialNumberParam1, CultureInfo.InvariantCulture);
@@ -558,6 +565,7 @@ namespace Tunny.WPF.ViewModels.Optimize
             sampler.NsgaII.PopulationSize = param2;
             sampler.NsgaIII.PopulationSize = param2;
             sampler.MOEAD.PopulationSize = param2;
+            sampler.DE.PopulationSize = param2;
 
             var settings = new Core.Settings.Optimize
             {

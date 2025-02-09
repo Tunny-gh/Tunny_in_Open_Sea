@@ -190,6 +190,9 @@ namespace Tunny.WPF.ViewModels
                 case SelectSamplerType.MoCmaEs:
                     samplerType = SamplerType.MoCmaEs;
                     break;
+                case SelectSamplerType.DE:
+                    samplerType = SamplerType.DE;
+                    break;
                 default:
                     samplerType = SamplerType.TPE;
                     break;

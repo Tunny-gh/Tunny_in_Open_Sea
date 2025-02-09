@@ -14,6 +14,7 @@
         MOEAD,
         Random,
         QMC,
-        BruteForce
+        BruteForce,
+        DE,
     }
 }
