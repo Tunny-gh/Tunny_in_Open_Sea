@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net48; net7.0-windows</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform(Windows))">net48;net7.0-windows</TargetFrameworks>
+    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform(Windows))">net7.0-macos</TargetFrameworks>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <TargetExt>.gha</TargetExt>
     <NoWarn>NU1701;NETSDK1086;CA2263</NoWarn>
@@ -13,6 +14,7 @@
     <NeutralLanguage>en</NeutralLanguage>
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -51,6 +53,7 @@
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
     <PackageReference Include="CefSharp.Wpf" Version="132.3.11" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
   </ItemGroup>
 
   <!-- Rhino8-win -->
@@ -61,15 +64,25 @@
   <ItemGroup Condition="$(TargetFramework) == 'net7.0-windows'">
     <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="132.3.11" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
   </ItemGroup>
 
   <!-- Rhino8-mac -->
   <PropertyGroup Condition="$(TargetFramework) == 'net7.0-macos'">
+    <ApplicationId>com.hrnstm.tunny</ApplicationId>
+    <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework) == 'net7.0-macos'">
+    <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" ExcludeAssets="all" GeneratePathProperty="true" />
     <Reference Include="$(PkgMicrosoft_NETFramework_ReferenceAssemblies_net48)\build\.NETFramework\v4.8\System.Windows.Forms.dll" Private="False" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" ExcludeAssets="runtime" />
+    <PackageReference Include="System.Resources.Extensions" Version="7.0.0">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
+    <Compile Remove="WPF\**" />
+    <EmbeddedResource Remove="WPF\**" />
+    <None Remove="WPF\**" />
   </ItemGroup>
 
   <!-- common local items -->
@@ -84,7 +97,6 @@
 
   <!-- common nuget items -->
   <ItemGroup>
-    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
     <PackageReference Include="Prism.Core" Version="9.0.537" />
   </ItemGroup>
 
