@@ -12,7 +12,7 @@ using Tunny.Core.Util;
 using Tunny.Resources;
 using Tunny.WPF.Views.Windows;
 
-namespace Tunny.Component
+namespace Tunny.Component.LoadingInstruction
 {
     public class RegisterTunnyToolbarItems : GH_AssemblyPriority, IDisposable
     {
