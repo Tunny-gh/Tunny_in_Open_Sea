@@ -17,6 +17,11 @@ namespace Optuna.Sampler.OptunaHub
         public int NumNeighbors { get; set; } = -1;
         public bool ForceReload { get; set; }
 
+        public MOEADSampler()
+            : base(true, false, true)
+        {
+        }
+
         public dynamic ToPython()
         {
             dynamic optuna = Py.Import("optuna");

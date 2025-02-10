@@ -21,6 +21,11 @@ namespace Optuna.Sampler
         public bool WarnIndependentSampling { get; set; } = true;
         public bool ConstantLiar { get; set; }
 
+        public TpeSampler()
+         : base(true, true, false)
+        {
+        }
+
         public void ComputeAutoValue(int numberOfTrials)
         {
             if (NStartupTrials == -1)
@@ -43,7 +48,7 @@ namespace Optuna.Sampler
             return optuna.samplers.TPESampler(
                 seed: Seed,
                 consider_prior: ConsiderPrior,
-                prior_weight: 1.0,
+                prior_weight: PriorWeight,
                 consider_magic_clip: ConsiderMagicClip,
                 consider_endpoints: ConsiderEndpoints,
                 n_startup_trials: NStartupTrials,

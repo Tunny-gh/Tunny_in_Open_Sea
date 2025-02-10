@@ -30,9 +30,10 @@ namespace Tunny.WPF.ViewModels
         private readonly Lazy<HelpPage> _helpPage;
         private readonly Lazy<ExpertPage> _expertPage;
         private static SharedItems SharedItems => SharedItems.Instance;
-        public bool IsSingleObjective { get => !_isMultiObjective; }
         private bool _isMultiObjective;
         public bool IsMultiObjective { get => _isMultiObjective; set => SetProperty(ref _isMultiObjective, value); }
+        private bool _hasConstraint;
+        public bool HasConstraint { get => _hasConstraint; set => SetProperty(ref _hasConstraint, value); }
         private Page _mainWindowFrame;
         public Page MainWindowFrame { get => _mainWindowFrame; set => SetProperty(ref _mainWindowFrame, value); }
         private string _windowTitle;
@@ -45,6 +46,7 @@ namespace Tunny.WPF.ViewModels
             _helpPage = new Lazy<HelpPage>();
             _expertPage = new Lazy<ExpertPage>();
             IsMultiObjective = SharedItems.Component.GhInOut.IsMultiObjective;
+            HasConstraint = SharedItems.Component.GhInOut.HasConstraint;
             UpdateTitle();
             ReportProgress("Welcome 🐟Tunny🐟 The next-gen Grasshopper optimization tool ", 0);
 
@@ -65,7 +67,12 @@ namespace Tunny.WPF.ViewModels
         private void UpdateTitle()
         {
             string storagePath = SharedItems.Settings.Storage.Path;
-            WindowTitle = $"Tunny v{TEnvVariables.Version.ToString(2)} - {storagePath}";
+            string modeText = IsMultiObjective ? "Multi-Objective" : "Single-Objective";
+            if (HasConstraint)
+            {
+                modeText += " with Constraint";
+            }
+            WindowTitle = $"Tunny v{TEnvVariables.Version.ToString(2)} - {storagePath} | {modeText} Mode";
         }
 
         private static void CheckPruner()

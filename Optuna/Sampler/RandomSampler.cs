@@ -7,6 +7,11 @@ namespace Optuna.Sampler
     /// </summary>
     public class RandomSampler : SamplerBase
     {
+        public RandomSampler()
+         : base(true, false, false)
+        {
+        }
+
         public dynamic ToPython()
         {
             dynamic optuna = Py.Import("optuna");

@@ -12,6 +12,11 @@ namespace Optuna.Sampler
         public int NStartupTrials { get; set; } = 10;
         public bool DeterministicObjective { get; set; } = true;
 
+        public GPSampler()
+         : base(false, true, false)
+        {
+        }
+
         public void ComputeAutoValue(int numberOfTrials)
         {
             if (NStartupTrials == -1)
@@ -20,13 +25,14 @@ namespace Optuna.Sampler
             }
         }
 
-        public dynamic ToPython()
+        public dynamic ToPython(bool hasConstraints)
         {
             dynamic optuna = Py.Import("optuna");
             return optuna.samplers.GPSampler(
                 seed: Seed,
                 n_startup_trials: NStartupTrials,
-                deterministic_objective: DeterministicObjective
+                deterministic_objective: DeterministicObjective,
+                constraints_func: hasConstraints ? ConstraintFunc() : null
             );
         }
     }

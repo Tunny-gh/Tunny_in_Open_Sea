@@ -7,6 +7,11 @@ namespace Optuna.Sampler.OptunaHub
         private const string Package = "samplers/mocma";
         public int? PopulationSize { get; set; }
 
+        public MoCmaEsSampler()
+            : base(true, false, true)
+        {
+        }
+
         public dynamic ToPython()
         {
             dynamic optunahub = Py.Import("optunahub");

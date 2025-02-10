@@ -40,7 +40,7 @@ namespace Tunny.Core.Settings
                     optunaSampler = Tpe.ToPython(hasConstraints);
                     break;
                 case SamplerType.GP:
-                    optunaSampler = GP.ToPython();
+                    optunaSampler = GP.ToPython(hasConstraints);
                     break;
                 case SamplerType.BoTorch:
                     optunaSampler = BoTorch.ToPython(hasConstraints);
@@ -64,7 +64,7 @@ namespace Tunny.Core.Settings
                     optunaSampler = BruteForce.ToPython();
                     break;
                 case SamplerType.AUTO:
-                    optunaSampler = Auto.ToPython();
+                    optunaSampler = Auto.ToPython(hasConstraints);
                     break;
                 case SamplerType.MOEAD:
                     optunaSampler = MOEAD.ToPython();

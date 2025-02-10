@@ -9,12 +9,18 @@ namespace Optuna.Sampler.OptunaHub
     {
         private const string Package = "samplers/auto_sampler";
 
-        public dynamic ToPython()
+        public AutoSampler()
+            : base(true, true, false)
+        {
+        }
+
+        public dynamic ToPython(bool hasConstraints)
         {
             dynamic optunahub = Py.Import("optunahub");
             dynamic module = optunahub.load_module(package: Package, force_reload: ForceReload);
             return module.AutoSampler(
-                seed: Seed
+                seed: Seed,
+                constraints_func: hasConstraints ? ConstraintFunc() : null
             );
         }
     }

@@ -23,6 +23,11 @@ namespace Optuna.Sampler
         public bool WithMargin { get; set; }
         public bool LrAdapt { get; set; }
 
+        public CmaEsSampler()
+         : base(false, false, false)
+        {
+        }
+
         public dynamic ToPython(string storagePath, PyDict x0)
         {
             dynamic optuna = Py.Import("optuna");

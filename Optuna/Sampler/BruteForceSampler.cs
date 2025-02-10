@@ -7,6 +7,11 @@ namespace Optuna.Sampler
     /// </summary>
     public class BruteForceSampler : SamplerBase
     {
+        public BruteForceSampler()
+          : base(true, false, false)
+        {
+        }
+
         public dynamic ToPython()
         {
             dynamic optuna = Py.Import("optuna");

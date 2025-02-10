@@ -22,6 +22,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Tunny;component/WPF/Assets/Resources.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <common:SamplerUIEnableConvertor x:Key="ValueConvertor" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -74,7 +75,15 @@
                         CommandParameter="{x:Static common:SelectSamplerType.AUTO}"
                         Label="AUTO Sampler"
                         LargeImageSource="{StaticResource AutoFix}"
-                        SmallImageSource="{StaticResource AutoFix}" />
+                        SmallImageSource="{StaticResource AutoFix}" >
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                 </RibbonGroup>
                 <RibbonGroup Header="Bayesian Optimization">
                     <RibbonButton
@@ -82,20 +91,43 @@
                         CommandParameter="{x:Static common:SelectSamplerType.TPE}"
                         Label="TPE"
                         LargeImageSource="{StaticResource Tree}"
-                        SmallImageSource="{StaticResource Tree}" />
+                        SmallImageSource="{StaticResource Tree}" >
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.GpOptuna}"
-                        IsEnabled="{Binding IsSingleObjective}"
                         Label="GP Optuna"
                         LargeImageSource="{StaticResource Fish}"
-                        SmallImageSource="{StaticResource Fish}" />
+                        SmallImageSource="{StaticResource Fish}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.GpBoTorch}"
                         Label="GP BoTorch"
                         LargeImageSource="{StaticResource Torch}"
-                        SmallImageSource="{StaticResource Torch}" />
+                        SmallImageSource="{StaticResource Torch}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                 </RibbonGroup>
                 <RibbonGroup Header="Evolution Algorithm">
                     <RibbonButton
@@ -103,43 +135,87 @@
                         CommandParameter="{x:Static common:SelectSamplerType.NSGAII}"
                         Label="NSGA-II"
                         LargeImageSource="{StaticResource Egg}"
-                        SmallImageSource="{StaticResource Egg}" />
+                        SmallImageSource="{StaticResource Egg}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.NSGAIII}"
                         Label="NSGA-III"
                         LargeImageSource="{StaticResource EggEaster}"
-                        SmallImageSource="{StaticResource EggEaster}" />
+                        SmallImageSource="{StaticResource EggEaster}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.MOEAD}"
-                        IsEnabled="{Binding IsMultiObjective}"
                         Label="MOEA/D"
                         LargeImageSource="{StaticResource WrapDisabled}"
-                        SmallImageSource="{StaticResource WrapDisabled}" />
+                        SmallImageSource="{StaticResource WrapDisabled}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.DE}"
-                        IsEnabled="{Binding IsSingleObjective}"
                         Label="DE"
                         LargeImageSource="{StaticResource VectorDifference}"
-                        SmallImageSource="{StaticResource VectorDifference}" />
+                        SmallImageSource="{StaticResource VectorDifference}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                 </RibbonGroup>
                 <RibbonGroup Header="Evolution Strategy">
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.CmaEs}"
-                        IsEnabled="{Binding IsSingleObjective}"
                         Label="CMA-ES"
                         LargeImageSource="{StaticResource CircleMultipleOutline}"
-                        SmallImageSource="{StaticResource CircleMultipleOutline}" />
+                        SmallImageSource="{StaticResource CircleMultipleOutline}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.MoCmaEs}"
-                        IsEnabled="{Binding IsMultiObjective}"
                         Label="MO CMA-ES"
                         LargeImageSource="{StaticResource CircleMultiple}"
-                        SmallImageSource="{StaticResource CircleMultiple}" />
+                        SmallImageSource="{StaticResource CircleMultiple}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                 </RibbonGroup>
                 <RibbonGroup Header="Misc">
                     <RibbonButton
@@ -147,19 +223,43 @@
                         CommandParameter="{x:Static common:SelectSamplerType.Random}"
                         Label="Random"
                         LargeImageSource="{StaticResource Grain}"
-                        SmallImageSource="{StaticResource Grain}" />
+                        SmallImageSource="{StaticResource Grain}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.QMC}"
                         Label="QMC"
                         LargeImageSource="{StaticResource DotsGrid}"
-                        SmallImageSource="{StaticResource DotsGrid}" />
+                        SmallImageSource="{StaticResource DotsGrid}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.BruteForce}"
                         Label="BruteForce"
                         LargeImageSource="{StaticResource AllInclusiveBox}"
-                        SmallImageSource="{StaticResource AllInclusiveBox}" />
+                        SmallImageSource="{StaticResource AllInclusiveBox}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                 </RibbonGroup>
                 <RibbonGroup Header="Human in the loop">
                     <RibbonButton

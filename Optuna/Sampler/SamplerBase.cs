@@ -11,7 +11,17 @@ namespace Optuna.Sampler
     /// </summary>
     public class SamplerBase
     {
+        public bool SupportsMultiObjective { get; }
+        public bool SupportsConstraint { get; }
+        public bool IsSinglePurposeRestricted { get; }
         public int? Seed { get; set; }
+
+        public SamplerBase(bool supportMultiObjective, bool supportConstraint, bool isSinglePurposeRestricted)
+        {
+            SupportsMultiObjective = supportMultiObjective;
+            SupportsConstraint = supportConstraint;
+            IsSinglePurposeRestricted = isSinglePurposeRestricted;
+        }
 
         public static dynamic ConstraintFunc()
         {

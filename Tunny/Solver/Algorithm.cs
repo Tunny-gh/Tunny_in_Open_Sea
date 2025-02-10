@@ -685,15 +685,7 @@ namespace Tunny.Solver
             string storagePath = _settings.Storage.GetOptunaStoragePath();
             PyDict cmaEsX0 = GetFirstEgg(_fishEgg);
 
-            dynamic optunaSampler = _settings.Optimize.Sampler.ToPython(samplerType, storagePath, hasConstraints, cmaEsX0);
-            if (
-                (samplerType == SamplerType.GP || samplerType == SamplerType.CmaEs || samplerType == SamplerType.QMC || samplerType == SamplerType.Random || samplerType == SamplerType.AUTO || samplerType == SamplerType.BruteForce)
-                && hasConstraints
-            )
-            {
-                TunnyMessageBox.Show("Only TPE, GP:BoTorch and NSGA support constraints. Optimization is run without considering constraints.", "Tunny");
-            }
-            return optunaSampler;
+            return _settings.Optimize.Sampler.ToPython(samplerType, storagePath, hasConstraints, cmaEsX0);
         }
 
         private static PyDict GetFirstEgg(List<FishEgg> fishEgg)

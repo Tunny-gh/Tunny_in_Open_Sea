@@ -12,6 +12,11 @@ namespace Optuna.Sampler.OptunaHub
         public double CrossOverRate { get; set; } = 0.7;
         public int? PopulationSize { get; set; }
 
+        public DESampler()
+            : base(false, false, false)
+        {
+        }
+
         public dynamic ToPython()
         {
             dynamic optunahub = Py.Import("optunahub");

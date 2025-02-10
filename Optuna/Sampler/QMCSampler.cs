@@ -12,6 +12,11 @@ namespace Optuna.Sampler
         public bool WarnIndependentSampling { get; set; } = true;
         public bool WarnAsynchronousSeeding { get; set; } = true;
 
+        public QMCSampler()
+         : base(true, false, false)
+        {
+        }
+
         public dynamic ToPython()
         {
             dynamic optuna = Py.Import("optuna");
