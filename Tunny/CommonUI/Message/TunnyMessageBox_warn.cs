@@ -1,9 +1,8 @@
-using System;
-using System.Windows;
+using Eto.Forms;
 
 using Tunny.Core.Util;
 
-namespace Tunny.WPF.Common
+namespace Tunny.CommonUI.Message
 {
     internal static partial class TunnyMessageBox
     {
@@ -13,8 +12,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Failed to load settings file. Start with default settings.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning
+                MessageBoxButtons.OK,
+                MessageBoxType.Warning
             );
         }
 
@@ -24,8 +23,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Variable value range must be larger than 0 if LogScale is True.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning
+                MessageBoxButtons.OK,
+                MessageBoxType.Warning
             );
         }
     }

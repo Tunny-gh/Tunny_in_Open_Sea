@@ -6,6 +6,8 @@ using System.Windows.Input;
 using Prism.Commands;
 using Prism.Mvvm;
 
+using Tunny.CommonUI;
+using Tunny.CommonUI.Message;
 using Tunny.Core.Settings;
 using Tunny.Core.TEnum;
 using Tunny.Core.Util;
@@ -30,6 +32,7 @@ namespace Tunny.WPF.ViewModels
         private readonly Lazy<HelpPage> _helpPage;
         private readonly Lazy<ExpertPage> _expertPage;
         private static SharedItems SharedItems => SharedItems.Instance;
+        private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
         private bool _isMultiObjective;
         public bool IsMultiObjective { get => _isMultiObjective; set => SetProperty(ref _isMultiObjective, value); }
         private bool _hasConstraint;
@@ -45,8 +48,8 @@ namespace Tunny.WPF.ViewModels
             _outputPage = new Lazy<OutputPage>();
             _helpPage = new Lazy<HelpPage>();
             _expertPage = new Lazy<ExpertPage>();
-            IsMultiObjective = SharedItems.Component.GhInOut.IsMultiObjective;
-            HasConstraint = SharedItems.Component.GhInOut.HasConstraint;
+            IsMultiObjective = CoSharedItems.Component.GhInOut.IsMultiObjective;
+            HasConstraint = CoSharedItems.Component.GhInOut.HasConstraint;
             UpdateTitle();
             ReportProgress("Welcome 🐟Tunny🐟 The next-gen Grasshopper optimization tool ", 0);
 
@@ -438,17 +441,6 @@ namespace Tunny.WPF.ViewModels
             {
                 var viewModel = (VisualizeViewModel)_visualizePage.Value.DataContext;
                 viewModel.UpdateExistStudySummaries();
-            }
-        }
-
-        private bool? _showTopmost;
-        public bool? ShowTopmost
-        {
-            get => _showTopmost;
-            set
-            {
-                SetProperty(ref _showTopmost, value);
-                SharedItems.Instance.TunnyWindow.Topmost = value == true;
             }
         }
     }

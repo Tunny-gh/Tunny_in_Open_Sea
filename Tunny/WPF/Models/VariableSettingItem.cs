@@ -1,4 +1,4 @@
-﻿using Tunny.WPF.Common;
+﻿using Tunny.CommonUI.Message;
 
 namespace Tunny.WPF.Models
 {

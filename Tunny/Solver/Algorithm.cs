@@ -6,7 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Windows;
+
+using Eto.Forms;
 
 using Optuna.Dashboard.HumanInTheLoop;
 using Optuna.Study;
@@ -15,6 +16,8 @@ using Optuna.Util;
 
 using Python.Runtime;
 
+using Tunny.CommonUI;
+using Tunny.CommonUI.Message;
 using Tunny.Core.Handler;
 using Tunny.Core.Input;
 using Tunny.Core.Settings;
@@ -25,7 +28,6 @@ using Tunny.Input;
 using Tunny.PostProcess;
 using Tunny.Process;
 using Tunny.Type;
-using Tunny.WPF.Common;
 
 namespace Tunny.Solver
 {
@@ -39,7 +41,7 @@ namespace Tunny.Solver
         private readonly Objective _objective;
         private readonly TSettings _settings;
         private readonly Func<ProgressState, int, TrialGrasshopperItems> _evalFunc;
-        private readonly List<FishEgg> _fishEgg = SharedItems.Instance.Component.GhInOut.FishEggs;
+        private readonly List<FishEgg> _fishEgg = CommonSharedItems.Instance.Component.GhInOut.FishEggs;
 
         public Algorithm(
             List<VariableBase> variables, bool hasConstraint, Objective objective,
@@ -479,7 +481,7 @@ namespace Tunny.Solver
             sb.Remove(sb.Length - 2, 2);
             sb.Append("}.");
             string message = sb.ToString();
-            SharedItems.Instance.Component.SetInfo(message);
+            CommonSharedItems.Instance.Component.SetInfo(message);
             TLog.Info(sb.ToString());
         }
 
@@ -489,8 +491,8 @@ namespace Tunny.Solver
             TunnyMessageBox.Show(
                 "The objective function returned NaN 10 times in a row. Tunny terminates the optimization. Please check the objective function.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
             );
             return null;
         }

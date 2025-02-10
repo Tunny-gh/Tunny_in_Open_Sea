@@ -5,15 +5,16 @@ using Grasshopper.GUI;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 
+using Tunny.CommonUI;
+using Tunny.CommonUI.Message;
 using Tunny.Core.Util;
 using Tunny.WPF;
-using Tunny.WPF.Common;
 
 namespace Tunny.Component.Optimizer
 {
     public class UIOptimizeComponentBase : OptimizeComponentBase
     {
-        private static SharedItems SharedItems => SharedItems.Instance;
+        private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
         internal MainWindow MainWindow;
 
         public UIOptimizeComponentBase(string name, string nickname, string description)
@@ -23,8 +24,8 @@ namespace Tunny.Component.Optimizer
 
         private void ShowOptimizationWindow()
         {
-            SharedItems.GH_DocumentEditor = Instances.DocumentEditor;
-            TEnvVariables.GrasshopperWindowHandle = SharedItems.GH_DocumentEditor.Handle;
+            CoSharedItems.GH_DocumentEditor = Instances.DocumentEditor;
+            TEnvVariables.GrasshopperWindowHandle = CoSharedItems.GH_DocumentEditor.Handle;
 
             GhInOutInstantiate();
             if (!GhInOut.IsLoadCorrectly)

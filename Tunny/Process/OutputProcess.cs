@@ -3,11 +3,12 @@ using System.Linq;
 
 using Optuna.Trial;
 
+using Tunny.CommonUI;
+using Tunny.CommonUI.Message;
 using Tunny.Component.Optimizer;
 using Tunny.Core.Solver;
 using Tunny.Core.Util;
 using Tunny.Type;
-using Tunny.WPF.Common;
 
 namespace Tunny.Process
 {
@@ -19,13 +20,13 @@ namespace Tunny.Process
         internal static void Run()
         {
             TLog.MethodStart();
-            OptimizeComponentBase component = SharedItems.Instance.Component;
+            OptimizeComponentBase component = CommonSharedItems.Instance.Component;
 
             var fishes = new List<Fish>();
 
             if (component != null)
             {
-                var output = new Output(SharedItems.Instance.Settings.Storage.Path);
+                var output = new Output(CommonSharedItems.Instance.Settings.Storage.Path);
                 Trial[] targetTrials = output.GetTargetTrial(Indices, StudyName);
                 string[] metricNames = output.GetMetricNames(StudyName);
                 Dictionary<string, object>.KeyCollection nickNames = targetTrials[0].Params.Keys;

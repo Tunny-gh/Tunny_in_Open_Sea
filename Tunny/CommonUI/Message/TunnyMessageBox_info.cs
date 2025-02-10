@@ -1,19 +1,19 @@
-using System.Windows;
+using Eto.Forms;
 
 using Tunny.Core.Util;
 
-namespace Tunny.WPF.Common
+namespace Tunny.CommonUI.Message
 {
     internal static partial class TunnyMessageBox
     {
-        internal static MessageBoxResult Info_PythonAlreadyInstalled()
+        internal static DialogResult Info_PythonAlreadyInstalled()
         {
             TLog.MethodStart();
             return Show(
                 "It appears that the Tunny Python environment is already installed.\nWould you like to reinstall it?",
                 "Python is already installed",
-                MessageBoxButton.OKCancel,
-                MessageBoxImage.Information
+                MessageBoxButtons.OKCancel,
+                MessageBoxType.Information
             );
         }
 
@@ -23,8 +23,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Tunny\nVersion: " + TEnvVariables.Version + "\n\n🐟Tunny🐟 is Grasshopper's optimization component using Optuna, an open source hyperparameter auto-optimization framework.\n\nTunny is developed by hrntsm.\nFor more information, visit https://tunny-docs.deno.dev/",
                 "About Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
+                MessageBoxButtons.OK,
+                MessageBoxType.Information
             );
         }
 
@@ -33,8 +33,8 @@ namespace Tunny.WPF.Common
             TLog.MethodStart();
             Show("optuna-dashboard is not installed.\nFirst install optuna-dashboard from the Tunny component.",
                 "optuna-dashboard is not installed",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
             );
         }
 
@@ -44,8 +44,8 @@ namespace Tunny.WPF.Common
             Show(
                 "There is no study to visualize.\nPlease set 'Target Study'",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information
+                MessageBoxButtons.OK,
+                MessageBoxType.Information
             );
         }
     }

@@ -6,9 +6,9 @@ using Optuna.Visualization;
 
 using Python.Runtime;
 
+using Tunny.CommonUI.Message;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
-using Tunny.WPF.Common;
 
 namespace Tunny.Process
 {

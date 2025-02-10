@@ -30,11 +30,9 @@ namespace Tunny.WPF.Common
         {
         }
 
-        internal OptimizeComponentBase Component { get; set; }
-        internal TSettings Settings { get; set; }
-        internal GH_DocumentEditor GH_DocumentEditor { get; set; }
         internal MainWindow TunnyWindow { get; set; }
         internal OptimizeViewModel OptimizeViewModel { get; set; }
+        internal TSettings Settings { get; set; }
         internal Dictionary<int, Trial[]> Trials { get; set; }
         private StudySummary[] _studySummaries;
         internal StudySummary[] StudySummaries
@@ -57,38 +55,14 @@ namespace Tunny.WPF.Common
         internal Dictionary<int, ObservableCollection<OutputTrialItem>> OutputListedTrialDict { get; set; } = new Dictionary<int, ObservableCollection<OutputTrialItem>>();
         internal Dictionary<int, ObservableCollection<OutputTrialItem>> OutputTargetTrialDict { get; set; } = new Dictionary<int, ObservableCollection<OutputTrialItem>>();
 
-        private IProgress<ProgressState> _progress;
-
-        internal void AddProgress(IProgress<ProgressState> progress)
-        {
-            TLog.MethodStart();
-            _progress = progress;
-        }
-
-        internal void ReportProgress(ProgressState progressState)
-        {
-            TLog.MethodStart();
-            _progress?.Report(progressState);
-        }
-
-        private void ClearProgress()
-        {
-            TLog.MethodStart();
-            _progress = null;
-        }
-
         internal void Clear()
         {
             TLog.MethodStart();
-            Component = null;
-            Settings = null;
-            GH_DocumentEditor = null;
             TunnyWindow = null;
             OptimizeViewModel = null;
             StudySummaries = null;
             OutputListedTrialDict.Clear();
             OutputTargetTrialDict.Clear();
-            ClearProgress();
         }
 
         internal OutputTrialItem GetOutputTrial(int studyId, int trialId)

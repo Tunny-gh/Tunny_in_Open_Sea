@@ -11,6 +11,8 @@ using Optuna.Trial;
 using Prism.Commands;
 using Prism.Mvvm;
 
+using Tunny.CommonUI;
+using Tunny.CommonUI.Message;
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Util;
@@ -201,7 +203,7 @@ namespace Tunny.WPF.ViewModels.Output
             OutputProcess.Indices = new[] { int.Parse(TargetTrialNumber, NumberStyles.Integer, CultureInfo.InvariantCulture) };
             OutputProcess.Run();
 
-            OptimizeComponentBase component = SharedItems.Instance.Component;
+            OptimizeComponentBase component = CommonSharedItems.Instance.Component;
             component.GhInOut.NewSolution(component.Fishes[0].GetParameterClassFormatVariables());
         }
 

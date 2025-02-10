@@ -4,6 +4,7 @@ using System.Windows.Controls;
 
 using LiveChartsCore.Defaults;
 
+using Tunny.CommonUI;
 using Tunny.Component.Optimizer;
 using Tunny.WPF.Common;
 using Tunny.WPF.ViewModels.Optimize;
@@ -34,7 +35,7 @@ namespace Tunny.WPF.Views.Pages.Optimize
         private void SetTargetComboBoxItems(object sender, RoutedEventArgs e)
         {
             int yIndex = (int)sender;
-            OptimizeComponentBase component = SharedItems.Instance.Component;
+            OptimizeComponentBase component = CommonSharedItems.Instance.Component;
             string[] metricNames = component.GhInOut.Objectives.GetNickNames();
             _viewModel.XTarget = new ObservableCollection<string> { "Trial Number" };
             _viewModel.YTarget = new ObservableCollection<string> { "Trial Number" };

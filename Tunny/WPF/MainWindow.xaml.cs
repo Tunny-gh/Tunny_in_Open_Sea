@@ -1,5 +1,7 @@
 ﻿using System.Windows.Controls.Ribbon;
 
+using Tunny.CommonUI;
+using Tunny.CommonUI.Message;
 using Tunny.Component.Optimizer;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
@@ -11,13 +13,14 @@ namespace Tunny.WPF
     public partial class MainWindow : RibbonWindow
     {
         private static SharedItems SharedItems => SharedItems.Instance;
+        private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
 
         public MainWindow(OptimizeComponentBase component)
         {
             TLog.MethodStart();
             SharedItems.TunnyWindow = this;
-            SharedItems.GH_DocumentEditor.DisableUI();
-            SharedItems.Component = component;
+            CoSharedItems.GH_DocumentEditor.DisableUI();
+            CoSharedItems.Component = component;
 
             if (!TSettings.TryLoadFromJson(out TSettings settings))
             {
@@ -26,6 +29,7 @@ namespace Tunny.WPF
             else
             {
                 SharedItems.Settings = settings;
+                CoSharedItems.Settings = settings;
             }
 
             InitializeComponent();
@@ -36,9 +40,10 @@ namespace Tunny.WPF
         {
             TLog.MethodStart();
             ((MainWindowViewModel)DataContext).SaveSettingsFile();
-            SharedItems.GH_DocumentEditor.EnableUI();
+            CoSharedItems.GH_DocumentEditor.EnableUI();
 
             SharedItems.Clear();
+            CoSharedItems.Clear();
         }
     }
 }

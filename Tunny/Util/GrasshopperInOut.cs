@@ -15,13 +15,13 @@ using Grasshopper.Kernel.Types;
 
 using Rhino.Geometry;
 
+using Tunny.CommonUI.Message;
 using Tunny.Component.Params;
 using Tunny.Component.Util;
 using Tunny.Core.Input;
 using Tunny.Core.Util;
 using Tunny.Input;
 using Tunny.Type;
-using Tunny.WPF.Common;
 
 namespace Tunny.Util
 {
