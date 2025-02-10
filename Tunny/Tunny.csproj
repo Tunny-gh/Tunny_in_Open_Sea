@@ -54,6 +54,7 @@
     </PackageReference>
     <PackageReference Include="CefSharp.Wpf" Version="132.3.11" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
+    <PackageReference Include="Prism.Core" Version="9.0.537" />
   </ItemGroup>
 
   <!-- Rhino8-win -->
@@ -65,6 +66,7 @@
     <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="132.3.11" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
+    <PackageReference Include="Prism.Core" Version="9.0.537" />
   </ItemGroup>
 
   <!-- Rhino8-mac -->
@@ -93,11 +95,6 @@
       <HintPath>Lib\GalapagosComponents.dll</HintPath>
       <Private>false</Private>
     </Reference>
-  </ItemGroup>
-
-  <!-- common nuget items -->
-  <ItemGroup>
-    <PackageReference Include="Prism.Core" Version="9.0.537" />
   </ItemGroup>
 
   <ItemGroup>
