@@ -22,22 +22,25 @@ namespace Tunny.WPF.Common
 
             SamplerBase sampler = GetSelectSampler(samplerType);
 
+            return CheckCanEnable(isMultiObjective, hasConstraint, sampler);
+        }
+
+        private static bool CheckCanEnable(bool isMultiObjective, bool hasConstraint, SamplerBase sampler)
+        {
+            bool result = true;
             if (hasConstraint && !sampler.SupportsConstraint)
             {
-                return false;
+                result = false;
             }
             else if (isMultiObjective && !sampler.SupportsMultiObjective)
             {
-                return false;
+                result = false;
             }
             else if (!isMultiObjective && sampler.IsSinglePurposeRestricted)
             {
-                return false;
+                result = false;
             }
-            else
-            {
-                return true;
-            }
+            return result;
         }
 
         public object[] ConvertBack(object value, System.Type[] targetTypes, object parameter, CultureInfo culture)
