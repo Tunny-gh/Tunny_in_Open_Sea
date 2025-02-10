@@ -30,6 +30,8 @@
 
   <!-- Rhino7 -->
   <PropertyGroup Condition="$(TargetFramework) == 'net48'">
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
     <Platform>x64</Platform>
     <Platforms>$(Platform)</Platforms>
     <PlatformName>$(Platform)</PlatformName>
@@ -53,6 +55,8 @@
 
   <!-- Rhino8-win -->
   <PropertyGroup Condition="$(TargetFramework) == 'net7.0-windows'">
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework) == 'net7.0-windows'">
     <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
@@ -175,11 +179,6 @@
       <Pack>True</Pack>
     </Resource>
   </ItemGroup>
-
-  <PropertyGroup Condition="$(TargetFramework.Contains('-windows')) or $(TargetFramework.StartsWith('net4'))">
-    <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
-  </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration) == 'Debug' AND $([MSBuild]::IsOSPlatform(Windows))">
     <StartProgram>C:\Program Files\Rhino 7\System\Rhino.exe</StartProgram>
