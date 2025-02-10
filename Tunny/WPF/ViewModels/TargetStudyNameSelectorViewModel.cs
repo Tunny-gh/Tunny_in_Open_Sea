@@ -8,6 +8,7 @@ using Optuna.Study;
 using Prism.Commands;
 using Prism.Mvvm;
 
+using Tunny.CommonUI.Message;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.Storage;

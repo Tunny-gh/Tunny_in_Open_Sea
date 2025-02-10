@@ -7,11 +7,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
+using Eto.Forms;
+
 using Prism.Commands;
 using Prism.Mvvm;
 
 using Rhino.Display;
 
+using Tunny.CommonUI;
+using Tunny.CommonUI.Message;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.Storage;
@@ -30,6 +34,7 @@ namespace Tunny.WPF.ViewModels.Optimize
         private const string SamplerTypeLabelPrefix = "SamplerType: ";
         private const string TrialNumberLabelPrefix = "Trial: ";
         private static SharedItems SharedItems => SharedItems.Instance;
+        private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
         private readonly TSettings _settings;
         private MainWindowViewModel _windowViewModel;
         private LiveChartPage _chart1;
@@ -308,7 +313,7 @@ namespace Tunny.WPF.ViewModels.Optimize
 
         private void InitializeObjectivesAndVariables()
         {
-            Util.GrasshopperInOut ghIO = SharedItems.Component.GhInOut;
+            Util.GrasshopperInOut ghIO = CoSharedItems.Component.GhInOut;
             ObjectiveSettingItems = new ObservableCollection<ObjectiveSettingItem>();
             foreach (string item in ghIO.Objectives.GetNickNames())
             {
@@ -390,8 +395,8 @@ namespace Tunny.WPF.ViewModels.Optimize
         {
             if (File.Exists(TEnvVariables.PythonDllPath) == false)
             {
-                MessageBoxResult result = TunnyMessageBox.Error_PythonDllNotFound();
-                if (result == MessageBoxResult.Yes)
+                DialogResult result = TunnyMessageBox.Error_PythonDllNotFound();
+                if (result == DialogResult.Yes)
                 {
                     _windowViewModel.InstallPython();
                 }
@@ -454,7 +459,8 @@ namespace Tunny.WPF.ViewModels.Optimize
         {
             Progress<ProgressState> progress = CreateProgressAction();
             SharedItems.Settings = _settings;
-            SharedItems.AddProgress(progress);
+            CoSharedItems.Settings = _settings;
+            CoSharedItems.AddProgress(progress);
         }
 
         private Progress<ProgressState> CreateProgressAction()
@@ -462,12 +468,12 @@ namespace Tunny.WPF.ViewModels.Optimize
             return new Progress<ProgressState>(value =>
             {
                 TLog.MethodStart();
-                SharedItems.Component.UpdateGrasshopper(value);
+                CoSharedItems.Component.UpdateGrasshopper(value);
                 _windowViewModel.ReportProgress("Running optimization", $"{TrialNumberLabelPrefix}{value.TrialNumber + 1}", value.PercentComplete);
 
                 if (!value.IsReportOnly)
                 {
-                    Input.Objective objectives = SharedItems.Component.GhInOut.Objectives;
+                    Input.Objective objectives = CoSharedItems.Component.GhInOut.Objectives;
                     _chart1.AddPoint(value.TrialNumber + 1, objectives.Numbers);
                     _chart2.AddPoint(value.TrialNumber + 1, objectives.Numbers);
                 }
@@ -494,6 +500,8 @@ namespace Tunny.WPF.ViewModels.Optimize
                 RhinoWindowHandle(9);
             }
             _windowViewModel.ReportProgress("🐟Finish🐟", 100);
+            SharedItems.TunnyWindow.Activate();
+            SharedItems.TunnyWindow.Focus();
             SharedItems.UpdateStudySummaries();
         }
 

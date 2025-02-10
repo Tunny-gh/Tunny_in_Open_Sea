@@ -12,6 +12,7 @@ using CefSharp.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
 
+using Tunny.CommonUI.Message;
 using Tunny.Core.Settings;
 using Tunny.Process;
 using Tunny.WPF.Common;

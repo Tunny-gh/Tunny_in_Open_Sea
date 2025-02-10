@@ -6,12 +6,13 @@ using Grasshopper.GUI;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 
+using Tunny.CommonUI.Message;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
 using Tunny.Resources;
 using Tunny.WPF.Views.Windows;
 
-namespace Tunny.Component
+namespace Tunny.Component.LoadingInstruction
 {
     public class RegisterTunnyToolbarItems : GH_AssemblyPriority, IDisposable
     {
@@ -142,7 +143,7 @@ namespace Tunny.Component
         {
             TLog.MethodStart();
             TLog.Debug("AboutTunnyStripMenuItem Clicked");
-            WPF.Common.TunnyMessageBox.Info_About();
+            TunnyMessageBox.Info_About();
         }
 
         private void OptunaDashboardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -154,7 +155,7 @@ namespace Tunny.Component
 
             if (!Directory.Exists(pythonDirectory) && !File.Exists(dashboardPath))
             {
-                WPF.Common.TunnyMessageBox.Info_OptunaDashboardAlreadyInstalled();
+                TunnyMessageBox.Info_OptunaDashboardAlreadyInstalled();
             }
             else
             {

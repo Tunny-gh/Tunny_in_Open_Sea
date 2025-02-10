@@ -6,6 +6,7 @@ using Optuna.Study;
 
 using Prism.Mvvm;
 
+using Tunny.CommonUI.Message;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
 using Tunny.WPF.Common;

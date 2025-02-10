@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows;
 
+using Eto.Forms;
+
+using Tunny.CommonUI;
+using Tunny.CommonUI.Message;
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Input;
@@ -11,8 +14,6 @@ using Tunny.Core.TEnum;
 using Tunny.Core.Util;
 using Tunny.Input;
 using Tunny.PostProcess;
-using Tunny.Type;
-using Tunny.WPF.Common;
 
 namespace Tunny.Solver
 {
@@ -21,7 +22,7 @@ namespace Tunny.Solver
         public Parameter[] OptimalParameters { get; private set; }
         private readonly bool _hasConstraint;
         private readonly TSettings _settings;
-        private static SharedItems SharedItems => SharedItems.Instance;
+        private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
         private const string CompleteMessagePrefix = "Solver completed successfully.";
         private const string ErrorMessagePrefix = "Solver error.";
 
@@ -49,9 +50,9 @@ namespace Tunny.Solver
                 var optimize = new Algorithm(variables, _hasConstraint, objectives, _settings, Eval);
                 optimize.Solve();
                 OptimalParameters = optimize.OptimalParameters;
-                MessageBoxResult msgResult = EndMessage(optimize, objectives.Length > 1);
+                DialogResult msgResult = EndMessage(optimize, objectives.Length > 1);
 
-                return msgResult == MessageBoxResult.Yes;
+                return msgResult == DialogResult.Yes;
             }
             catch (Exception e)
             {
@@ -87,12 +88,12 @@ namespace Tunny.Solver
             }
         }
 
-        private static MessageBoxResult EndMessage(Algorithm optimize, bool isMultiObjective)
+        private static DialogResult EndMessage(Algorithm optimize, bool isMultiObjective)
         {
             TLog.MethodStart();
-            MessageBoxResult msgResult = MessageBoxResult.None;
+            DialogResult msgResult = DialogResult.None;
             ToComponentEndMessage(optimize);
-            if (SharedItems.Component is UIOptimizeComponentBase)
+            if (CoSharedItems.Component is UIOptimizeComponentBase)
             {
                 msgResult = ShowUIEndMessages(optimize.EndState, isMultiObjective);
             }
@@ -127,18 +128,18 @@ namespace Tunny.Solver
                     message = ErrorMessagePrefix;
                     break;
             }
-            if (SharedItems.Component is BoneFishComponent)
+            if (CoSharedItems.Component is BoneFishComponent)
             {
                 TLog.Info(message);
             }
-            SharedItems.Component.SetInfo(message);
+            CoSharedItems.Component.SetInfo(message);
         }
 
-        private static MessageBoxResult ShowUIEndMessages(EndState endState, bool isMultiObjective)
+        private static DialogResult ShowUIEndMessages(EndState endState, bool isMultiObjective)
         {
             TLog.MethodStart();
-            MessageBoxResult msgResult;
-            MessageBoxButton button = isMultiObjective ? MessageBoxButton.OK : MessageBoxButton.YesNo;
+            DialogResult msgResult;
+            MessageBoxButtons button = isMultiObjective ? MessageBoxButtons.OK : MessageBoxButtons.YesNo;
             string reinstateMessage = isMultiObjective ? string.Empty : "\nReinstate the best trial to the slider?\n\nIf reinstated, The components connected to the sliders are recomputed as the sliders are updated.\n";
             switch (endState)
             {
@@ -155,10 +156,10 @@ namespace Tunny.Solver
                     msgResult = TunnyMessageBox.Show(CompleteMessagePrefix + "\n\nThe Optuna stopped the solver." + reinstateMessage, "Tunny", button);
                     break;
                 case EndState.DirectionNumNotMatch:
-                    msgResult = TunnyMessageBox.Show(ErrorMessagePrefix + "\n\nThe number of Objective in the existing Study does not match the one that you tried to run; Match the number of objective, or change the \"Study Name\".", "Tunny", MessageBoxButton.OK, MessageBoxImage.Error);
+                    msgResult = TunnyMessageBox.Show(ErrorMessagePrefix + "\n\nThe number of Objective in the existing Study does not match the one that you tried to run; Match the number of objective, or change the \"Study Name\".", "Tunny", MessageBoxButtons.OK, MessageBoxType.Error);
                     break;
                 case EndState.UseExitStudyWithoutContinue:
-                    msgResult = TunnyMessageBox.Show(ErrorMessagePrefix + "\n\n\"Load if study file exists\" was false even though the same \"Study Name\" exists. Please change the name or set it to true.", "Tunny", MessageBoxButton.OK, MessageBoxImage.Error);
+                    msgResult = TunnyMessageBox.Show(ErrorMessagePrefix + "\n\n\"Load if study file exists\" was false even though the same \"Study Name\" exists. Please change the name or set it to true.", "Tunny", MessageBoxButtons.OK, MessageBoxType.Error);
                     break;
                 case EndState.Error:
                     msgResult = TunnyMessageBox.Show(ErrorMessagePrefix, "Tunny");
@@ -180,8 +181,8 @@ namespace Tunny.Solver
                 "Source: " + e.Source + " \n" +
                 "Message: " + e.Message,
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
     }
 }

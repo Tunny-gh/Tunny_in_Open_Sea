@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using Optuna.Trial;
 
+using Tunny.CommonUI;
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Input;
@@ -24,11 +25,12 @@ namespace Tunny.Process
         internal const string PrunedTrialReportValueKey = "pruned_trial_report_value";
         public static bool IsForcedStopOptimize { get; set; }
         private static SharedItems SharedItems => SharedItems.Instance;
+        private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
 
         internal async static Task RunAsync(OptimizeViewModel optimizeViewModel)
         {
             TLog.MethodStart();
-            SharedItems.Component?.GhInOutInstantiate();
+            CoSharedItems.Component?.GhInOutInstantiate();
             SharedItems.OptimizeViewModel = optimizeViewModel;
 
             ProgressState progressState = await RunOptimizationLoopAsync();
@@ -37,7 +39,7 @@ namespace Tunny.Process
                 return;
             }
 
-            if (SharedItems.Component != null)
+            if (CoSharedItems.Component != null)
             {
                 var tcs = new TaskCompletionSource<bool>();
                 void EventHandler(object sender, GrasshopperStates status)
@@ -47,16 +49,16 @@ namespace Tunny.Process
                         tcs.SetResult(true);
                     }
                 }
-                SharedItems.Component.GrasshopperStatusChanged += EventHandler;
+                CoSharedItems.Component.GrasshopperStatusChanged += EventHandler;
                 try
                 {
-                    SharedItems.Component.GrasshopperStatus = GrasshopperStates.RequestSent;
+                    CoSharedItems.Component.GrasshopperStatus = GrasshopperStates.RequestSent;
                     await ReportAsync(progressState);
                     await tcs.Task;
                 }
                 finally
                 {
-                    SharedItems.Component.GrasshopperStatusChanged -= EventHandler;
+                    CoSharedItems.Component.GrasshopperStatusChanged -= EventHandler;
                 }
                 SharedItems.UpdateStudySummaries();
             }
@@ -65,7 +67,7 @@ namespace Tunny.Process
         private static async Task ReportAsync(ProgressState progressState)
         {
             TLog.MethodStart();
-            await Task.Run(() => SharedItems.ReportProgress(progressState));
+            await Task.Run(() => CoSharedItems.ReportProgress(progressState));
         }
 
         private static async Task<ProgressState> RunOptimizationLoopAsync()
@@ -73,7 +75,7 @@ namespace Tunny.Process
             TLog.MethodStart();
             Objective objectives = SetObjectives();
             List<VariableBase> variables = SetVariables();
-            bool hasConstraint = SharedItems.Component.GhInOut.HasConstraint;
+            bool hasConstraint = CoSharedItems.Component.GhInOut.HasConstraint;
             var progressState = new ProgressState(Array.Empty<Parameter>());
 
             var optunaSolver = new Solver.Solver(SharedItems.Settings, hasConstraint);
@@ -88,7 +90,7 @@ namespace Tunny.Process
 
         private static List<VariableBase> SetVariables()
         {
-            List<VariableBase> variables = SharedItems.Component.GhInOut.Variables;
+            List<VariableBase> variables = CoSharedItems.Component.GhInOut.Variables;
             int count = 0;
             foreach (VariableBase variable in variables)
             {
@@ -104,7 +106,7 @@ namespace Tunny.Process
 
         private static Objective SetObjectives()
         {
-            Objective objectives = SharedItems.Component.GhInOut.Objectives;
+            Objective objectives = CoSharedItems.Component.GhInOut.Objectives;
             IEnumerable<ObjectiveSettingItem> settingItems = SharedItems.OptimizeViewModel.ObjectiveSettingItems;
             objectives.SetDirections(settingItems);
             return objectives;
@@ -113,8 +115,8 @@ namespace Tunny.Process
         private static TrialGrasshopperItems EvaluateFunction(ProgressState pState, int progress)
         {
             TLog.MethodStart();
-            SharedItems.ReportProgress(pState);
-            OptimizeComponentBase component = SharedItems.Component;
+            CoSharedItems.ReportProgress(pState);
+            OptimizeComponentBase component = CoSharedItems.Component;
             if (pState.IsReportOnly)
             {
                 return null;

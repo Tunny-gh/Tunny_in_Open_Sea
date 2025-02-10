@@ -48,10 +48,6 @@
                         Command="{Binding QuickAccessStorageFileOpenCommand}"
                         SmallImageSource="{StaticResource OpenFolderOutline}"
                         ToolTip="Open Optimization Result File" />
-                    <RibbonCheckBox
-                        IsChecked="{Binding ShowTopmost}"
-                        Label="Show Topmost"
-                        ToolTip="Show Topmost" />
                 </RibbonQuickAccessToolBar>
             </Ribbon.QuickAccessToolBar>
 
@@ -75,7 +71,7 @@
                         CommandParameter="{x:Static common:SelectSamplerType.AUTO}"
                         Label="AUTO Sampler"
                         LargeImageSource="{StaticResource AutoFix}"
-                        SmallImageSource="{StaticResource AutoFix}" >
+                        SmallImageSource="{StaticResource AutoFix}">
                         <RibbonButton.IsEnabled>
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
@@ -91,7 +87,7 @@
                         CommandParameter="{x:Static common:SelectSamplerType.TPE}"
                         Label="TPE"
                         LargeImageSource="{StaticResource Tree}"
-                        SmallImageSource="{StaticResource Tree}" >
+                        SmallImageSource="{StaticResource Tree}">
                         <RibbonButton.IsEnabled>
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />

@@ -1,8 +1,9 @@
-using System.Windows;
+
+using Eto.Forms;
 
 using Tunny.Core.Util;
 
-namespace Tunny.WPF.Common
+namespace Tunny.CommonUI.Message
 {
     internal static partial class TunnyMessageBox
     {
@@ -12,8 +13,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Failed to load Artifact. Please check the value.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
 
         internal static void Error_IncorrectVariableInput()
@@ -22,8 +23,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Input variables must be either a number slider or a gene pool.\nError input will automatically remove.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
 
         internal static void Error_NoSourceStudySelected()
@@ -32,8 +33,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Please set CopySourceStudy.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
 
         internal static void Error_CopySourceAndDestinationAreSame()
@@ -42,8 +43,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Copy source and destination StudyName are the same.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
 
         internal static void Error_PrunerPath()
@@ -52,8 +53,8 @@ namespace Tunny.WPF.Common
             Show(
                 "PrunerPath has something wrong. Please check.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
 
         internal static void Error_IncorrectObjectiveInput()
@@ -62,8 +63,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Objective must be either a number or a FishPrint.\nError input will automatically remove.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
 
         internal static void Error_IncorrectAttributeInput()
@@ -72,8 +73,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Inputs to Attribute should be grouped together into one FishAttribute.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
 
         internal static void Error_ObjectiveNicknamesMustUnique()
@@ -82,8 +83,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Objective nicknames must be unique.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
 
         internal static void Error_NoVariableInput()
@@ -92,8 +93,8 @@ namespace Tunny.WPF.Common
             Show(
                 "No input variables found. \nPlease connect a number slider to the input of the component.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
 
         internal static bool Error_ShowNoObjectiveFound()
@@ -102,8 +103,8 @@ namespace Tunny.WPF.Common
             Show(
                 "No objective found.\nPlease connect number or FishPrint to the objective.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
             return false;
         }
 
@@ -113,8 +114,8 @@ namespace Tunny.WPF.Common
             Show(
                 "The number of the direction in FishAttr must be the same as the number of the objective.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
         }
 
         internal static void Error_DirectionValue()
@@ -123,8 +124,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Direction must be either 1(maximize) or -1(minimize).",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
             );
         }
 
@@ -134,8 +135,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Fail to load Grasshopper data into Tunny",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
             );
         }
 
@@ -145,8 +146,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Please set StudyName.",
                 "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
             );
         }
 
@@ -156,8 +157,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Please set exist result file path.",
                 "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
             );
         }
 
@@ -167,8 +168,8 @@ namespace Tunny.WPF.Common
             Show(
                 "This visualization type is not supported in this study case.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
             );
         }
 
@@ -178,8 +179,8 @@ namespace Tunny.WPF.Common
             Show(
                 "Your plot parameter is not set correctly.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
             );
         }
 
@@ -188,18 +189,18 @@ namespace Tunny.WPF.Common
             Show(
                 "No study found.",
                 "Tunny",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
             );
         }
 
-        internal static MessageBoxResult Error_PythonDllNotFound()
+        internal static DialogResult Error_PythonDllNotFound()
         {
             return Show(
                 "Tunny Python Runtime is not found. \nDo you want to install the Tunny Python environment?",
                 "Tunny",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Error
+                MessageBoxButtons.YesNo,
+                MessageBoxType.Error
             );
         }
     }
