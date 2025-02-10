@@ -4,6 +4,11 @@ namespace Optuna.Sampler
 {
     public class GASamplerBase : SamplerBase
     {
+        public GASamplerBase(bool supportMultiObjective, bool supportConstraint, bool isSinglePurposeRestricted)
+         : base(supportMultiObjective, supportConstraint, isSinglePurposeRestricted)
+        {
+        }
+
         protected static dynamic SetCrossover(dynamic optuna, string crossover)
         {
             switch (crossover)

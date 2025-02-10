@@ -11,6 +11,11 @@ namespace Optuna.Sampler
     {
         public int NStartupTrials { get; set; } = 10;
 
+        public BoTorchSampler()
+         : base(true, true, false)
+        {
+        }
+
         public void ComputeAutoValue(int numberOfTrials)
         {
             if (NStartupTrials == -1)
