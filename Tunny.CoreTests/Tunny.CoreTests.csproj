@@ -1,9 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net48; net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net48; net7-windows; net7-macos</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ApplicationId>com.hrnstm.tunny-core_tests</ApplicationId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net7-macos'">
+    <ApplicationId>com.hrnstm.tunny-core</ApplicationId>
+    <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
   </PropertyGroup>
 
   <ItemGroup>
