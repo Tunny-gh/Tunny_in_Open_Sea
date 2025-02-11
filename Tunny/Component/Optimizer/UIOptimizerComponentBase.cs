@@ -8,7 +8,6 @@ using Grasshopper.Kernel;
 using Tunny.Core.Util;
 using Tunny.Eto.Common;
 using Tunny.Eto.Message;
-using Tunny.WPF;
 
 namespace Tunny.Component.Optimizer
 {
