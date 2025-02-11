@@ -78,27 +78,24 @@ namespace Tunny.Eto.Views
             StopButton.Enabled = false;
         }
 
-        private void RunButton_Click(object sender, EventArgs e)
+        private async void RunButton_Click(object sender, EventArgs e)
         {
-            // 最適化アルゴリズムの選択を取得
-            string selectedAlgorithm = SamplerComboBox.SelectedKey;
+            int selectedAlgorithm = SamplerComboBox.SelectedIndex;
 
-            // UIの状態を更新
             RunButton.Enabled = false;
             StopButton.Enabled = true;
             SamplerComboBox.Enabled = false;
             ProgressBar.Value = 0;
 
-            // ここに最適化処理の開始ロジックを実装
-            // 例: Task.Run(() => StartOptimization(selectedAlgorithm));
+            CoSharedItems.Settings.Optimize.SamplerType = Core.TEnum.SamplerType.TPE;
+            await EtoOptimizeProcess.RunAsync(this);
         }
 
         private void StopButton_Click(object sender, EventArgs e)
         {
             // 最適化処理の停止ロジックを実装
 
-            // UIの状態を元に戻す
-            RunButton.Enabled = true;
+            // UIの状態を元に戻す            RunButton.Enabled = true;
             StopButton.Enabled = false;
             SamplerComboBox.Enabled = true;
         }
