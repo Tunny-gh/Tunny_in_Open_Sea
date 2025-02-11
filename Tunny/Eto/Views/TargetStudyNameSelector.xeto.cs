@@ -31,12 +31,12 @@ namespace Tunny.Eto.Views
                 StudyNameDropDown.DataStore = ViewModel.StudyNameItems;
                 StudyNameDropDown.ItemTextBinding = Binding.Property<NameComboBoxItem, string>(r => r.Name);
 
-                StudyNameDropDown.SelectedValueChanged += (s, ev) =>
+                StudyNameDropDown.SelectedValueChanged += (_, ev) =>
                 {
                     ViewModel.SelectedStudyName = StudyNameDropDown.SelectedValue as NameComboBoxItem;
                 };
 
-                ViewModel.PropertyChanged += (s, ev) =>
+                ViewModel.PropertyChanged += (_, ev) =>
                 {
                     if (ev.PropertyName == nameof(TargetStudyNameSelectorViewModel.StudyNameItems))
                     {

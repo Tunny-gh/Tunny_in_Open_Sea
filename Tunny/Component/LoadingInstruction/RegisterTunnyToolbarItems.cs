@@ -24,7 +24,7 @@ namespace Tunny.Component.LoadingInstruction
         private ToolStripMenuItem _optunaDashboardToolStripMenuItem;
         private ToolStripMenuItem _ttDesignExplorerToolStripMenuItem;
         private ToolStripMenuItem _aboutTunnyStripMenuItem;
-        private static readonly string[] sqliteExtensions = new string[] { ".db", ".sqlite" };
+        private static readonly string[] sqliteExtensions = new[] { ".db", ".sqlite" };
 
         public override GH_LoadingInstruction PriorityLoad()
         {
