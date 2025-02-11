@@ -13,8 +13,8 @@ using Rhino.Geometry;
 using Tunny.Component.Params;
 using Tunny.Core.TEnum;
 using Tunny.Core.Util;
+using Tunny.Eto.Models;
 using Tunny.Type;
-using Tunny.WPF.Models;
 
 namespace Tunny.Input
 {

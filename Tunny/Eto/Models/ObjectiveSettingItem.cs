@@ -1,6 +1,6 @@
 ﻿using Prism.Mvvm;
 
-namespace Tunny.WPF.Models
+namespace Tunny.Eto.Models
 {
     internal sealed class ObjectiveSettingItem : BindableBase
     {

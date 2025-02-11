@@ -9,6 +9,10 @@ using Tunny.Core.Util;
 using Tunny.Eto.Common;
 using Tunny.Eto.Message;
 
+#if NET48 || NET7_0_WINDOWS
+using Tunny.WPF;
+#endif
+
 namespace Tunny.Component.Optimizer
 {
     public class UIOptimizeComponentBase : OptimizeComponentBase
@@ -33,8 +37,8 @@ namespace Tunny.Component.Optimizer
             else
             {
 #if NET48 || NET7_0_WINDOWS
-                var MainWindow = new MainWindow(this);
-                MainWindow.Show();
+                var mainWindow = new MainWindow(this);
+                mainWindow.Show();
 #else
 #endif
             }

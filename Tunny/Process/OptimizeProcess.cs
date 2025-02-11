@@ -11,10 +11,10 @@ using Tunny.Core.Settings;
 using Tunny.Core.TEnum;
 using Tunny.Core.Util;
 using Tunny.Eto.Common;
+using Tunny.Eto.Models;
 using Tunny.Input;
 using Tunny.PostProcess;
 using Tunny.WPF.Common;
-using Tunny.WPF.Models;
 using Tunny.WPF.ViewModels.Optimize;
 
 namespace Tunny.Process
