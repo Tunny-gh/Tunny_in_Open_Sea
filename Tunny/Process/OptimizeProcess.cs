@@ -15,8 +15,7 @@ using Tunny.Eto.Models;
 using Tunny.Input;
 using Tunny.PostProcess;
 
-#if NET7_0_MACOS
-#else
+#if NET7_0_WINDOWS || NET48
 using Tunny.WPF.Common;
 using Tunny.WPF.ViewModels.Optimize;
 #endif
@@ -30,8 +29,7 @@ namespace Tunny.Process
         public static bool IsForcedStopOptimize { get; set; }
         private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
 
-#if NET7_0_MACOS
-#else
+#if NET7_0_WINDOWS || NET48
         private static SharedItems SharedItems => SharedItems.Instance;
         internal async static Task RunAsync(OptimizeViewModel optimizeViewModel)
         {
@@ -109,7 +107,6 @@ namespace Tunny.Process
 
             return variables;
         }
-#endif
 
         private static Objective SetObjectives()
         {
@@ -118,6 +115,7 @@ namespace Tunny.Process
             objectives.SetDirections(settingItems);
             return objectives;
         }
+#endif
 
         private static TrialGrasshopperItems EvaluateFunction(ProgressState pState, int progress)
         {
