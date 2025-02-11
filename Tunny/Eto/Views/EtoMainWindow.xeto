@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form 
+    xmlns="http://schema.picoe.ca/eto.forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Tunny mac version"
+    BackgroundColor="#F0F4F8"
+    MinimumSize="300, 200">
+
+    <TableLayout Padding="10" Spacing="5,5">
+        <TableRow>
+            <Label Text="Select the optimization algorithm:"/>
+        </TableRow>
+        <TableRow>
+             <ComboBox x:Name="SamplerComboBox" SelectedIndex="0">
+                <ListItem>BeysianOptimization: TPE</ListItem>
+                    <ListItem>GeneticAlgorithm: NSGA-II</ListItem>
+                    <ListItem>Random</ListItem>
+             </ComboBox>
+        </TableRow>
+        <TableRow>
+            <TableLayout Padding="10" Spacing="5,5">
+                <TableRow>
+                    <TableCell ScaleWidth="True">
+                        <Button x:Name="RunButton">Run</Button>
+                    </TableCell>
+                    <TableCell ScaleWidth="True">
+                        <Button x:Name="StopButton">Stop</Button>
+                    </TableCell>
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+        <TableRow>
+            <TableCell/>  <!-- spacer -->
+        </TableRow>
+        <TableRow>
+            <Label Text="Results:"/>
+        </TableRow>
+        <TableRow>
+            <ProgressBar x:Name="ProgressBar" MinValue="0" MaxValue="100"/>
+        </TableRow>
+        <TableRow>
+            <TableCell/>  <!-- spacer -->
+        </TableRow>
+        <TableRow>
+            <Button x:Name="PlotButton" Width="50">Show optuna-dashboard</Button>
+        </TableRow>
+    </TableLayout>
+</Form>
