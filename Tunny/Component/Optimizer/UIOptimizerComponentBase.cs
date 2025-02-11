@@ -5,17 +5,19 @@ using Grasshopper.GUI;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 
-using Tunny.CommonUI;
-using Tunny.CommonUI.Message;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
+using Tunny.Eto.Message;
+
+#if WINDOWS
 using Tunny.WPF;
+#endif
 
 namespace Tunny.Component.Optimizer
 {
     public class UIOptimizeComponentBase : OptimizeComponentBase
     {
         private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
-        internal MainWindow MainWindow;
 
         public UIOptimizeComponentBase(string name, string nickname, string description)
           : base(name, nickname, description)
@@ -34,8 +36,10 @@ namespace Tunny.Component.Optimizer
             }
             else
             {
-                MainWindow = new MainWindow(this);
-                MainWindow.Show();
+#if WINDOWS
+                var mainWindow = new MainWindow(this);
+                mainWindow.Show();
+#endif
             }
         }
 

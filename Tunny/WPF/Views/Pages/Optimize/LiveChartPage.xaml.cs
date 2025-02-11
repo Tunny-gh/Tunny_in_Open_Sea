@@ -4,8 +4,8 @@ using System.Windows.Controls;
 
 using LiveChartsCore.Defaults;
 
-using Tunny.CommonUI;
 using Tunny.Component.Optimizer;
+using Tunny.Eto.Common;
 using Tunny.WPF.Common;
 using Tunny.WPF.ViewModels.Optimize;
 

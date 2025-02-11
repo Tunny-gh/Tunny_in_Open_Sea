@@ -4,14 +4,14 @@ using System.IO;
 
 using Eto.Forms;
 
-using Tunny.CommonUI;
-using Tunny.CommonUI.Message;
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Input;
 using Tunny.Core.Settings;
 using Tunny.Core.TEnum;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
+using Tunny.Eto.Message;
 using Tunny.Input;
 using Tunny.PostProcess;
 

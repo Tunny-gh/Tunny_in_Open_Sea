@@ -1,4 +1,4 @@
-﻿namespace Tunny.WPF.Models
+﻿namespace Tunny.Eto.Models
 {
     internal sealed class NameComboBoxItem
     {

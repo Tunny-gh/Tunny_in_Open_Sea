@@ -11,11 +11,12 @@ using Optuna.Trial;
 using Prism.Commands;
 using Prism.Mvvm;
 
-using Tunny.CommonUI;
-using Tunny.CommonUI.Message;
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
+using Tunny.Eto.Message;
+using Tunny.Eto.Models;
 using Tunny.Process;
 using Tunny.WPF.Common;
 using Tunny.WPF.Models;

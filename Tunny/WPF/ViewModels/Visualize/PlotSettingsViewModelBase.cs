@@ -6,9 +6,10 @@ using Optuna.Study;
 
 using Prism.Mvvm;
 
-using Tunny.CommonUI.Message;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
+using Tunny.Eto.Message;
+using Tunny.Eto.Models;
 using Tunny.WPF.Common;
 using Tunny.WPF.Models;
 
@@ -45,14 +46,14 @@ namespace Tunny.WPF.ViewModels.Visualize
             _summaries = SharedItems.Instance.StudySummaries;
             ObjectiveItems = new ObservableCollection<VisualizeListItem>();
             VariableItems = new ObservableCollection<VisualizeListItem>();
-            StudyNameItems = Utils.StudyNamesFromStudySummaries(_summaries);
+            StudyNameItems = Eto.Common.Utils.StudyNamesFromStudySummaries(_summaries);
             SelectedStudyName = StudyNameItems.FirstOrDefault();
         }
 
         public void UpdateItems()
         {
             _summaries = SharedItems.Instance.StudySummaries;
-            StudyNameItems = Utils.StudyNamesFromStudySummaries(_summaries);
+            StudyNameItems = Eto.Common.Utils.StudyNamesFromStudySummaries(_summaries);
             SelectedStudyName = StudyNameItems.FirstOrDefault();
         }
 

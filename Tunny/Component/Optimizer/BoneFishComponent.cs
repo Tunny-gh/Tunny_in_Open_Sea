@@ -14,9 +14,8 @@ using Tunny.Component.Params;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
-using Tunny.Process;
+using Tunny.Eto.Common;
 using Tunny.Type;
-using Tunny.WPF.Common;
 
 namespace Tunny.Component.Optimizer
 {
@@ -26,7 +25,7 @@ namespace Tunny.Component.Optimizer
         private bool _running;
         private Fish[] _allFishes;
         private string _state;
-        private static SharedItems SharedItems => SharedItems.Instance;
+        private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
 
         public BoneFishComponent()
           : base("Bone Fish", "Born",
@@ -93,7 +92,7 @@ namespace Tunny.Component.Optimizer
 
             if (start && stop)
             {
-                OptimizeProcess.IsForcedStopOptimize = true;
+                CoSharedItems.IsForcedStopOptimize = true;
             }
 
             if (start && !_running)
@@ -106,7 +105,7 @@ namespace Tunny.Component.Optimizer
                 Params.Output[1].ClearData();
                 Params.Output[2].ClearData();
 
-                SharedItems.Settings = settings;
+                CoSharedItems.Settings = settings;
             }
 
             DA.SetData(0, Info);
@@ -123,11 +122,11 @@ namespace Tunny.Component.Optimizer
         private void StopOptimize(object sender, RunWorkerCompletedEventArgs e)
         {
             _running = false;
-            OptimizeProcess.IsForcedStopOptimize = true;
+            CoSharedItems.IsForcedStopOptimize = true;
 
             Message = "Outputting";
-            Study[] studies = SharedItems.Settings.Storage.GetAllStudies();
-            Study study = studies.FirstOrDefault(x => x.StudyName == SharedItems.Settings.Optimize.StudyName);
+            Study[] studies = CoSharedItems.Settings.Storage.GetAllStudies();
+            Study study = studies.FirstOrDefault(x => x.StudyName == CoSharedItems.Settings.Optimize.StudyName);
 
             string versionString = (study.UserAttrs["tunny_version"] as string[])[0];
             var version = new Version(versionString);

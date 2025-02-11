@@ -6,11 +6,14 @@ using Grasshopper.GUI;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 
-using Tunny.CommonUI.Message;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
+using Tunny.Eto.Message;
+using Tunny.Eto.Views;
 using Tunny.Resources;
-using Tunny.WPF.Views.Windows;
+
+using EtoForms = Eto.Forms;
 
 namespace Tunny.Component.LoadingInstruction
 {
@@ -21,6 +24,7 @@ namespace Tunny.Component.LoadingInstruction
         private ToolStripMenuItem _optunaDashboardToolStripMenuItem;
         private ToolStripMenuItem _ttDesignExplorerToolStripMenuItem;
         private ToolStripMenuItem _aboutTunnyStripMenuItem;
+        private static readonly string[] sqliteExtensions = new[] { ".db", ".sqlite" };
 
         public override GH_LoadingInstruction PriorityLoad()
         {
@@ -173,13 +177,16 @@ namespace Tunny.Component.LoadingInstruction
                 var settings = TSettings.Deserialize(settingsPath);
                 storagePath = settings.Storage.Path;
             }
-            var ofd = new Microsoft.Win32.OpenFileDialog
+            var ofd = new EtoForms.OpenFileDialog
             {
-                FileName = Path.GetFileName(storagePath),
-                Filter = @"Journal Storage(*.log)|*.log|SQLite Storage(*.db,*.sqlite)|*.db;*.sqlite",
                 Title = @"Set Tunny result file path",
+                FileName = Path.GetFileName(storagePath),
+                Filters = {
+                    new EtoForms.FileFilter("Journal Storage", ".log"),
+                    new EtoForms.FileFilter("SQLite Storage", sqliteExtensions),
+                }
             };
-            if (ofd.ShowDialog() == true)
+            if (ofd.ShowDialog(null) == EtoForms.DialogResult.Ok)
             {
                 var dashboard = new Optuna.Dashboard.Handler(dashboardPath, ofd.FileName);
                 dashboard.Run(true);
@@ -201,17 +208,21 @@ namespace Tunny.Component.LoadingInstruction
             {
                 settings = new TSettings();
             }
-            var ofd = new OpenFileDialog
+            var ofd = new EtoForms.OpenFileDialog
             {
-                FileName = Path.GetFileName(storagePath),
-                Filter = @"Journal Storage(*.log)|*.log|SQLite Storage(*.db,*.sqlite)|*.db;*.sqlite",
                 Title = @"Set Tunny result file path",
+                FileName = Path.GetFileName(storagePath),
+                Filters = {
+                    new EtoForms.FileFilter("Journal Storage", ".log"),
+                    new EtoForms.FileFilter("SQLite Storage", sqliteExtensions),
+                },
             };
-            if (ofd.ShowDialog() == DialogResult.OK)
+            if (ofd.ShowDialog(null) == EtoForms.DialogResult.Ok)
             {
                 settings.Storage.Path = ofd.FileName;
+                CommonSharedItems.Instance.Settings = settings;
                 var deStudyNameSelector = new TargetStudyNameSelector();
-                deStudyNameSelector.Show();
+                deStudyNameSelector.ShowModal();
             }
         }
 

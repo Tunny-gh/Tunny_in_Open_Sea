@@ -1,16 +1,13 @@
 using System;
-using System.Collections.Generic;
 
 using Grasshopper.GUI;
-
-using Optuna.Trial;
 
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
 
-namespace Tunny.CommonUI
+namespace Tunny.Eto.Common
 {
     internal sealed class CommonSharedItems
     {
@@ -25,6 +22,7 @@ namespace Tunny.CommonUI
         internal OptimizeComponentBase Component { get; set; }
         internal TSettings Settings { get; set; }
         internal GH_DocumentEditor GH_DocumentEditor { get; set; }
+        internal bool IsForcedStopOptimize { get; set; }
 
         private IProgress<ProgressState> _progress;
 

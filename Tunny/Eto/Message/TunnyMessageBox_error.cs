@@ -3,7 +3,7 @@ using Eto.Forms;
 
 using Tunny.Core.Util;
 
-namespace Tunny.CommonUI.Message
+namespace Tunny.Eto.Message
 {
     internal static partial class TunnyMessageBox
     {

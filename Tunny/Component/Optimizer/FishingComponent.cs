@@ -12,7 +12,7 @@ namespace Tunny.Component.Optimizer
     public class FishingComponent : UIOptimizeComponentBase
     {
         public FishingComponent()
-          : base("Fishing", "Fishing",
+          : base("Tunny Fishing", "Fishing",
             "Tunny is an optimization component wrapped in optuna."
             )
         {

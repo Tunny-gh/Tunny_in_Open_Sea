@@ -3,24 +3,27 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
+using Eto.Forms;
+
 using Optuna.Study;
 
 using Prism.Commands;
 using Prism.Mvvm;
 
-using Tunny.CommonUI.Message;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.Storage;
 using Tunny.Core.Util;
-using Tunny.WPF.Common;
-using Tunny.WPF.Models;
+using Tunny.Eto.Common;
+using Tunny.Eto.Message;
+using Tunny.Eto.Models;
 
-namespace Tunny.WPF.ViewModels
+namespace Tunny.Eto.ViewModels
 {
     internal sealed class TargetStudyNameSelectorViewModel : BindableBase
     {
         private readonly TSettings _settings;
+        private readonly Dialog _dialog;
 
         private DelegateCommand _oKCommand;
         public ICommand OKCommand
@@ -73,9 +76,7 @@ namespace Tunny.WPF.ViewModels
         private void Close()
         {
             TLog.MethodStart();
-            Window window = Application.Current.Windows.OfType<Window>()
-                .FirstOrDefault(w => w.DataContext == this);
-            window?.Close();
+            _dialog.Close();
         }
 
         private ObservableCollection<NameComboBoxItem> _studyNameItems;
@@ -83,9 +84,10 @@ namespace Tunny.WPF.ViewModels
         private NameComboBoxItem _selectedStudyName;
         public NameComboBoxItem SelectedStudyName { get => _selectedStudyName; set => SetProperty(ref _selectedStudyName, value); }
 
-        public TargetStudyNameSelectorViewModel()
+        public TargetStudyNameSelectorViewModel(Dialog dialog)
         {
-            _settings = SharedItems.Instance.Settings;
+            _dialog = dialog;
+            _settings = CommonSharedItems.Instance.Settings;
             StudyNameItems = StudyNamesFromStorage(_settings.Storage.Path);
             if (StudyNameItems.Count == 0)
             {
