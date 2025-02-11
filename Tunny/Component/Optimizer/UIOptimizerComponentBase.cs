@@ -15,7 +15,6 @@ namespace Tunny.Component.Optimizer
     public class UIOptimizeComponentBase : OptimizeComponentBase
     {
         private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
-        internal MainWindow MainWindow;
 
         public UIOptimizeComponentBase(string name, string nickname, string description)
           : base(name, nickname, description)
@@ -34,8 +33,11 @@ namespace Tunny.Component.Optimizer
             }
             else
             {
-                MainWindow = new MainWindow(this);
+#if NET48 || NET7_0_WINDOWS
+                var MainWindow = new MainWindow(this);
                 MainWindow.Show();
+#else
+#endif
             }
         }
 
