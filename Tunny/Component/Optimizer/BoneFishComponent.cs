@@ -14,9 +14,9 @@ using Tunny.Component.Params;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
 using Tunny.Process;
 using Tunny.Type;
-using Tunny.WPF.Common;
 
 namespace Tunny.Component.Optimizer
 {
@@ -26,7 +26,7 @@ namespace Tunny.Component.Optimizer
         private bool _running;
         private Fish[] _allFishes;
         private string _state;
-        private static SharedItems SharedItems => SharedItems.Instance;
+        private static CommonSharedItems SharedItems => CommonSharedItems.Instance;
 
         public BoneFishComponent()
           : base("Bone Fish", "Born",
