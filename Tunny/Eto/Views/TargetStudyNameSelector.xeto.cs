@@ -11,7 +11,7 @@ namespace Tunny.Eto.Views
 {
     internal class TargetStudyNameSelector : Dialog
     {
-        public DropDown StudyNameDropDown {get; set;}
+        public DropDown StudyNameDropDown { get; set; }
         public TargetStudyNameSelectorViewModel ViewModel { get; }
 
         public TargetStudyNameSelector()

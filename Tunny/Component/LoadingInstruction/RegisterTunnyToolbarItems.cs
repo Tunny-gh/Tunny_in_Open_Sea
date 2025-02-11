@@ -8,6 +8,7 @@ using Grasshopper.Kernel;
 
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
 using Tunny.Eto.Message;
 using Tunny.Eto.Views;
 using Tunny.Resources;
@@ -210,6 +211,7 @@ namespace Tunny.Component.LoadingInstruction
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 settings.Storage.Path = ofd.FileName;
+                CommonSharedItems.Instance.Settings = settings;
                 var deStudyNameSelector = new TargetStudyNameSelector();
                 deStudyNameSelector.ShowModal();
             }
