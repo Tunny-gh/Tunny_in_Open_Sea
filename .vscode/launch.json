@@ -5,10 +5,19 @@
       "name": "Rhino8 - netcore",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build-net7.0",
-      "program": "C:/Program Files/Rhino 8/System/Rhino.exe",
-      "targetArchitecture": "x86_64",
-      "args": "/netcore /nosplash /runscript=\"_Grasshopper\"",
+      "osx": {
+        "preLaunchTask": "build_net7.0-mac",
+        "program": "/Applications/Rhino 8.app/Contents/MacOS/Rhinoceros",
+        "args": [
+          "-runscript=_Grasshopper"
+        ]
+      },
+      "windows": {
+        "preLaunchTask": "build_net7.0-win",
+        "program": "C:\\Program Files\\Rhino 8\\System\\Rhino.exe",
+        "targetArchitecture": "x86_64",
+        "args": "/netcore /nosplash /runscript=\"_Grasshopper\"",
+      },
       "env": {
         "RHINO_PACKAGE_DIRS": "${workspaceFolder}/bin/Debug"
       },
