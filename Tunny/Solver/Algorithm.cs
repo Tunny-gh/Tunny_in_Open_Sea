@@ -43,6 +43,8 @@ namespace Tunny.Solver
         private readonly Func<ProgressState, int, TrialGrasshopperItems> _evalFunc;
         private readonly List<FishEgg> _fishEgg = CommonSharedItems.Instance.Component.GhInOut.FishEggs;
 
+        private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
+
         public Algorithm(
             List<VariableBase> variables, bool hasConstraint, Objective objective,
             TSettings settings,
@@ -60,7 +62,7 @@ namespace Tunny.Solver
         {
             TLog.MethodStart();
             EndState = EndState.Error;
-            OptimizeProcess.IsForcedStopOptimize = false;
+            CoSharedItems.IsForcedStopOptimize = false;
             SamplerType samplerType = _settings.Optimize.SamplerType;
             int nTrials = _settings.Optimize.NumberOfTrials;
             double timeout = _settings.Optimize.Timeout <= 0 ? -1 : _settings.Optimize.Timeout;
@@ -308,7 +310,7 @@ namespace Tunny.Solver
 
             while (true)
             {
-                if (optInfo.Preferential != null && !optInfo.Study.ShouldGenerate() && !OptimizeProcess.IsForcedStopOptimize)
+                if (optInfo.Preferential != null && !optInfo.Study.ShouldGenerate() && !CoSharedItems.IsForcedStopOptimize)
                 {
                     Thread.Sleep(100);
                     continue;
@@ -407,9 +409,9 @@ namespace Tunny.Solver
 
         private static void TellPruned(OptimizationHandlingInfo optInfo, int trialNum, TrialWrapper trial)
         {
-            if (trial.PyInstance.user_attrs.get(OptimizeProcess.PrunedTrialReportValueKey) != null)
+            if (trial.PyInstance.user_attrs.get(PruneProcess.PrunedTrialReportValueKey) != null)
             {
-                double prunedValue = trial.PyInstance.user_attrs.get(OptimizeProcess.PrunedTrialReportValueKey);
+                double prunedValue = trial.PyInstance.user_attrs.get(PruneProcess.PrunedTrialReportValueKey);
                 optInfo.Study.Tell(trial, prunedValue);
             }
             else
@@ -513,7 +515,7 @@ namespace Tunny.Solver
 
             if (File.Exists(TEnvVariables.QuitFishingPath))
             {
-                OptimizeProcess.IsForcedStopOptimize = true;
+                CoSharedItems.IsForcedStopOptimize = true;
                 File.Delete(TEnvVariables.QuitFishingPath);
             }
 
@@ -528,10 +530,10 @@ namespace Tunny.Solver
                 EndState = EndState.Timeout;
                 isOptimizeCompleted = true;
             }
-            else if (OptimizeProcess.IsForcedStopOptimize)
+            else if (CoSharedItems.IsForcedStopOptimize)
             {
                 EndState = EndState.StoppedByUser;
-                OptimizeProcess.IsForcedStopOptimize = false;
+                CoSharedItems.IsForcedStopOptimize = false;
                 isOptimizeCompleted = true;
             }
             else if (optInfo.HumanSliderInput == null && optInfo.Preferential == null && studyStopFlag)

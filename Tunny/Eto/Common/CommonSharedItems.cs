@@ -22,6 +22,7 @@ namespace Tunny.Eto.Common
         internal OptimizeComponentBase Component { get; set; }
         internal TSettings Settings { get; set; }
         internal GH_DocumentEditor GH_DocumentEditor { get; set; }
+        internal bool IsForcedStopOptimize { get; set; }
 
         private IProgress<ProgressState> _progress;
 

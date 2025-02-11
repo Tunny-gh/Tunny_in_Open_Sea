@@ -9,7 +9,7 @@ using Tunny.Core.Util;
 using Tunny.Eto.Common;
 using Tunny.Eto.Message;
 
-#if NET48 || NET7_0_WINDOWS
+#if WINDOWS
 using Tunny.WPF;
 #endif
 
@@ -36,10 +36,9 @@ namespace Tunny.Component.Optimizer
             }
             else
             {
-#if NET48 || NET7_0_WINDOWS
+#if WINDOWS
                 var mainWindow = new MainWindow(this);
                 mainWindow.Show();
-#else
 #endif
             }
         }

@@ -529,7 +529,7 @@ namespace Tunny.WPF.ViewModels.Optimize
         private void PerformStopOptimize()
         {
             TLog.MethodStart();
-            OptimizeProcess.IsForcedStopOptimize = true;
+            CoSharedItems.IsForcedStopOptimize = true;
             FileStream fs = null;
             try
             {
