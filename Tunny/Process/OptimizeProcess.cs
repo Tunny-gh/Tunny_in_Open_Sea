@@ -14,8 +14,12 @@ using Tunny.Eto.Common;
 using Tunny.Eto.Models;
 using Tunny.Input;
 using Tunny.PostProcess;
+
+#if NET7_0_MACOS
+#else
 using Tunny.WPF.Common;
 using Tunny.WPF.ViewModels.Optimize;
+#endif
 
 namespace Tunny.Process
 {
@@ -24,9 +28,11 @@ namespace Tunny.Process
         private const string IntermediateValueKey = "intermediate_value_step_";
         internal const string PrunedTrialReportValueKey = "pruned_trial_report_value";
         public static bool IsForcedStopOptimize { get; set; }
-        private static SharedItems SharedItems => SharedItems.Instance;
         private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
 
+#if NET7_0_MACOS
+#else
+        private static SharedItems SharedItems => SharedItems.Instance;
         internal async static Task RunAsync(OptimizeViewModel optimizeViewModel)
         {
             TLog.MethodStart();
@@ -103,6 +109,7 @@ namespace Tunny.Process
 
             return variables;
         }
+#endif
 
         private static Objective SetObjectives()
         {
@@ -142,7 +149,7 @@ namespace Tunny.Process
 
         private static void PrunerProgress(ProgressState pState, ref int step, ref DateTime timer)
         {
-            if (SharedItems.Instance.Settings.Pruner.IsEnabled
+            if (CommonSharedItems.Instance.Settings.Pruner.IsEnabled
                 && pState.Pruner.GetPrunerStatus() == PrunerStatus.Runnable
                 && DateTime.Now - timer > TimeSpan.FromSeconds(pState.Pruner.EvaluateIntervalSeconds))
             {
