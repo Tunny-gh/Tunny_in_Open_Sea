@@ -42,7 +42,7 @@ namespace Tunny.Component.Optimizer
                 var mainWindow = new MainWindow(this);
                 mainWindow.Show();
 #endif
-                var eto = new EtoMainWindow();
+                var eto = new EtoMainWindow(this);
                 eto.Show();
                 eto.Topmost = true;
             }
