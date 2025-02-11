@@ -9,7 +9,7 @@ using Tunny.Eto.ViewModels;
 
 namespace Tunny.Eto.Views
 {
-    internal class TargetStudyNameSelector : Dialog
+    internal sealed class TargetStudyNameSelector : Dialog
     {
         public DropDown StudyNameDropDown { get; set; }
         public TargetStudyNameSelectorViewModel ViewModel { get; }
