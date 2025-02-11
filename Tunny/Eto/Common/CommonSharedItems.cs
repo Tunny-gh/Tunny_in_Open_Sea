@@ -1,16 +1,13 @@
 using System;
-using System.Collections.Generic;
 
 using Grasshopper.GUI;
-
-using Optuna.Trial;
 
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
 
-namespace Tunny.CommonUI
+namespace Tunny.Eto.Common
 {
     internal sealed class CommonSharedItems
     {

@@ -1,10 +1,10 @@
 ﻿using System.Windows.Controls.Ribbon;
 
-using Tunny.CommonUI;
-using Tunny.CommonUI.Message;
 using Tunny.Component.Optimizer;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
+using Tunny.Eto.Message;
 using Tunny.WPF.Common;
 using Tunny.WPF.ViewModels;
 

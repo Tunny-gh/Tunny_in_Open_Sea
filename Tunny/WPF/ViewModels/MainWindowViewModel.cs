@@ -6,11 +6,12 @@ using System.Windows.Input;
 using Prism.Commands;
 using Prism.Mvvm;
 
-using Tunny.CommonUI;
-using Tunny.CommonUI.Message;
 using Tunny.Core.Settings;
 using Tunny.Core.TEnum;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
+using Tunny.Eto.Message;
+using Tunny.Eto.Views;
 using Tunny.WPF.Common;
 using Tunny.WPF.ViewModels.Optimize;
 using Tunny.WPF.ViewModels.Visualize;
@@ -19,7 +20,6 @@ using Tunny.WPF.Views.Pages.Expert;
 using Tunny.WPF.Views.Pages.Optimize;
 using Tunny.WPF.Views.Pages.Output;
 using Tunny.WPF.Views.Pages.Visualize;
-using Tunny.WPF.Views.Windows;
 
 namespace Tunny.WPF.ViewModels
 {
@@ -360,7 +360,7 @@ namespace Tunny.WPF.ViewModels
         {
             TLog.MethodStart();
             var selector = new TargetStudyNameSelector();
-            selector.Show();
+            selector.ShowModal();
         }
 
         public void Dispose()

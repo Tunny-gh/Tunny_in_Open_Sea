@@ -6,11 +6,11 @@ using Grasshopper.GUI;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 
-using Tunny.CommonUI.Message;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
+using Tunny.Eto.Message;
+using Tunny.Eto.Views;
 using Tunny.Resources;
-using Tunny.WPF.Views.Windows;
 
 namespace Tunny.Component.LoadingInstruction
 {
@@ -211,7 +211,7 @@ namespace Tunny.Component.LoadingInstruction
             {
                 settings.Storage.Path = ofd.FileName;
                 var deStudyNameSelector = new TargetStudyNameSelector();
-                deStudyNameSelector.Show();
+                deStudyNameSelector.ShowModal();
             }
         }
 

@@ -2,9 +2,9 @@
 
 using Optuna.Study;
 
-using Tunny.WPF.Models;
+using Tunny.Eto.Models;
 
-namespace Tunny.WPF.Common
+namespace Tunny.Eto.Common
 {
     internal static class Utils
     {

@@ -16,14 +16,14 @@ using Optuna.Util;
 
 using Python.Runtime;
 
-using Tunny.CommonUI;
-using Tunny.CommonUI.Message;
 using Tunny.Core.Handler;
 using Tunny.Core.Input;
 using Tunny.Core.Settings;
 using Tunny.Core.Storage;
 using Tunny.Core.TEnum;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
+using Tunny.Eto.Message;
 using Tunny.Input;
 using Tunny.PostProcess;
 using Tunny.Process;

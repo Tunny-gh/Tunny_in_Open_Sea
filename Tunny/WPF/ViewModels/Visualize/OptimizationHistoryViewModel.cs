@@ -1,8 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
 
 using Tunny.Core.Settings;
-using Tunny.WPF.Models;
+using Tunny.Eto.Models;
 
 namespace Tunny.WPF.ViewModels.Visualize
 {

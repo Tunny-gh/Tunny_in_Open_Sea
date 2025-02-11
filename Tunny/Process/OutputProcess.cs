@@ -3,11 +3,11 @@ using System.Linq;
 
 using Optuna.Trial;
 
-using Tunny.CommonUI;
-using Tunny.CommonUI.Message;
 using Tunny.Component.Optimizer;
 using Tunny.Core.Solver;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
+using Tunny.Eto.Message;
 using Tunny.Type;
 
 namespace Tunny.Process

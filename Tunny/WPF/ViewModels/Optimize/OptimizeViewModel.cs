@@ -14,13 +14,14 @@ using Prism.Mvvm;
 
 using Rhino.Display;
 
-using Tunny.CommonUI;
-using Tunny.CommonUI.Message;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.Storage;
 using Tunny.Core.TEnum;
 using Tunny.Core.Util;
+using Tunny.Eto.Common;
+using Tunny.Eto.Message;
+using Tunny.Eto.Models;
 using Tunny.Process;
 using Tunny.WPF.Common;
 using Tunny.WPF.Models;

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dialog
+    xmlns="http://schema.picoe.ca/eto.forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Target Study Name Selector"
+    MinimumSize="400,200"
+    Resizable="False"
+    BackgroundColor="AliceBlue"
+    Padding="30">
+
+    <StackLayout
+        HorizontalContentAlignment="Center"
+        Spacing="30">
+
+        <Label
+            Text="Please select target StudyName"
+            Font="Sans,15"
+            TextAlignment="Center"
+            Width="400"
+            VerticalAlignment="Center" />
+
+        <DropDown
+            x:Name="StudyNameDropDown"
+            Width="320" />
+
+        <StackLayout
+            Orientation="Horizontal"
+            HorizontalContentAlignment="Center"
+            Spacing="20">
+
+            <Button
+                Text="OK"
+                Width="100"
+                Command="{Binding OKCommand}" />
+
+            <Button
+                Text="Cancel"
+                Width="100"
+                Command="{Binding CancelCommand}" />
+
+        </StackLayout>
+    </StackLayout>
+</Dialog>
