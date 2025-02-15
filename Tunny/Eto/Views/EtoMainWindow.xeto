@@ -1,24 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Form
     xmlns="http://schema.picoe.ca/eto.forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Tunny mac version"
+    Title="🐟 Tunny 🐟"
     BackgroundColor="#F0F4F8"
-    MinimumSize="300, 200">
+    Maximizable="False"
+    MinimumSize="300, 250"
+    Resizable="False">
 
     <TableLayout Padding="10" Spacing="5,5">
         <TableRow>
-            <Label Text="Select the optimization algorithm:"/>
+            <TableLayout Spacing="5,5">
+                <TableRow>
+                    <Label Text="Sampler" />
+                    <ComboBox x:Name="SamplerComboBox" Text="Auto Selection">
+                        <ListItem Key="AUTO" Text="Auto Selection" />
+                        <ListItem Key="TPE" Text="BayesianOptimization: TPE" />
+                        <ListItem Key="NSGAII" Text="GeneticAlgorithm: NSGA-II" />
+                        <ListItem Key="QMC" Text="QMC" />
+                        <ListItem Key="Random" Text="Random" />
+                    </ComboBox>
+                </TableRow>
+            </TableLayout>
         </TableRow>
         <TableRow>
-             <ComboBox x:Name="SamplerComboBox">
-                <ListItem>BayesianOptimization: TPE</ListItem>
-                <ListItem>GeneticAlgorithm: NSGA-II</ListItem>
-                <ListItem>Random</ListItem>
-             </ComboBox>
+            <TableLayout Spacing="5,5">
+                <TableRow>
+                    <Label Text="Number of trials:" />
+                    <NumericStepper x:Name="NumTrials" Value="100" />
+                </TableRow>
+            </TableLayout>
         </TableRow>
         <TableRow>
-            <TableLayout Padding="10" Spacing="5,5">
+            <GroupBox Text="Study Settings">
+                <TableLayout Padding="10" Spacing="5,5">
+                    <TableRow>
+                        <Label Text="Name" />
+                        <TextBox x:Name="StudyName" Text="AUTO" />
+                    </TableRow>
+                    <TableRow>
+                        <TableLayout Spacing="5,5">
+                            <TableRow>
+                                <TableCell>
+                                    <CheckBox
+                                        x:Name="ContinueCheckBox"
+                                        Checked="False"
+                                        CheckedChanged="ContinueCheckBox_CheckedChanged"
+                                        Text="Continue" />
+                                </TableCell>
+                            </TableRow>
+                        </TableLayout>
+                        <ComboBox x:Name="ExistStudyComboBox" Enabled="False" />
+                    </TableRow>
+                </TableLayout>
+            </GroupBox>
+        </TableRow>
+        <TableRow>
+            <TableLayout Padding="10,0" Spacing="10,5">
                 <TableRow>
                     <TableCell ScaleWidth="True">
                         <Button x:Name="RunButton">Run</Button>
@@ -30,19 +68,21 @@
             </TableLayout>
         </TableRow>
         <TableRow>
-            <TableCell/>  <!-- spacer -->
+            <TableCell />  
+            <!--  spacer  -->
         </TableRow>
         <TableRow>
-            <Label Text="Results:"/>
+            <ProgressBar
+                x:Name="ProgressBar"
+                MaxValue="100"
+                MinValue="0" />
         </TableRow>
         <TableRow>
-            <ProgressBar x:Name="ProgressBar" MinValue="0" MaxValue="100"/>
+            <TableCell />  
+            <!--  spacer  -->
         </TableRow>
         <TableRow>
-            <TableCell/>  <!-- spacer -->
-        </TableRow>
-        <TableRow>
-            <Button x:Name="PlotButton" Width="50">Show optuna-dashboard</Button>
+            <Button x:Name="PlotButton">Check Opitimization in Optuna-Dashboard</Button>
         </TableRow>
     </TableLayout>
 </Form>

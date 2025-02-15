@@ -2,9 +2,12 @@ using System;
 
 using Grasshopper.GUI;
 
+using Optuna.Study;
+
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
+using Tunny.Core.Storage;
 using Tunny.Core.Util;
 using Tunny.Eto.Views;
 

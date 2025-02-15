@@ -1,15 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-using Grasshopper.GUI;
-
 using Optuna.Study;
 using Optuna.Trial;
 
-using Tunny.Component.Optimizer;
-using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.Solver;
 using Tunny.Core.Storage;
