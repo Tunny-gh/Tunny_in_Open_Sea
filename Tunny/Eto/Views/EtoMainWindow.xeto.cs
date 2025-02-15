@@ -6,6 +6,7 @@ using Eto.Forms;
 using Eto.Serialization.Xaml;
 
 using Tunny.Component.Optimizer;
+using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.Util;
 using Tunny.Eto.Common;
@@ -87,15 +88,32 @@ namespace Tunny.Eto.Views
             SamplerComboBox.Enabled = false;
             ProgressBar.Value = 0;
 
+            CoSharedItems.AddProgress(CreateProgressAction());
+
             CoSharedItems.Settings.Optimize.SamplerType = Core.TEnum.SamplerType.TPE;
             await EtoOptimizeProcess.RunAsync(this);
+
+            UpdateUIStates();
+        }
+
+        private Progress<ProgressState> CreateProgressAction()
+        {
+            return new Progress<ProgressState>(value =>
+            {
+                TLog.MethodStart();
+                CoSharedItems.Component.UpdateGrasshopper(value);
+                ProgressBar.Value = value.PercentComplete;
+            });
         }
 
         private void StopButton_Click(object sender, EventArgs e)
         {
-            // 最適化処理の停止ロジックを実装
+            UpdateUIStates();
+        }
 
-            // UIの状態を元に戻す            RunButton.Enabled = true;
+        private void UpdateUIStates()
+        {
+            RunButton.Enabled = true;
             StopButton.Enabled = false;
             SamplerComboBox.Enabled = true;
         }
