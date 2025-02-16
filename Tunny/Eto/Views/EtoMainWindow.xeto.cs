@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 
 using Eto.Forms;
@@ -20,6 +21,7 @@ namespace Tunny.Eto.Views
 {
     public class EtoMainWindow : Form
     {
+        public bool IsLoadCorrectly { get; private set; }
         public ComboBox SamplerComboBox { get; set; }
         public Button RunButton { get; set; }
         public Button StopButton { get; set; }
@@ -30,6 +32,7 @@ namespace Tunny.Eto.Views
         public TextBox StudyName { get; set; }
         public ComboBox ExistStudyComboBox { get; set; }
 
+        private System.Diagnostics.Process _dashboardProcess;
         private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
 
         public EtoMainWindow(OptimizeComponentBase component)
@@ -55,6 +58,36 @@ namespace Tunny.Eto.Views
 
             LoadComplete += EtoMainWindow_LoadComplete;
             Closing += EtoMainWindow_Closing;
+            bool result = InstallPython();
+            if (!result)
+            {
+                TunnyMessageBox.Error_RhinoCodePythonNotFound();
+                CoSharedItems.GH_DocumentEditor.EnableUI();
+                IsLoadCorrectly = false;
+            }
+            else
+            {
+                IsLoadCorrectly = true;
+            }
+        }
+
+        private static bool InstallPython()
+        {
+            if (!Directory.Exists(TEnvVariables.PythonPath))
+            {
+                return false;
+            }
+#if MACOS
+            string requirementsPath = Path.Combine(TEnvVariables.ComponentFolder, "Lib", "requirements_mac.txt");
+            var installer = new System.Diagnostics.Process();
+            installer.StartInfo.FileName = Path.Combine(TEnvVariables.PythonPath, "bin", "pip");
+            installer.StartInfo.Arguments = "install -r " + requirementsPath;
+            installer.StartInfo.UseShellExecute = false;
+            installer.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            installer.Start();
+            installer.WaitForExit();
+#endif
+            return true;
         }
 
         private void EtoMainWindow_Closing(object sender, CancelEventArgs e)
@@ -156,6 +189,16 @@ namespace Tunny.Eto.Views
         private void StopButton_Click(object sender, EventArgs e)
         {
             TLog.MethodStart();
+            CoSharedItems.IsForcedStopOptimize = true;
+            FileStream fs = null;
+            try
+            {
+                fs = File.Create(TEnvVariables.QuitFishingPath);
+            }
+            finally
+            {
+                fs?.Dispose();
+            }
             UpdateUIStates();
         }
 
@@ -190,8 +233,9 @@ namespace Tunny.Eto.Views
             string dashboardPath = TEnvVariables.DashboardPath;
             string storagePath = CommonSharedItems.Instance.Settings.Storage.Path;
 
+            _dashboardProcess?.Kill();
             var dashboard = new Optuna.Dashboard.Handler(dashboardPath, storagePath);
-            dashboard.Run(true);
+            _dashboardProcess = dashboard.Run(true);
         }
 
         public void UpdateProgress(int value)

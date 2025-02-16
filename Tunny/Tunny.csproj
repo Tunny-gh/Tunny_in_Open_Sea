@@ -83,6 +83,10 @@
     <Compile Remove="WPF\**" />
     <EmbeddedResource Remove="WPF\**" />
     <None Remove="WPF\**" />
+    <None Update="Lib\requirements_mac.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
   </ItemGroup>
 
   <!-- common nuget items -->

@@ -85,7 +85,7 @@ namespace Optuna.Dashboard
             }
         }
 
-        public void Run(bool openBrowser, string path = "")
+        public Process Run(bool openBrowser, string path = "")
         {
             KillExistDashboardProcess();
             string argument = $"{_storage} --host {_host} --port {_port} --artifact-dir \"{_artifactDir}\"";
@@ -101,6 +101,8 @@ namespace Optuna.Dashboard
             {
                 OpenBrowser(path);
             }
+
+            return dashboard;
         }
 
         private void OpenBrowser(string path)
