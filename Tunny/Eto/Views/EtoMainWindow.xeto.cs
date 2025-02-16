@@ -175,6 +175,16 @@ namespace Tunny.Eto.Views
         private void StopButton_Click(object sender, EventArgs e)
         {
             TLog.MethodStart();
+            CoSharedItems.IsForcedStopOptimize = true;
+            FileStream fs = null;
+            try
+            {
+                fs = File.Create(TEnvVariables.QuitFishingPath);
+            }
+            finally
+            {
+                fs?.Dispose();
+            }
             UpdateUIStates();
         }
 
