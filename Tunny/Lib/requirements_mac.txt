@@ -4,6 +4,7 @@ bottle==0.13.2
 certifi==2024.8.30
 cffi==1.17.1
 charset-normalizer==3.4.1
+cmaes==0.11.1
 colorlog==6.9.0
 cryptography==44.0.0
 Deprecated==1.2.18
@@ -28,7 +29,6 @@ optuna==4.2.0
 optuna-dashboard==0.17.0
 optunahub==0.2.0
 packaging==24.2
-pip==25.0.1
 plotly==6.0.0
 pycparser==2.22
 PyGithub==2.5.0
