@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 
 using Eto.Forms;
@@ -30,6 +31,7 @@ namespace Tunny.Eto.Views
         public TextBox StudyName { get; set; }
         public ComboBox ExistStudyComboBox { get; set; }
 
+        private System.Diagnostics.Process _dashboardProcess;
         private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
 
         public EtoMainWindow(OptimizeComponentBase component)
@@ -53,8 +55,25 @@ namespace Tunny.Eto.Views
                 CoSharedItems.Settings = settings;
             }
 
+            InstallPython();
+
             LoadComplete += EtoMainWindow_LoadComplete;
             Closing += EtoMainWindow_Closing;
+        }
+
+        private static void InstallPython()
+        {
+#if MACOS
+            string requirementsPath = Path.Combine(TEnvVariables.ComponentFolder, "Lib", "requirements_mac.txt");
+            var installer = new System.Diagnostics.Process();
+            installer.StartInfo.FileName = Path.Combine(TEnvVariables.PythonPath, "bin", "pip");
+            installer.StartInfo.Arguments = "install -r " + requirementsPath;
+            installer.StartInfo.UseShellExecute = false;
+            installer.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+            installer.Start();
+
+            installer.WaitForExit();
+#endif
         }
 
         private void EtoMainWindow_Closing(object sender, CancelEventArgs e)
@@ -190,8 +209,9 @@ namespace Tunny.Eto.Views
             string dashboardPath = TEnvVariables.DashboardPath;
             string storagePath = CommonSharedItems.Instance.Settings.Storage.Path;
 
+            _dashboardProcess?.Kill();
             var dashboard = new Optuna.Dashboard.Handler(dashboardPath, storagePath);
-            dashboard.Run(true);
+            _dashboardProcess = dashboard.Run(true);
         }
 
         public void UpdateProgress(int value)
