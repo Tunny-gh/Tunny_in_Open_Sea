@@ -8,6 +8,8 @@ using Grasshopper.Kernel;
 using Tunny.Core.Util;
 using Tunny.Eto.Common;
 using Tunny.Eto.Message;
+using Tunny.Eto.Views;
+
 
 #if WINDOWS
 using Tunny.WPF;
@@ -40,6 +42,9 @@ namespace Tunny.Component.Optimizer
                 var mainWindow = new MainWindow(this);
                 mainWindow.Show();
 #endif
+                var eto = new EtoMainWindow(this);
+                eto.Show();
+                eto.Topmost = true;
             }
         }
 

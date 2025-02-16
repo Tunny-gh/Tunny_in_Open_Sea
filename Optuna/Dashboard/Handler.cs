@@ -1,6 +1,9 @@
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Optuna.Dashboard
 {
@@ -18,13 +21,43 @@ namespace Optuna.Dashboard
             _dashboardPath = dashboardPath;
             _storage = GetStorageArgument(storagePath);
             _host = host;
-            _port = port;
+            _port = FindAvailablePort(port);
             _artifactDir = artifactDir ?? Path.GetDirectoryName(storagePath) + "/artifacts";
             if (!Directory.Exists(_artifactDir))
             {
                 Directory.CreateDirectory(_artifactDir);
             }
         }
+
+        private string FindAvailablePort(string initialPort)
+        {
+            int port = int.Parse(initialPort, NumberStyles.Integer, CultureInfo.InvariantCulture);
+            const int MAX_PORT = 65535;
+
+            while (port <= MAX_PORT)
+            {
+                try
+                {
+                    var tcpListener = new TcpListener(IPAddress.Parse(_host), port);
+                    try
+                    {
+                        tcpListener.Start();
+                        tcpListener.Stop();
+                        return port.ToString(CultureInfo.InvariantCulture);
+                    }
+                    finally
+                    {
+                        tcpListener.Server.Close();
+                    }
+                }
+                catch (SocketException)
+                {
+                    port++;
+                }
+            }
+            throw new InvalidOperationException("No available port found.");
+        }
+
 
         private static void CheckFileExist(string dashboardPath, string storagePath)
         {

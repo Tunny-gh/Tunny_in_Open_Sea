@@ -1,6 +1,5 @@
 using System;
 
-using Eto.Drawing;
 using Eto.Forms;
 using Eto.Serialization.Xaml;
 

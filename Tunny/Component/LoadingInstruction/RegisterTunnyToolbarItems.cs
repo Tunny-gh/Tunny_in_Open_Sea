@@ -154,8 +154,8 @@ namespace Tunny.Component.LoadingInstruction
         {
             TLog.MethodStart();
             TLog.Debug("OptunaDashboardToolStripMenuItem Clicked");
-            string pythonDirectory = Path.Combine(TEnvVariables.TunnyEnvPath, "python");
-            string dashboardPath = Path.Combine(pythonDirectory, "Scripts", "optuna-dashboard.exe");
+            string pythonDirectory = TEnvVariables.PythonPath;
+            string dashboardPath = TEnvVariables.DashboardPath;
 
             if (!Directory.Exists(pythonDirectory) && !File.Exists(dashboardPath))
             {

@@ -2,10 +2,14 @@ using System;
 
 using Grasshopper.GUI;
 
+using Optuna.Study;
+
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
+using Tunny.Core.Storage;
 using Tunny.Core.Util;
+using Tunny.Eto.Views;
 
 namespace Tunny.Eto.Common
 {
@@ -23,6 +27,7 @@ namespace Tunny.Eto.Common
         internal TSettings Settings { get; set; }
         internal GH_DocumentEditor GH_DocumentEditor { get; set; }
         internal bool IsForcedStopOptimize { get; set; }
+        internal EtoMainWindow EtoWindow;
 
         private IProgress<ProgressState> _progress;
 

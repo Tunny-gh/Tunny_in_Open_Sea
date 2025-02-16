@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Form
+    xmlns="http://schema.picoe.ca/eto.forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="🐟 Tunny 🐟"
+    BackgroundColor="#F0F4F8"
+    Maximizable="False"
+    MinimumSize="300, 250"
+    Resizable="False">
+
+    <TableLayout Padding="10" Spacing="5,5">
+        <TableRow>
+            <TableLayout Spacing="5,5">
+                <TableRow>
+                    <Label Text="Sampler" />
+                    <ComboBox x:Name="SamplerComboBox" Text="Auto Selection">
+                        <ListItem Key="AUTO" Text="Auto Selection" />
+                        <ListItem Key="TPE" Text="BayesianOptimization: TPE" />
+                        <ListItem Key="NSGAII" Text="GeneticAlgorithm: NSGA-II" />
+                        <ListItem Key="QMC" Text="QMC" />
+                        <ListItem Key="Random" Text="Random" />
+                    </ComboBox>
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+        <TableRow>
+            <TableLayout Spacing="5,5">
+                <TableRow>
+                    <Label Text="Number of trials:" />
+                    <NumericStepper x:Name="NumTrials" Value="100" />
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+        <TableRow>
+            <GroupBox Text="Study Settings">
+                <TableLayout Padding="10" Spacing="5,5">
+                    <TableRow>
+                        <Label Text="Name" />
+                        <TextBox x:Name="StudyName" Text="AUTO" />
+                    </TableRow>
+                    <TableRow>
+                        <TableLayout Spacing="5,5">
+                            <TableRow>
+                                <TableCell>
+                                    <CheckBox
+                                        x:Name="ContinueCheckBox"
+                                        Checked="False"
+                                        CheckedChanged="ContinueCheckBox_CheckedChanged"
+                                        Text="Continue" />
+                                </TableCell>
+                            </TableRow>
+                        </TableLayout>
+                        <ComboBox x:Name="ExistStudyComboBox" Enabled="False" />
+                    </TableRow>
+                </TableLayout>
+            </GroupBox>
+        </TableRow>
+        <TableRow>
+            <TableLayout Padding="10,0" Spacing="10,5">
+                <TableRow>
+                    <TableCell ScaleWidth="True">
+                        <Button x:Name="RunButton">Run</Button>
+                    </TableCell>
+                    <TableCell ScaleWidth="True">
+                        <Button x:Name="StopButton">Stop</Button>
+                    </TableCell>
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+        <TableRow>
+            <TableCell />  
+            <!--  spacer  -->
+        </TableRow>
+        <TableRow>
+            <ProgressBar
+                x:Name="ProgressBar"
+                MaxValue="100"
+                MinValue="0" />
+        </TableRow>
+        <TableRow>
+            <TableCell />  
+            <!--  spacer  -->
+        </TableRow>
+        <TableRow>
+            <Button x:Name="PlotButton">Check Opitimization in Optuna-Dashboard</Button>
+        </TableRow>
+    </TableLayout>
+</Form>

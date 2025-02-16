@@ -5,7 +5,7 @@
     Title="Target Study Name Selector"
     MinimumSize="400,200"
     Resizable="False"
-    BackgroundColor="AliceBlue"
+    BackgroundColor="#F0F4F8"
     Padding="30">
 
     <StackLayout
