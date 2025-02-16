@@ -7,6 +7,16 @@ namespace Tunny.Eto.Message
 {
     internal static partial class TunnyMessageBox
     {
+        internal static void Error_RhinoCodePythonNotFound()
+        {
+            TLog.MethodStart();
+            Show(
+                "RhinoCode Python is not found. \n\nWhen the Python3 component is placed in Grasshopper, RhinoCode Python is automatically installed.",
+                "Tunny",
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
+        }
+
         internal static void Error_NoArtifactFound()
         {
             TLog.MethodStart();

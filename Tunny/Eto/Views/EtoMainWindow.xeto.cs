@@ -21,6 +21,7 @@ namespace Tunny.Eto.Views
 {
     public class EtoMainWindow : Form
     {
+        public bool IsLoadCorrectly { get; private set; }
         public ComboBox SamplerComboBox { get; set; }
         public Button RunButton { get; set; }
         public Button StopButton { get; set; }
@@ -55,14 +56,27 @@ namespace Tunny.Eto.Views
                 CoSharedItems.Settings = settings;
             }
 
-            InstallPython();
-
             LoadComplete += EtoMainWindow_LoadComplete;
             Closing += EtoMainWindow_Closing;
+            bool result = InstallPython();
+            if (!result)
+            {
+                TunnyMessageBox.Error_RhinoCodePythonNotFound();
+                CoSharedItems.GH_DocumentEditor.EnableUI();
+                IsLoadCorrectly = false;
+            }
+            else
+            {
+                IsLoadCorrectly = true;
+            }
         }
 
-        private static void InstallPython()
+        private static bool InstallPython()
         {
+            if (!Directory.Exists(TEnvVariables.PythonPath))
+            {
+                return false;
+            }
 #if MACOS
             string requirementsPath = Path.Combine(TEnvVariables.ComponentFolder, "Lib", "requirements_mac.txt");
             var installer = new System.Diagnostics.Process();
@@ -71,9 +85,9 @@ namespace Tunny.Eto.Views
             installer.StartInfo.UseShellExecute = false;
             installer.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
             installer.Start();
-
             installer.WaitForExit();
 #endif
+            return true;
         }
 
         private void EtoMainWindow_Closing(object sender, CancelEventArgs e)

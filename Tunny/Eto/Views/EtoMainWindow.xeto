@@ -62,13 +62,13 @@
                         <Button x:Name="RunButton">Run</Button>
                     </TableCell>
                     <TableCell ScaleWidth="True">
-                        <Button x:Name="StopButton">Stop</Button>
+                        <Button x:Name="StopButton" Enabled="False">Stop</Button>
                     </TableCell>
                 </TableRow>
             </TableLayout>
         </TableRow>
         <TableRow>
-            <TableCell />  
+            <TableCell />
             <!--  spacer  -->
         </TableRow>
         <TableRow>
@@ -78,11 +78,11 @@
                 MinValue="0" />
         </TableRow>
         <TableRow>
-            <TableCell />  
+            <TableCell />
             <!--  spacer  -->
         </TableRow>
         <TableRow>
-            <Button x:Name="PlotButton">Check Opitimization in Optuna-Dashboard</Button>
+            <Button x:Name="PlotButton">Check Optimization in Optuna-Dashboard</Button>
         </TableRow>
     </TableLayout>
 </Form>
