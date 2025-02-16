@@ -9,7 +9,7 @@ using Tunny.Core.Util;
 using Tunny.Eto.Common;
 using Tunny.Eto.Message;
 
-#if MAC
+#if MACOS
 using Tunny.Eto.Views;
 #else
 using Tunny.WPF;
@@ -38,7 +38,7 @@ namespace Tunny.Component.Optimizer
             }
             else
             {
-#if MAC
+#if MACOS
                 var eto = new EtoMainWindow(this);
                 if (eto.IsLoadCorrectly)
                 {
