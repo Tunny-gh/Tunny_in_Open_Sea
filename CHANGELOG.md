@@ -24,6 +24,8 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - Other Grasshopper component compatibility check.
 - Support net7.0-windows build
   - For Rhino8
+- Support apple silicon mac Rhino8
+  - using eto UI
 
 ### Changed
 
