@@ -38,7 +38,7 @@
     <Platforms>$(Platform)</Platforms>
     <PlatformName>$(Platform)</PlatformName>
     <PlatformTarget>$(Platform)</PlatformTarget>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+    <CefSharpAnyCpuSupport>false</CefSharpAnyCpuSupport>
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework) == 'net48'">
     <Reference Include="WindowsBase" />
@@ -52,7 +52,9 @@
     <PackageReference Include="System.Resources.Extensions" Version="7.0.0">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
-    <PackageReference Include="CefSharp.Wpf" Version="132.3.11" />
+    <PackageReference Include="CefSharp.Wpf" Version="132.3.11">
+      <PrivateAssets>None</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
   </ItemGroup>
 
@@ -60,10 +62,15 @@
   <PropertyGroup Condition="$(TargetFramework) == 'net7.0-windows'">
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>false</SelfContained>
+    <CefSharpAnyCpuSupport>false</CefSharpAnyCpuSupport>
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework) == 'net7.0-windows'">
     <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
-    <PackageReference Include="CefSharp.Wpf.NETCore" Version="132.3.11" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="132.3.11">
+      <PrivateAssets>none</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
   </ItemGroup>
 

@@ -8,10 +8,10 @@ using Grasshopper.Kernel;
 using Tunny.Core.Util;
 using Tunny.Eto.Common;
 using Tunny.Eto.Message;
+
+#if MAC
 using Tunny.Eto.Views;
-
-
-#if WINDOWS
+#else
 using Tunny.WPF;
 #endif
 
@@ -38,16 +38,17 @@ namespace Tunny.Component.Optimizer
             }
             else
             {
-#if WINDOWS
-                var mainWindow = new MainWindow(this);
-                mainWindow.Show();
-#endif
+#if MAC
                 var eto = new EtoMainWindow(this);
                 if (eto.IsLoadCorrectly)
                 {
                     eto.Show();
                     eto.Topmost = true;
                 }
+#else
+                var mainWindow = new MainWindow(this);
+                mainWindow.Show();
+#endif
             }
         }
 
