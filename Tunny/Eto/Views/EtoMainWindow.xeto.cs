@@ -81,7 +81,7 @@ namespace Tunny.Eto.Views
             string requirementsPath = Path.Combine(TEnvVariables.ComponentFolder, "Lib", "requirements_mac.txt");
             var installer = new System.Diagnostics.Process();
             installer.StartInfo.FileName = Path.Combine(TEnvVariables.PythonPath, "bin", "pip");
-            installer.StartInfo.Arguments = "install -r " + requirementsPath;
+            installer.StartInfo.Arguments = "install -r \"" + requirementsPath + "\"";
             installer.StartInfo.UseShellExecute = false;
             installer.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
             installer.Start();
