@@ -169,5 +169,10 @@ namespace Tunny.Component.Operation
 
         protected override System.Drawing.Bitmap Icon => Resource.ConstructFishAttribute;
         public override Guid ComponentGuid => new Guid("9406666d-db8a-4955-8a6f-4200031e84aa");
+
+        public override void CreateAttributes()
+        {
+            m_attributes = new ConstructFishAttributeAttributes(this);
+        }
     }
 }
