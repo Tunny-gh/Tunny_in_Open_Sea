@@ -7,6 +7,28 @@ namespace Tunny.Eto.Message
 {
     internal static partial class TunnyMessageBox
     {
+        internal static bool Error_ObjectiveHasSomeValue(string nickname)
+        {
+            TLog.MethodStart();
+            Show(
+                $"Objective \"{nickname}\" has some values(List or Tree input). \nPlease connect a single number or FishPrint to the objective.",
+                "Tunny",
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
+            return false;
+        }
+
+        internal static bool Error_ObjectiveIsNull(string nickname)
+        {
+            TLog.MethodStart();
+            Show(
+                $"Objective \"{nickname}\" is null. \nPlease connect a single number or FishPrint to the objective.",
+                "Tunny",
+                MessageBoxButtons.OK,
+                MessageBoxType.Error);
+            return false;
+        }
+
         internal static void Error_RhinoCodePythonNotFound()
         {
             TLog.MethodStart();

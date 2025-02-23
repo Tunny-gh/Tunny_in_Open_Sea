@@ -270,15 +270,7 @@ namespace Tunny.Util
             var unsupportedObjectives = new List<IGH_Param>();
             foreach (IGH_Param param in _component.Params.Input[1].Sources)
             {
-                switch (param)
-                {
-                    case Param_Number _:
-                    case Param_FishPrint _:
-                        break;
-                    default:
-                        unsupportedObjectives.Add(param);
-                        break;
-                }
+                if (!CheckObjectiveValueCount(unsupportedObjectives, param)) { return false; }
             }
             if (unsupportedObjectives.Count > 0)
             {
@@ -286,6 +278,29 @@ namespace Tunny.Util
             }
             if (!CheckObjectiveNicknameDuplication(_component.Params.Input[1].Sources.ToArray())) { return false; }
             _objectives = new Objective(_component.Params.Input[1].Sources.ToList());
+            return true;
+        }
+
+        private static bool CheckObjectiveValueCount(List<IGH_Param> unsupportedObjectives, IGH_Param param)
+        {
+            switch (param)
+            {
+                case Param_Number _:
+                case Param_FishPrint _:
+                    if (param.VolatileDataCount == 0)
+                    {
+                        return TunnyMessageBox.Error_ObjectiveIsNull(param.NickName);
+                    }
+                    else if (param.VolatileDataCount >= 2)
+                    {
+                        return TunnyMessageBox.Error_ObjectiveHasSomeValue(param.NickName);
+                    }
+                    break;
+                default:
+                    unsupportedObjectives.Add(param);
+                    break;
+            }
+
             return true;
         }
 
