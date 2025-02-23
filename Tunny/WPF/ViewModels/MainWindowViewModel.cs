@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -387,6 +388,7 @@ namespace Tunny.WPF.ViewModels
             TLog.MethodStart();
             var installer = new PythonInstaller(this);
             EnableMainFrame = false;
+            _ = Task.Run(() => TunnyMessageBox.Info_PythonInstallStart());
             await installer.RunAsync();
             EnableMainFrame = true;
         }
