@@ -28,6 +28,17 @@ namespace Tunny.Eto.Message
             );
         }
 
+        internal static void Info_PythonInstallStart()
+        {
+            TLog.MethodStart();
+            Show(
+                "Tunny is installing the Python environment.\n\nThe progress bar at the bottom of TunnyUI is progress.\nThis may take a few minutes.",
+                "Installing Python",
+                MessageBoxButtons.OK,
+                MessageBoxType.Information
+            );
+        }
+
         internal static void Info_OptunaDashboardAlreadyInstalled()
         {
             TLog.MethodStart();
