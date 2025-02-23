@@ -26,6 +26,8 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
   - For Rhino8
 - Support apple silicon mac Rhino8
   - using eto UI
+- Objective input values check
+  - if null or list or tree input to objectives, Tunny throw error.
 
 ### Changed
 
