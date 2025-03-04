@@ -5,8 +5,6 @@ using System.Linq;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 
-using LiveChartsCore;
-
 namespace Tunny.Component.Operation
 {
     internal sealed class ConstructFishAttributeAttributes : Tunny_ComponentAttributes
