@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.IO;
 
 using Optuna.Sampler;
 using Optuna.Sampler.OptunaHub;
@@ -34,6 +34,8 @@ namespace Tunny.Core.Settings
         {
             TLog.MethodStart();
             dynamic optunaSampler;
+            dynamic os = Py.Import("os");
+            os.environ["OPTUNAHUB_CACHE_HOME"] = new PyString(Path.Combine(TEnvVariables.TunnyEnvPath, "optunahub"));
             switch (type)
             {
                 case SamplerType.TPE:
