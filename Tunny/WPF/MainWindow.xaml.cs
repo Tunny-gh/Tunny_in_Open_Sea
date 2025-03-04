@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls.Ribbon;
+﻿using System.IO;
+using System.Windows.Controls.Ribbon;
 
 using Tunny.Component.Optimizer;
 using Tunny.Core.Settings;
@@ -30,6 +31,11 @@ namespace Tunny.WPF
             {
                 SharedItems.Settings = settings;
                 CoSharedItems.Settings = settings;
+            }
+
+            if (File.Exists(TEnvVariables.QuitFishingPath))
+            {
+                File.Delete(TEnvVariables.QuitFishingPath);
             }
 
             InitializeComponent();

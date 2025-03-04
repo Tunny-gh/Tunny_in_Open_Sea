@@ -56,6 +56,11 @@ namespace Tunny.Eto.Views
                 CoSharedItems.Settings = settings;
             }
 
+            if (File.Exists(TEnvVariables.QuitFishingPath))
+            {
+                File.Delete(TEnvVariables.QuitFishingPath);
+            }
+
             LoadComplete += EtoMainWindow_LoadComplete;
             Closing += EtoMainWindow_Closing;
             bool result = InstallPython();
