@@ -14,13 +14,15 @@ namespace Optuna.Sampler
         public bool SupportsMultiObjective { get; }
         public bool SupportsConstraint { get; }
         public bool IsSinglePurposeRestricted { get; }
+        public bool RecommendedHumanInTheLoop { get; }
         public int? Seed { get; set; }
 
-        public SamplerBase(bool supportMultiObjective, bool supportConstraint, bool isSinglePurposeRestricted)
+        public SamplerBase(bool supportMultiObjective, bool supportConstraint, bool isSinglePurposeRestricted, bool recommendedHumanInTheLoop)
         {
             SupportsMultiObjective = supportMultiObjective;
             SupportsConstraint = supportConstraint;
             IsSinglePurposeRestricted = isSinglePurposeRestricted;
+            RecommendedHumanInTheLoop = recommendedHumanInTheLoop;
         }
 
         public static dynamic ConstraintFunc()

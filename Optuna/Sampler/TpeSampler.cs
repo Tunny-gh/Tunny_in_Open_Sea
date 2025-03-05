@@ -22,7 +22,7 @@ namespace Optuna.Sampler
         public bool ConstantLiar { get; set; }
 
         public TpeSampler()
-         : base(true, true, false)
+         : base(true, true, false, true)
         {
         }
 

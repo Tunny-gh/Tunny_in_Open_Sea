@@ -18,7 +18,7 @@ namespace Optuna.Sampler.OptunaHub
         public bool ForceReload { get; set; }
 
         public MOEADSampler()
-            : base(true, false, true)
+            : base(true, false, true, false)
         {
         }
 

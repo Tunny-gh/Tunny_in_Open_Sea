@@ -15,7 +15,7 @@ namespace Optuna.Sampler.OptunaHub
         public double SwappingProb { get; set; } = 0.5;
         public bool ForceReload { get; set; }
 
-        public NSGAIISampler() : base(true, true, false)
+        public NSGAIISampler() : base(true, true, false, false)
         {
         }
 

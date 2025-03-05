@@ -8,7 +8,7 @@ namespace Optuna.Sampler
     public class RandomSampler : SamplerBase
     {
         public RandomSampler()
-         : base(true, false, false)
+         : base(true, false, false, false)
         {
         }
 

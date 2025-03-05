@@ -12,7 +12,7 @@ namespace Optuna.Sampler
         public int NStartupTrials { get; set; } = 10;
 
         public BoTorchSampler()
-         : base(true, true, false)
+         : base(true, true, false, false)
         {
         }
 

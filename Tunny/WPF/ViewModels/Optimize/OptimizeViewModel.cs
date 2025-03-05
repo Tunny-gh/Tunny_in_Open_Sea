@@ -22,7 +22,6 @@ using Tunny.Core.Util;
 using Tunny.Eto.Common;
 using Tunny.Eto.Message;
 using Tunny.Eto.Models;
-using Tunny.Process;
 using Tunny.WPF.Common;
 using Tunny.WPF.Models;
 using Tunny.WPF.Views.Pages.Optimize;
@@ -43,6 +42,7 @@ namespace Tunny.WPF.ViewModels.Optimize
         private Lazy<TPESettingsPage> _tpePage;
         private Lazy<GPOptunaSettingsPage> _gpOptunaPage;
         private Lazy<GPBoTorchSettingsPage> _gpBoTorchPage;
+        private Lazy<DESettingsPage> _preferentialGpPage;
         private Lazy<NSGAIISettingsPage> _nsgaiiPage;
         private Lazy<NSGAIIISettingsPage> _nsgaiiiPage;
         private Lazy<CmaEsSettingsPage> _cmaesPage;
@@ -229,6 +229,7 @@ namespace Tunny.WPF.ViewModels.Optimize
             _moeadPage = new Lazy<MOEADSettingsPage>(() => MOEADSettingsPage.FromSettings(_settings));
             _moCmaEsPage = new Lazy<MoCmaEsSettingsPage>(() => MoCmaEsSettingsPage.FromSettings(_settings));
             _dePage = new Lazy<DESettingsPage>(() => DESettingsPage.FromSettings(_settings));
+            _preferentialGpPage = new Lazy<DESettingsPage>(() => DESettingsPage.FromSettings(_settings));
         }
 
         public void ChangeTargetSampler(SamplerType samplerType)
@@ -287,6 +288,10 @@ namespace Tunny.WPF.ViewModels.Optimize
                 case SamplerType.DE:
                     param = _dePage.Value;
                     OptimizeSettingsPage = _dePage.Value;
+                    break;
+                case SamplerType.PreferentialGp:
+                    param = _preferentialGpPage.Value;
+                    OptimizeSettingsPage = _preferentialGpPage.Value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(samplerType), samplerType, null);

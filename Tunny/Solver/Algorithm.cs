@@ -91,7 +91,7 @@ namespace Tunny.Solver
                             HumanSliderInputOptimization(nTrials, timeout, directions, sampler, storage, artifactBackend, out parameter, out result, out study);
                             break;
                         case HumanInTheLoopType.Preferential:
-                            PreferentialOptimization(nTrials, storage, artifactBackend, out parameter, out result, out study);
+                            PreferentialOptimization(nTrials, storage, artifactBackend, sampler, out parameter, out result, out study);
                             break;
                         default:
                             NormalOptimization(nTrials, timeout, directions, sampler, storage, artifactBackend, out parameter, out result, out study);
@@ -104,10 +104,10 @@ namespace Tunny.Solver
             TLog.Debug("Shutdown PythonEngine.");
         }
 
-        private void PreferentialOptimization(int nBatch, dynamic storage, dynamic artifactBackend, out Parameter[] parameter, out TrialGrasshopperItems result, out StudyWrapper study)
+        private void PreferentialOptimization(int nBatch, dynamic storage, dynamic artifactBackend, dynamic sampler, out Parameter[] parameter, out TrialGrasshopperItems result, out StudyWrapper study)
         {
             TLog.MethodStart();
-            var preferentialOpt = new Preferential(TEnvVariables.TmpDirPath, _settings.Storage.Path);
+            var preferentialOpt = new Preferential(TEnvVariables.TmpDirPath, _settings.Storage.Path, sampler);
             if (_objective.Length > 1)
             {
                 TunnyMessageBox.Show("Human-in-the-Loop(Preferential GP optimization) only supports single objective optimization. Optimization is run without considering constraints.", "Tunny");

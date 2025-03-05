@@ -36,6 +36,7 @@ namespace Tunny.Util
         public List<VariableBase> Variables { get; private set; }
         public List<FishEgg> FishEggs { get; private set; }
         public bool IsMultiObjective => Objectives.Length > 1;
+        public bool IsHumanInTheLoop => Objectives.Images.Length > 0;
         public bool IsLoadCorrectly { get; }
         private Objective _objectives;
         public Objective Objectives
