@@ -15,7 +15,7 @@ namespace Optuna.Sampler.Dashboard
             sampler.Exec("from optuna_dashboard.preferential.samplers.gp import PreferentialGPSampler");
             dynamic preferentialGPSampler = sampler.Get("PreferentialGPSampler");
             return preferentialGPSampler(
-                Seed: Seed
+                seed: Seed
             );
         }
     }

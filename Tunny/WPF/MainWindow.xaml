@@ -276,7 +276,7 @@
                         CommandParameter="{x:Static common:SelectSamplerType.PreferentialGp}"
                         Label="GP Preferential"
                         LargeImageSource="{StaticResource Compare}"
-                        SmallImageSource="{StaticResource Compare}" >
+                        SmallImageSource="{StaticResource Compare}">
                         <RibbonButton.IsEnabled>
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />

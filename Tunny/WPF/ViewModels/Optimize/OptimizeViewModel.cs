@@ -42,7 +42,7 @@ namespace Tunny.WPF.ViewModels.Optimize
         private Lazy<TPESettingsPage> _tpePage;
         private Lazy<GPOptunaSettingsPage> _gpOptunaPage;
         private Lazy<GPBoTorchSettingsPage> _gpBoTorchPage;
-        private Lazy<DESettingsPage> _preferentialGpPage;
+        private Lazy<PreferentialGpSettingsPage> _preferentialGpPage;
         private Lazy<NSGAIISettingsPage> _nsgaiiPage;
         private Lazy<NSGAIIISettingsPage> _nsgaiiiPage;
         private Lazy<CmaEsSettingsPage> _cmaesPage;
@@ -229,7 +229,7 @@ namespace Tunny.WPF.ViewModels.Optimize
             _moeadPage = new Lazy<MOEADSettingsPage>(() => MOEADSettingsPage.FromSettings(_settings));
             _moCmaEsPage = new Lazy<MoCmaEsSettingsPage>(() => MoCmaEsSettingsPage.FromSettings(_settings));
             _dePage = new Lazy<DESettingsPage>(() => DESettingsPage.FromSettings(_settings));
-            _preferentialGpPage = new Lazy<DESettingsPage>(() => DESettingsPage.FromSettings(_settings));
+            _preferentialGpPage = new Lazy<PreferentialGpSettingsPage>(() => PreferentialGpSettingsPage.FromSettings(_settings));
         }
 
         public void ChangeTargetSampler(SamplerType samplerType)
@@ -310,6 +310,10 @@ namespace Tunny.WPF.ViewModels.Optimize
                 int numGeneration = total / populationSize;
                 TrialNumberParam1 = numGeneration.ToString(CultureInfo.InvariantCulture);
                 TrialNumberParam2 = populationSize.ToString(CultureInfo.InvariantCulture);
+            }
+            else if (CoSharedItems.Component.GhInOut.IsHumanInTheLoop)
+            {
+                TrialNumberParam1 = "6";
             }
             else
             {

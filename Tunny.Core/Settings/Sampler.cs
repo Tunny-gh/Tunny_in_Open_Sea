@@ -2,6 +2,7 @@ using System;
 using System.IO;
 
 using Optuna.Sampler;
+using Optuna.Sampler.Dashboard;
 using Optuna.Sampler.OptunaHub;
 
 using Python.Runtime;
@@ -29,6 +30,9 @@ namespace Tunny.Core.Settings
         public BoTorchSampler BoTorch { get; set; } = new BoTorchSampler();
         public GPSampler GP { get; set; } = new GPSampler();
         public BruteForceSampler BruteForce { get; set; } = new BruteForceSampler();
+
+        // Optuna Dashboard
+        public PreferentialGpSampler PreferentialGp { get; set; } = new PreferentialGpSampler();
 
         public dynamic ToPython(SamplerType type, string storagePath, bool hasConstraints, PyDict cmaEsX0)
         {
@@ -64,6 +68,9 @@ namespace Tunny.Core.Settings
                     break;
                 case SamplerType.BruteForce:
                     optunaSampler = BruteForce.ToPython();
+                    break;
+                case SamplerType.PreferentialGp:
+                    optunaSampler = PreferentialGp.ToPython();
                     break;
                 case SamplerType.AUTO:
                     optunaSampler = Auto.ToPython(hasConstraints);
