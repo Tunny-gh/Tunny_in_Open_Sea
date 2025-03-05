@@ -76,7 +76,7 @@
 
   <!-- Rhino8-mac -->
   <!-- for ARM64 -->
-  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-macos' And '$(MacArchitecture)' == 'arm64' Or '$(MacArchitecture)' == ''">
+  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-macos' And (('$(MacArchitecture)' == 'arm64') Or ('$(MacArchitecture)' == ''))">
     <ApplicationId>com.hrnstm.tunny</ApplicationId>
     <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>
   </PropertyGroup>
