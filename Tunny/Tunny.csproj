@@ -75,10 +75,17 @@
   </ItemGroup>
 
   <!-- Rhino8-mac -->
-  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-macos'">
+  <!-- for ARM64 -->
+  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-macos' And '$(MacArchitecture)' == 'arm64' Or '$(MacArchitecture)' == ''">
     <ApplicationId>com.hrnstm.tunny</ApplicationId>
     <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>
   </PropertyGroup>
+  <!-- for x64 -->
+  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-macos' And '$(MacArchitecture)' == 'x64'">
+    <ApplicationId>com.hrnstm.tunny</ApplicationId>
+    <RuntimeIdentifier>osx-x64</RuntimeIdentifier>
+  </PropertyGroup>
+  <!-- mac common items -->
   <ItemGroup Condition="$(TargetFramework) == 'net7.0-macos'">
     <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" ExcludeAssets="all" GeneratePathProperty="true" />
@@ -93,7 +100,6 @@
     <None Update="Lib\requirements_mac.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-
   </ItemGroup>
 
   <!-- common nuget items -->

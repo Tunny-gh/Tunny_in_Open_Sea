@@ -24,7 +24,8 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - Other Grasshopper component compatibility check.
 - Support net7.0-windows build
   - For Rhino8
-- Support apple silicon mac Rhino8
+- Support mac Rhino8
+  - Both arm64 and x64
   - using eto UI
 - Objective input values check
   - if null or list or tree input to objectives, Tunny throw error.
@@ -45,7 +46,7 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - Update Grasshopper UI enable/disable timing.
   - Disable when Tunny UI wake up
   - Enable when Tunny UI closed
-- To improve visibility, ConstructFishAttribute is colored.
+- For improve visibility, ConstructFishAttribute is colored.
 - Update optuna v4.2
 - Update python v3.10 to v3.12
 
