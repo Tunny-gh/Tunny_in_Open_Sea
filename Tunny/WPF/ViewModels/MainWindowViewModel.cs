@@ -65,6 +65,13 @@ namespace Tunny.WPF.ViewModels
             MainWindowFrame = _optimizePage;
             EnableMainFrame = true;
             SharedItems.UpdateStudySummaries();
+
+            if (CoSharedItems.Component.GhInOut.IsHumanInTheLoop)
+            {
+                SharedItems.Settings.Optimize.SamplerType = CoSharedItems.Component.GhInOut.IsMultiObjective
+                    ? SamplerType.TPE
+                    : SamplerType.PreferentialGp;
+            }
             _optimizeViewModel.ChangeTargetSampler(SharedItems.Settings.Optimize.SamplerType);
 
             CheckPruner();

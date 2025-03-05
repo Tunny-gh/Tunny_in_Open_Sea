@@ -36,6 +36,10 @@ namespace Tunny.WPF.Common
                 {
                     result = false;
                 }
+                else if (isMultiObjective && !sampler.SupportsMultiObjective)
+                {
+                    result = false;
+                }
             }
             else
             {
