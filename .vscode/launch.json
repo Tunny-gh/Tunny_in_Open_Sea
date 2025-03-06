@@ -2,6 +2,30 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Rhino9 - netcore",
+      "type": "coreclr",
+      "request": "launch",
+      "osx": {
+        "preLaunchTask": "build_net9.0-mac",
+        "program": "/Applications/Rhino 9 WIP.app/Contents/MacOS/Rhinoceros",
+        "args": [
+          "-runscript=_Grasshopper"
+        ]
+      },
+      "windows": {
+        "preLaunchTask": "build_net9.0-win",
+        "program": "C:\\Program Files\\Rhino 9 WIP\\System\\Rhino.exe",
+        "targetArchitecture": "x86_64",
+        "args": "/netcore /nosplash /runscript=\"_Grasshopper\"",
+      },
+      "env": {
+        "RHINO_PACKAGE_DIRS": "${workspaceFolder}/bin/Debug"
+      },
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "stopAtEntry": true
+    },
+    {
       "name": "Rhino8 - netcore",
       "type": "coreclr",
       "request": "launch",
