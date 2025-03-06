@@ -22,9 +22,10 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - ConstructFishEggByCsv component
   - Make it easy to set FishEgg to use csv.
 - Other Grasshopper component compatibility check.
-- Support net7.0-windows build
-  - For Rhino8
-- Support mac Rhino8
+- Support NetCore build
+  - net7 for Rhino8
+  - net9 for Rhino9
+- Support mac Rhino8 and Rhino9
   - Both arm64 and x64
   - using eto UI
 - Objective input values check
