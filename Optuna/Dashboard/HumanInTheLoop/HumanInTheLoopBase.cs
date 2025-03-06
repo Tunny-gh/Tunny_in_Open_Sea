@@ -1,6 +1,7 @@
 using System.IO;
 using System.Reflection;
 
+using Optuna.Artifacts;
 using Optuna.Study;
 using Optuna.Util;
 
@@ -11,12 +12,14 @@ namespace Optuna.Dashboard.HumanInTheLoop
     public class HumanInTheLoopBase
     {
         private protected readonly string _tmpPath;
-        private protected readonly dynamic _artifactPath;
+        internal readonly FileSystemArtifactStoreWrapper ArtifactStore;
 
         public HumanInTheLoopBase(string tmpPath, string storagePath)
         {
             _tmpPath = tmpPath;
-            _artifactPath = Path.Combine(Path.GetDirectoryName(storagePath), "artifacts");
+            string artifactPath = Path.Combine(Path.GetDirectoryName(storagePath), "artifacts");
+            ArtifactStore = new FileSystemArtifactStoreWrapper(artifactPath);
+            CheckDirectoryIsExist(_tmpPath, artifactPath);
         }
 
         public PyModule ImportBaseLibrary()
@@ -65,15 +68,15 @@ namespace Optuna.Dashboard.HumanInTheLoop
             return runningTrialsLength(study.PyInstance);
         }
 
-        public void CheckDirectoryIsExist()
+        public static void CheckDirectoryIsExist(string tmpPath, string artifactPath)
         {
-            if (!Directory.Exists(_artifactPath))
+            if (!Directory.Exists(tmpPath))
             {
-                Directory.CreateDirectory(_artifactPath);
+                Directory.CreateDirectory(tmpPath);
             }
-            if (!Directory.Exists(_tmpPath))
+            if (!Directory.Exists(artifactPath))
             {
-                Directory.CreateDirectory(_tmpPath);
+                Directory.CreateDirectory(artifactPath);
             }
         }
     }

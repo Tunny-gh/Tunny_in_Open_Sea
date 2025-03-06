@@ -12,7 +12,6 @@ namespace Optuna.Dashboard.HumanInTheLoop
     public class HumanSliderInput : HumanInTheLoopBase
     {
         private readonly PyModule _importedLibrary;
-        private readonly dynamic _artifactBackend;
 
         public HumanSliderInput(string tmpPath, string storagePath) : base(tmpPath, storagePath)
         {
@@ -22,11 +21,6 @@ namespace Optuna.Dashboard.HumanInTheLoop
             importedLibrary.Exec("from optuna_dashboard import ObjectiveUserAttrRef");
             importedLibrary.Exec("from optuna_dashboard import register_objective_form_widgets");
             importedLibrary.Exec("from optuna_dashboard import set_objective_names");
-            importedLibrary.Exec("from optuna_dashboard.artifact import upload_artifact");
-            importedLibrary.Exec("from optuna_dashboard.artifact.file_system import FileSystemBackend");
-
-            dynamic fileSystemBackend = importedLibrary.Get("FileSystemBackend");
-            _artifactBackend = fileSystemBackend(base_path: _artifactPath);
             _importedLibrary = importedLibrary;
         }
 
@@ -62,18 +56,16 @@ namespace Optuna.Dashboard.HumanInTheLoop
 
         public void SaveNote(StudyWrapper study, TrialWrapper trial, Bitmap[] bitmaps)
         {
-            dynamic uploadArtifact = _importedLibrary.Get("upload_artifact");
             var noteText = new StringBuilder();
             noteText.AppendLine("# Image");
             noteText.AppendLine("");
 
-            CheckDirectoryIsExist();
             for (int i = 0; i < bitmaps.Length; i++)
             {
                 Bitmap bitmap = bitmaps[i];
-                string path = $"{_tmpPath}/image_{study.Id}_{trial.Id}.png";
-                bitmap?.Save(path, System.Drawing.Imaging.ImageFormat.Png);
-                dynamic artifactId = uploadArtifact(_artifactBackend, trial.PyInstance, path);
+                string filePath = $"{_tmpPath}/image_{trial.Number}.png";
+                bitmap?.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+                string artifactId = ArtifactStore.UploadArtifact(filePath, trial);
                 string str = $"![](/artifacts/{study.Id}/{trial.Id}/{artifactId})";
                 noteText.AppendLine(str);
             }

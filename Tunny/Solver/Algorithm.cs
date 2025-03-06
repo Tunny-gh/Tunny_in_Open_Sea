@@ -129,7 +129,7 @@ namespace Tunny.Solver
             SetStudyUserAttr(study, _variables.Select(v => v.NickName).ToArray(), false);
             HumanInTheLoopBase.WakeOptunaDashboard(_settings.Storage.Path, TEnvVariables.PythonPath);
             optInfo.Preferential = preferentialOpt;
-            RunPreferentialOptimize(optInfo, nBatch, out parameter, out result);
+            RunHumanInTheLoopOptimize(optInfo, nBatch, out parameter, out result);
         }
 
         private void HumanSliderInputOptimization(int nBatch, double timeout, string[] directions, dynamic sampler, dynamic storage, dynamic artifactBackend, out Parameter[] parameter, out TrialGrasshopperItems result, out StudyWrapper study)
@@ -144,7 +144,7 @@ namespace Tunny.Solver
             humanSliderInput.SetObjective(study, objNickName);
             humanSliderInput.SetWidgets(study, objNickName);
             optInfo.HumanSliderInput = humanSliderInput;
-            RunHumanSidlerInputOptimize(optInfo, nBatch, out parameter, out result);
+            RunHumanInTheLoopOptimize(optInfo, nBatch, out parameter, out result);
         }
 
         private bool CheckExistStudyMatching(int nObjective)
@@ -246,33 +246,7 @@ namespace Tunny.Solver
             SaveInMemoryStudy(optInfo.Storage);
         }
 
-        private void RunPreferentialOptimize(OptimizationHandlingInfo optInfo, int nBatch, out Parameter[] parameter, out TrialGrasshopperItems result)
-        {
-            TLog.MethodStart();
-            parameter = new Parameter[_variables.Count];
-            result = new TrialGrasshopperItems();
-            int trialNum = 0;
-            DateTime startTime = DateTime.Now;
-            EnqueueTrial(optInfo.Study, optInfo.EnqueueItems);
-
-            while (true)
-            {
-                if (result == null || CheckOptimizeComplete(optInfo, trialNum, startTime))
-                {
-                    break;
-                }
-                if (HumanInTheLoopBase.GetRunningTrialNumber(optInfo.Study) >= nBatch)
-                {
-                    continue;
-                }
-                result = RunSingleOptimizeStep(optInfo, parameter, trialNum, startTime);
-                trialNum++;
-            }
-
-            SaveInMemoryStudy(optInfo.Storage);
-        }
-
-        private void RunHumanSidlerInputOptimize(OptimizationHandlingInfo optInfo, int nBatch, out Parameter[] parameter, out TrialGrasshopperItems result)
+        private void RunHumanInTheLoopOptimize(OptimizationHandlingInfo optInfo, int nBatch, out Parameter[] parameter, out TrialGrasshopperItems result)
         {
             TLog.MethodStart();
             parameter = new Parameter[_variables.Count];
