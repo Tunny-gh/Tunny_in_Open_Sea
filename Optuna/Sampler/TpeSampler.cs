@@ -30,7 +30,7 @@ namespace Optuna.Sampler
         {
             if (NStartupTrials == -1)
             {
-                NStartupTrials = Math.Min(100, numberOfTrials / 10);
+                NStartupTrials = Math.Max(10, Math.Min(100, numberOfTrials / 10));
             }
         }
 
