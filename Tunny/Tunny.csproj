@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform(Windows))">net48;net7.0-windows</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform(Windows))">net48;net7.0-windows;net9.0-windows</TargetFrameworks>
     <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform(Windows))">net7.0-macos</TargetFrameworks>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <TargetExt>.gha</TargetExt>
@@ -59,14 +59,14 @@
   </ItemGroup>
 
   <!-- Rhino8-win -->
-  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-windows'">
+  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-windows' OR $(TargetFramework) == 'net9.0-windows'">
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>false</SelfContained>
     <CefSharpAnyCpuSupport>false</CefSharpAnyCpuSupport>
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework) == 'net7.0-windows'">
+  <ItemGroup Condition="$(TargetFramework) == 'net7.0-windows' OR $(TargetFramework) == 'net9.0-windows'">
     <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="132.3.11">
       <PrivateAssets>none</PrivateAssets>
