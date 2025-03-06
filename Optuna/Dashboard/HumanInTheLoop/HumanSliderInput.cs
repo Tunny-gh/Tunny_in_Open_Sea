@@ -35,7 +35,7 @@ namespace Optuna.Dashboard.HumanInTheLoop
         public void SetObjective(StudyWrapper study, string[] objectiveNames)
         {
             dynamic setObjectiveNames = _importedLibrary.Get("set_objective_names");
-            PyList pyNameList = EnumeratorToPyList(objectiveNames.Select(s => s.Replace("Human-in-the-Loop", "HITL")));
+            PyList pyNameList = EnumeratorToPyList(objectiveNames);
             setObjectiveNames(study.PyInstance, pyNameList);
         }
 
@@ -50,7 +50,7 @@ namespace Optuna.Dashboard.HumanInTheLoop
             {
                 if (objectiveNames[i].Contains("Human-in-the-Loop"))
                 {
-                    widgets[i] = sliderWidget(min: 1, max: 5, step: 1, description: "Smaller is better");
+                    widgets[i] = sliderWidget(min: 1, max: 5, step: 1, description: "Your rating of the image: Smaller is better👍");
                 }
                 else
                 {
