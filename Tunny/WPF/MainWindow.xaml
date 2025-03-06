@@ -76,6 +76,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -92,6 +93,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -106,6 +108,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -120,6 +123,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -136,6 +140,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -150,6 +155,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -164,6 +170,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -178,6 +185,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -194,6 +202,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -208,6 +217,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -224,6 +234,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -238,6 +249,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -252,6 +264,7 @@
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
                                 <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
                                 <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
@@ -260,11 +273,19 @@
                 <RibbonGroup Header="Human in the loop">
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
-                        CommandParameter="{x:Static common:SelectSamplerType.GpPreferential}"
-                        IsEnabled="False"
+                        CommandParameter="{x:Static common:SelectSamplerType.PreferentialGp}"
                         Label="GP Preferential"
                         LargeImageSource="{StaticResource Compare}"
-                        SmallImageSource="{StaticResource Compare}" />
+                        SmallImageSource="{StaticResource Compare}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                 </RibbonGroup>
                 <RibbonGroup Header="Optuna Hub">
                     <RibbonButton

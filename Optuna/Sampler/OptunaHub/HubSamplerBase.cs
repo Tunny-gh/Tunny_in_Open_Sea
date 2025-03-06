@@ -5,7 +5,7 @@ namespace Optuna.Sampler.OptunaHub
         public bool ForceReload { get; set; }
 
         public HubSamplerBase(bool supportMultiObjective, bool supportConstraint, bool isSinglePurposeRestricted)
-            : base(supportMultiObjective, supportConstraint, isSinglePurposeRestricted)
+            : base(supportMultiObjective, supportConstraint, isSinglePurposeRestricted, false)
         {
         }
     }

@@ -91,7 +91,7 @@ namespace Tunny.Solver
                             HumanSliderInputOptimization(nTrials, timeout, directions, sampler, storage, artifactBackend, out parameter, out result, out study);
                             break;
                         case HumanInTheLoopType.Preferential:
-                            PreferentialOptimization(nTrials, storage, artifactBackend, out parameter, out result, out study);
+                            PreferentialOptimization(nTrials, storage, artifactBackend, sampler, out parameter, out result, out study);
                             break;
                         default:
                             NormalOptimization(nTrials, timeout, directions, sampler, storage, artifactBackend, out parameter, out result, out study);
@@ -104,23 +104,6 @@ namespace Tunny.Solver
             TLog.Debug("Shutdown PythonEngine.");
         }
 
-        private void PreferentialOptimization(int nBatch, dynamic storage, dynamic artifactBackend, out Parameter[] parameter, out TrialGrasshopperItems result, out StudyWrapper study)
-        {
-            TLog.MethodStart();
-            var preferentialOpt = new Preferential(TEnvVariables.TmpDirPath, _settings.Storage.Path);
-            if (_objective.Length > 1)
-            {
-                TunnyMessageBox.Show("Human-in-the-Loop(Preferential GP optimization) only supports single objective optimization. Optimization is run without considering constraints.", "Tunny");
-            }
-            string[] objNickName = _objective.GetNickNames();
-            study = preferentialOpt.CreateStudy(nBatch, _settings.Optimize.StudyName, storage, objNickName[0]);
-            var optInfo = new OptimizationHandlingInfo(int.MaxValue, 0, study, storage, artifactBackend, _fishEgg, objNickName);
-            SetStudyUserAttr(study, _variables.Select(v => v.NickName).ToArray(), false);
-            HumanInTheLoopBase.WakeOptunaDashboard(_settings.Storage.Path, TEnvVariables.PythonPath);
-            optInfo.Preferential = preferentialOpt;
-            RunPreferentialOptimize(optInfo, nBatch, out parameter, out result);
-        }
-
         private void NormalOptimization(int nTrials, double timeout, string[] directions, dynamic sampler, dynamic storage, dynamic artifactBackend, out Parameter[] parameter, out TrialGrasshopperItems result, out StudyWrapper study)
         {
             TLog.MethodStart();
@@ -130,6 +113,23 @@ namespace Tunny.Solver
             var optInfo = new OptimizationHandlingInfo(nTrials, timeout, study, storage, artifactBackend, _fishEgg, objNickName);
             SetStudyUserAttr(study, _variables.Select(v => v.NickName).ToArray());
             RunOptimize(optInfo, out parameter, out result);
+        }
+
+        private void PreferentialOptimization(int nBatch, dynamic storage, dynamic artifactBackend, dynamic sampler, out Parameter[] parameter, out TrialGrasshopperItems result, out StudyWrapper study)
+        {
+            TLog.MethodStart();
+            var preferentialOpt = new Preferential(TEnvVariables.TmpDirPath, _settings.Storage.Path, sampler);
+            if (_objective.Length > 1)
+            {
+                TunnyMessageBox.Warn_PreferentialGpSupportRange();
+            }
+            string[] objNickName = _objective.GetNickNames();
+            study = preferentialOpt.CreateStudy(nBatch, _settings.Optimize.StudyName, storage, objNickName[0]);
+            var optInfo = new OptimizationHandlingInfo(int.MaxValue, 0, study, storage, artifactBackend, _fishEgg, objNickName);
+            SetStudyUserAttr(study, _variables.Select(v => v.NickName).ToArray(), false);
+            HumanInTheLoopBase.WakeOptunaDashboard(_settings.Storage.Path, TEnvVariables.PythonPath);
+            optInfo.Preferential = preferentialOpt;
+            RunHumanInTheLoopOptimize(optInfo, nBatch, out parameter, out result);
         }
 
         private void HumanSliderInputOptimization(int nBatch, double timeout, string[] directions, dynamic sampler, dynamic storage, dynamic artifactBackend, out Parameter[] parameter, out TrialGrasshopperItems result, out StudyWrapper study)
@@ -144,7 +144,7 @@ namespace Tunny.Solver
             humanSliderInput.SetObjective(study, objNickName);
             humanSliderInput.SetWidgets(study, objNickName);
             optInfo.HumanSliderInput = humanSliderInput;
-            RunHumanSidlerInputOptimize(optInfo, nBatch, out parameter, out result);
+            RunHumanInTheLoopOptimize(optInfo, nBatch, out parameter, out result);
         }
 
         private bool CheckExistStudyMatching(int nObjective)
@@ -246,33 +246,7 @@ namespace Tunny.Solver
             SaveInMemoryStudy(optInfo.Storage);
         }
 
-        private void RunPreferentialOptimize(OptimizationHandlingInfo optInfo, int nBatch, out Parameter[] parameter, out TrialGrasshopperItems result)
-        {
-            TLog.MethodStart();
-            parameter = new Parameter[_variables.Count];
-            result = new TrialGrasshopperItems();
-            int trialNum = 0;
-            DateTime startTime = DateTime.Now;
-            EnqueueTrial(optInfo.Study, optInfo.EnqueueItems);
-
-            while (true)
-            {
-                if (result == null || CheckOptimizeComplete(optInfo, trialNum, startTime))
-                {
-                    break;
-                }
-                if (Preferential.GetRunningTrialNumber(optInfo.Study) >= nBatch)
-                {
-                    continue;
-                }
-                result = RunSingleOptimizeStep(optInfo, parameter, trialNum, startTime);
-                trialNum++;
-            }
-
-            SaveInMemoryStudy(optInfo.Storage);
-        }
-
-        private void RunHumanSidlerInputOptimize(OptimizationHandlingInfo optInfo, int nBatch, out Parameter[] parameter, out TrialGrasshopperItems result)
+        private void RunHumanInTheLoopOptimize(OptimizationHandlingInfo optInfo, int nBatch, out Parameter[] parameter, out TrialGrasshopperItems result)
         {
             TLog.MethodStart();
             parameter = new Parameter[_variables.Count];
@@ -342,7 +316,7 @@ namespace Tunny.Solver
 
                 if (nullCount >= 10)
                 {
-                    return TenTimesNullResultErrorMessage();
+                    return TunnyMessageBox.Error_TenTimesNullResultErrorMessage();
                 }
                 else if (result.Objectives.Numbers.Contains(double.NaN))
                 {
@@ -485,18 +459,6 @@ namespace Tunny.Solver
             string message = sb.ToString();
             CommonSharedItems.Instance.Component.SetInfo(message);
             TLog.Info(sb.ToString());
-        }
-
-        private static TrialGrasshopperItems TenTimesNullResultErrorMessage()
-        {
-            TLog.MethodStart();
-            TunnyMessageBox.Show(
-                "The objective function returned NaN 10 times in a row. Tunny terminates the optimization. Please check the objective function.",
-                "Tunny",
-                MessageBoxButtons.OK,
-                MessageBoxType.Error
-            );
-            return null;
         }
 
         private bool CheckOptimizeComplete(OptimizationHandlingInfo optInfo, int trialNum, DateTime startTime)

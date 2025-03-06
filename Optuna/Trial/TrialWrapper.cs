@@ -8,7 +8,7 @@ namespace Optuna.Trial
 {
     public class TrialWrapper
     {
-        public dynamic PyInstance { get; private set; }
+        public dynamic PyInstance { get; }
         public int Id => PyInstance._trial_id;
         public int Number => PyInstance.number;
 
@@ -40,13 +40,13 @@ namespace Optuna.Trial
 
         public void SetUserAttribute(string key, double value)
         {
-            PyInstance.set_system_attr(key, value);
+            PyInstance.set_user_attr(key, value);
         }
 
         public void SetUserAttribute(string key, double[] values)
         {
             PyList valueList = PyConverter.EnumeratorToPyList(values);
-            PyInstance.set_system_attr(key, valueList);
+            PyInstance.set_user_attr(key, valueList);
         }
 
         //TODO: Fix Do not use try-catch block

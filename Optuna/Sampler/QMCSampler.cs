@@ -13,7 +13,7 @@ namespace Optuna.Sampler
         public bool WarnAsynchronousSeeding { get; set; } = true;
 
         public QMCSampler()
-         : base(true, false, false)
+         : base(true, false, false, false)
         {
         }
 

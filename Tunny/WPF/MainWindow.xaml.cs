@@ -29,6 +29,10 @@ namespace Tunny.WPF
             }
             else
             {
+                if (component.GhInOut.IsHumanInTheLoop && component.GhInOut.IsMultiObjective)
+                {
+                    settings.Optimize.Sampler.Tpe.ConstantLiar = true;
+                }
                 SharedItems.Settings = settings;
                 CoSharedItems.Settings = settings;
             }

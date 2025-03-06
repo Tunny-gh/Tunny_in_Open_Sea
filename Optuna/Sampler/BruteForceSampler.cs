@@ -8,7 +8,7 @@ namespace Optuna.Sampler
     public class BruteForceSampler : SamplerBase
     {
         public BruteForceSampler()
-          : base(true, false, false)
+          : base(true, false, false, false)
         {
         }
 

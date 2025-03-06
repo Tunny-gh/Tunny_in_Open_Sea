@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 
 using Optuna.Sampler;
+using Optuna.Sampler.Dashboard;
 using Optuna.Sampler.OptunaHub;
 
 namespace Tunny.WPF.Common
@@ -11,34 +12,49 @@ namespace Tunny.WPF.Common
     {
         public object Convert(object[] values, System.Type targetType, object parameter, CultureInfo culture)
         {
-            if (values == null || values.Length != 3)
+            if (values == null || values.Length != 4)
             {
                 return false;
             }
 
             bool isMultiObjective = (bool)values[0];
             bool hasConstraint = (bool)values[1];
-            var samplerType = (SelectSamplerType)values[2];
+            bool isHumanInTheLoop = (bool)values[2];
+            var samplerType = (SelectSamplerType)values[3];
 
             SamplerBase sampler = GetSelectSampler(samplerType);
 
-            return CheckCanEnable(isMultiObjective, hasConstraint, sampler);
+            return CheckCanEnable(isMultiObjective, hasConstraint, isHumanInTheLoop, sampler);
         }
 
-        private static bool CheckCanEnable(bool isMultiObjective, bool hasConstraint, SamplerBase sampler)
+        private static bool CheckCanEnable(bool isMultiObjective, bool hasConstraint, bool isHumanInTheLoop, SamplerBase sampler)
         {
             bool result = true;
-            if (hasConstraint && !sampler.SupportsConstraint)
+            if (isHumanInTheLoop)
             {
-                result = false;
+                if (!sampler.RecommendedHumanInTheLoop)
+                {
+                    result = false;
+                }
+                else if (isMultiObjective && !sampler.SupportsMultiObjective)
+                {
+                    result = false;
+                }
             }
-            else if (isMultiObjective && !sampler.SupportsMultiObjective)
+            else
             {
-                result = false;
-            }
-            else if (!isMultiObjective && sampler.IsSinglePurposeRestricted)
-            {
-                result = false;
+                if (hasConstraint && !sampler.SupportsConstraint)
+                {
+                    result = false;
+                }
+                else if (isMultiObjective && !sampler.SupportsMultiObjective)
+                {
+                    result = false;
+                }
+                else if (!isMultiObjective && sampler.IsSinglePurposeRestricted)
+                {
+                    result = false;
+                }
             }
             return result;
         }
@@ -57,11 +73,13 @@ namespace Tunny.WPF.Common
                     sampler = new TpeSampler();
                     break;
                 case SelectSamplerType.GpOptuna:
-                case SelectSamplerType.GpPreferential:
                     sampler = new GPSampler();
                     break;
                 case SelectSamplerType.GpBoTorch:
                     sampler = new BoTorchSampler();
+                    break;
+                case SelectSamplerType.PreferentialGp:
+                    sampler = new PreferentialGpSampler();
                     break;
                 case SelectSamplerType.NSGAII:
                     sampler = new NSGAIISampler();

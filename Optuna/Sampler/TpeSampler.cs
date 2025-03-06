@@ -22,7 +22,7 @@ namespace Optuna.Sampler
         public bool ConstantLiar { get; set; }
 
         public TpeSampler()
-         : base(true, true, false)
+         : base(true, true, false, true)
         {
         }
 
@@ -30,7 +30,7 @@ namespace Optuna.Sampler
         {
             if (NStartupTrials == -1)
             {
-                NStartupTrials = Math.Min(100, numberOfTrials / 10);
+                NStartupTrials = Math.Max(10, Math.Min(100, numberOfTrials / 10));
             }
         }
 

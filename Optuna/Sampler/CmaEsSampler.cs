@@ -24,7 +24,7 @@ namespace Optuna.Sampler
         public bool LrAdapt { get; set; }
 
         public CmaEsSampler()
-         : base(false, false, false)
+         : base(false, false, false, false)
         {
         }
 

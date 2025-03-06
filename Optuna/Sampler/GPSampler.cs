@@ -13,7 +13,7 @@ namespace Optuna.Sampler
         public bool DeterministicObjective { get; set; } = true;
 
         public GPSampler()
-         : base(false, true, false)
+         : base(false, true, false, false)
         {
         }
 

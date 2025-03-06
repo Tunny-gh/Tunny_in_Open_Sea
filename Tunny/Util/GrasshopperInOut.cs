@@ -16,6 +16,7 @@ using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
 using Tunny.Component.Params;
+using Tunny.Component.Print;
 using Tunny.Component.Util;
 using Tunny.Core.Input;
 using Tunny.Core.Util;
@@ -36,6 +37,7 @@ namespace Tunny.Util
         public List<VariableBase> Variables { get; private set; }
         public List<FishEgg> FishEggs { get; private set; }
         public bool IsMultiObjective => Objectives.Length > 1;
+        public bool IsHumanInTheLoop => Objectives.Images.Length > 0;
         public bool IsLoadCorrectly { get; }
         private Objective _objectives;
         public Objective Objectives
@@ -465,6 +467,7 @@ namespace Tunny.Util
             SetCategoryValues(categoryParameters);
             ExpireInput(_component.Params.Input[1]); // objectives
             ExpireInput(_component.Params.Input[3]); // artifacts
+            ExpireFishPrint();
             await RecalculateAsync();
             GetObjectives();
             GetFishAttributes();
@@ -486,6 +489,15 @@ namespace Tunny.Util
                 }
                 obj.ExpireSolution(false);
             }
+        }
+
+        private void ExpireFishPrint()
+        {
+            //FishPrintByCapture has no input and will not be recalculated unless intentionally expire.
+            TLog.MethodStart();
+            _document.Objects.OfType<IGH_Component>()
+                .Where(c => c is FishPrintByCapture).ToList()
+                .ForEach(c => c.ExpireSolution(false));
         }
 
         private Dictionary<string, List<string>> FishAttributesToDict()

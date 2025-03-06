@@ -27,5 +27,16 @@ namespace Tunny.Eto.Message
                 MessageBoxType.Warning
             );
         }
+
+        internal static void Warn_PreferentialGpSupportRange()
+        {
+            TLog.MethodStart();
+            Show(
+                "Human-in-the-Loop(Preferential GP optimization) only supports single objective optimization. Optimization is run without considering constraints.",
+                "Tunny",
+                MessageBoxButtons.OK,
+                MessageBoxType.Warning
+            );
+        }
     }
 }

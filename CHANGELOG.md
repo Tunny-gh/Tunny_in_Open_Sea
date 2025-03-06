@@ -67,6 +67,7 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - Delegate initialize error when push run optimize button.
 - If there is not examples dir in .tunny_env, tunny throw exception when Loading instruction.
 - Use try-catch syntax to avoid LoadingInstruction exception.
+- Same capture is saved when using FishPrintByCapture.
 
 ### Security
 

@@ -4,8 +4,8 @@ namespace Optuna.Sampler
 {
     public class GASamplerBase : SamplerBase
     {
-        public GASamplerBase(bool supportMultiObjective, bool supportConstraint, bool isSinglePurposeRestricted)
-         : base(supportMultiObjective, supportConstraint, isSinglePurposeRestricted)
+        public GASamplerBase(bool supportMultiObjective, bool supportConstraint, bool isSinglePurposeRestricted, bool recommendedHumanInTheLoop)
+         : base(supportMultiObjective, supportConstraint, isSinglePurposeRestricted, recommendedHumanInTheLoop)
         {
         }
 

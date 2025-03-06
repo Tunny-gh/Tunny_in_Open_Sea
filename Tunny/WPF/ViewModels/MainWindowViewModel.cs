@@ -36,6 +36,8 @@ namespace Tunny.WPF.ViewModels
         private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
         private bool _isMultiObjective;
         public bool IsMultiObjective { get => _isMultiObjective; set => SetProperty(ref _isMultiObjective, value); }
+        private bool _isHumanInTheLoop;
+        public bool IsHumanInTheLoop { get => _isHumanInTheLoop; set => SetProperty(ref _isHumanInTheLoop, value); }
         private bool _hasConstraint;
         public bool HasConstraint { get => _hasConstraint; set => SetProperty(ref _hasConstraint, value); }
         private Page _mainWindowFrame;
@@ -50,6 +52,7 @@ namespace Tunny.WPF.ViewModels
             _helpPage = new Lazy<HelpPage>();
             _expertPage = new Lazy<ExpertPage>();
             IsMultiObjective = CoSharedItems.Component.GhInOut.IsMultiObjective;
+            IsHumanInTheLoop = CoSharedItems.Component.GhInOut.IsHumanInTheLoop;
             HasConstraint = CoSharedItems.Component.GhInOut.HasConstraint;
             UpdateTitle();
             ReportProgress("Welcome 🐟Tunny🐟 The next-gen Grasshopper optimization tool ", 0);
@@ -62,6 +65,13 @@ namespace Tunny.WPF.ViewModels
             MainWindowFrame = _optimizePage;
             EnableMainFrame = true;
             SharedItems.UpdateStudySummaries();
+
+            if (CoSharedItems.Component.GhInOut.IsHumanInTheLoop)
+            {
+                SharedItems.Settings.Optimize.SamplerType = CoSharedItems.Component.GhInOut.IsMultiObjective
+                    ? SamplerType.TPE
+                    : SamplerType.PreferentialGp;
+            }
             _optimizeViewModel.ChangeTargetSampler(SharedItems.Settings.Optimize.SamplerType);
 
             CheckPruner();
@@ -71,7 +81,8 @@ namespace Tunny.WPF.ViewModels
         private void UpdateTitle()
         {
             string storagePath = SharedItems.Settings.Storage.Path;
-            string modeText = IsMultiObjective ? "Multi-Objective" : "Single-Objective";
+            string modeText = IsHumanInTheLoop ? "Human-In-The-Loop: " : string.Empty;
+            modeText += IsMultiObjective ? "Multi-Objective" : "Sine-Objective";
             if (HasConstraint)
             {
                 modeText += " with Constraint";
@@ -162,7 +173,6 @@ namespace Tunny.WPF.ViewModels
             SamplerType samplerType;
             switch (selectSamplerType)
             {
-                case SelectSamplerType.GpPreferential:
                 case null:
                     return;
                 case SelectSamplerType.TPE:
@@ -173,6 +183,9 @@ namespace Tunny.WPF.ViewModels
                     break;
                 case SelectSamplerType.GpBoTorch:
                     samplerType = SamplerType.BoTorch;
+                    break;
+                case SelectSamplerType.PreferentialGp:
+                    samplerType = SamplerType.PreferentialGp;
                     break;
                 case SelectSamplerType.NSGAII:
                     samplerType = SamplerType.NSGAII;

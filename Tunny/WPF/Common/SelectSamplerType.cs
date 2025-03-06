@@ -6,7 +6,7 @@
         TPE,
         GpOptuna,
         GpBoTorch,
-        GpPreferential,
+        PreferentialGp,
         NSGAII,
         NSGAIII,
         CmaEs,

@@ -2,11 +2,24 @@
 using Eto.Forms;
 
 using Tunny.Core.Util;
+using Tunny.PostProcess;
 
 namespace Tunny.Eto.Message
 {
     internal static partial class TunnyMessageBox
     {
+        internal static TrialGrasshopperItems Error_TenTimesNullResultErrorMessage()
+        {
+            TLog.MethodStart();
+            Show(
+                "The objective function returned NaN 10 times in a row. Tunny terminates the optimization. Please check the objective function.",
+                "Tunny",
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
+            );
+            return null;
+        }
+
         internal static bool Error_ObjectiveHasSomeValue(string nickname)
         {
             TLog.MethodStart();
