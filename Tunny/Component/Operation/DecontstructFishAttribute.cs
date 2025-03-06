@@ -65,7 +65,8 @@ namespace Tunny.Component.Operation
             {
                 if (!outputValues.TryGetValue(pair.Key, out GH_Structure<IGH_Goo> value))
                 {
-                    outputValues.Add(pair.Key, new GH_Structure<IGH_Goo>());
+                    value = new GH_Structure<IGH_Goo>();
+                    outputValues.Add(pair.Key, value);
                 }
 
                 IEnumerable<IGH_Goo> goo = GetGooFromAttributeObject(pair.Value);
