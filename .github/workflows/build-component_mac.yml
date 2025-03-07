@@ -22,8 +22,5 @@ jobs:
           dotnet workload install macos
           dotnet workload install wasm-tools-net7
 
-      - name: Install dependencies
-        run: dotnet restore /p:CheckEolTargetFramework=false
-
       - name: Build
         run: dotnet build /p:CheckEolTargetFramework=false
