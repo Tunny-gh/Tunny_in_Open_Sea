@@ -17,6 +17,12 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
+      - name: Remove dotnet 9 if exists
+        run: |
+          if [ -d "$DOTNET_ROOT/sdk/9.0"* ]; then
+            rm -rf $DOTNET_ROOT/sdk/9.0*
+          fi
+
       - name: Install required workloads
         run: |
           dotnet workload install macos
