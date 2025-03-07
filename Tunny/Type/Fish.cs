@@ -132,8 +132,13 @@ namespace Tunny.Type
                     else if (jsonElement.ValueKind == JsonValueKind.String)
                     {
                         string jsonString = jsonElement.GetString();
+# if NET5_0_OR_GREATER
+                        if (jsonString.StartsWith('[') &&
+                            jsonString.EndsWith(']'))
+#else
                         if (jsonString.StartsWith("[", StringComparison.Ordinal) &&
                             jsonString.EndsWith("]", StringComparison.Ordinal))
+#endif
                         {
                             try
                             {

@@ -11,6 +11,10 @@ namespace Tunny.Eto.Common
         internal static ObservableCollection<NameComboBoxItem> StudyNamesFromStudySummaries(StudySummary[] summaries)
         {
             var items = new ObservableCollection<NameComboBoxItem>();
+            if (summaries == null)
+            {
+                return items;
+            }
             for (int i = 0; i < summaries.Length; i++)
             {
                 StudySummary summary = summaries[i];

@@ -107,6 +107,7 @@ namespace Tunny.WPF.ViewModels.Optimize
                 EnableExistStudyComboBox = value;
                 if (value.Value == true)
                 {
+                    UpdateExistStudySummaries();
                     if (IsInMemory == true)
                     {
                         IsInMemory = false;
