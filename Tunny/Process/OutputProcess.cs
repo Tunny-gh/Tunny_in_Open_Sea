@@ -44,7 +44,7 @@ namespace Tunny.Process
                 component.ExpireSolution(true);
             }
 
-            TunnyMessageBox.Show("Output result to fish completed successfully.", "Tunny");
+            TunnyMessageBox.Info_OutputFinish();
         }
 
         public static void SetResultToFish(List<Fish> fishes, Trial trial, IEnumerable<string> varNickname, string[] objNickname)

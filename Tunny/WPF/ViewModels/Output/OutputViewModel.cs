@@ -479,6 +479,9 @@ namespace Tunny.WPF.ViewModels.Output
             OutputProcess.StudyName = SelectedStudyName.Name;
             OutputProcess.Indices = OutputTargetItems.Where(t => t.IsSelected).Select(t => t.Id).ToArray();
             OutputProcess.Run();
+
+            SharedItems.Instance.TunnyWindow.Activate();
+            SharedItems.Instance.TunnyWindow.Focus();
         }
 
         private AnalysisTablePage _analysisTable;

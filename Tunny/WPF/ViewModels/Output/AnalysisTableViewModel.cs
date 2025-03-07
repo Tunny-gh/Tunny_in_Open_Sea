@@ -74,14 +74,14 @@ namespace Tunny.WPF.ViewModels.Output
                 {
                     for (int i = 0; i < values.Length; i++)
                     {
-                        table.Columns.Add($"Attr: {k}_{i}", typeof(double));
+                        table.Columns.Add($"Attr: {k}___{i}", typeof(double));
                     }
                 }
                 else if (value is string[] strings)
                 {
                     for (int i = 0; i < strings.Length; i++)
                     {
-                        table.Columns.Add($"Attr: {k}_{i}", typeof(string));
+                        table.Columns.Add($"Attr: {k}___{i}", typeof(string));
                     }
                 }
                 else
@@ -117,14 +117,14 @@ namespace Tunny.WPF.ViewModels.Output
                     {
                         for (int i = 0; i < values.Length; i++)
                         {
-                            row[$"Attr: {k}_{i}"] = values[i];
+                            row[$"Attr: {k}___{i}"] = values[i];
                         }
                     }
                     else if (value is string[] strings)
                     {
                         for (int i = 0; i < strings.Length; i++)
                         {
-                            row[$"Attr: {k}_{i}"] = strings[i];
+                            row[$"Attr: {k}___{i}"] = strings[i];
                         }
                     }
                     else
