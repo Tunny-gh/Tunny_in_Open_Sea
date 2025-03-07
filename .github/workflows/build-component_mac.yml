@@ -15,11 +15,11 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "8.0.406"
 
       - name: Set dotnet version
         run: |
-          dotnet new global.json --sdk-version 8.0
+          dotnet new global.json --sdk-version 8.0.406
 
       - name: Install required workloads
         run: |
