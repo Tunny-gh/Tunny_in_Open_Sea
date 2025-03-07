@@ -1,6 +1,8 @@
-name: test and coverage
+name: Build Grasshopper Plugin(Windows)
 
-on: [pull_request]
+on:
+  pull_request:
+    branches: [main, develop]
 
 jobs:
   test:
@@ -20,12 +22,3 @@ jobs:
 
       - name: Build
         run: dotnet build
-
-      - name: Test with the dotnet CLI
-        run: dotnet test --collect:"XPlat Code Coverage"
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          fail_ci_if_error: true
-          token: ${{secrets.CODECOV_TOKEN}}
