@@ -6,6 +6,17 @@ namespace Tunny.Eto.Message
 {
     internal static partial class TunnyMessageBox
     {
+        internal static void Info_OutputFinish()
+        {
+            TLog.MethodStart();
+            Show(
+                "Output result to fish completed successfully.",
+                "Tunny",
+                MessageBoxButtons.OK,
+                MessageBoxType.Information
+            );
+        }
+
         internal static DialogResult Info_PythonAlreadyInstalled()
         {
             TLog.MethodStart();

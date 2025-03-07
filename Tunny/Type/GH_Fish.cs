@@ -5,10 +5,6 @@ using GH_IO.Serialization;
 
 using Grasshopper.Kernel.Types;
 
-using Rhino.Geometry;
-
-using Tunny.Util;
-
 namespace Tunny.Type
 {
     public class GH_Fish : GH_Goo<Fish>
@@ -61,9 +57,7 @@ namespace Tunny.Type
 
         private void SetAttributes(StringBuilder sb)
         {
-            sb.AppendLine("------------------------------------");
-            sb.AppendLine("Attributes:");
-            sb.AppendLine("------------------------------------");
+            sb.AppendLine("  Attributes:");
 
             foreach (KeyValuePair<string, object> attr in m_value.Attributes)
             {
@@ -82,37 +76,52 @@ namespace Tunny.Type
                     valueStrings.Append(", ");
                 }
             }
-            sb.AppendLine("  " + attr.Key + ": " + valueStrings);
+            else if (attr.Value is IEnumerable<double> doubleValues)
+            {
+                foreach (double val in doubleValues)
+                {
+                    valueStrings.Append(val);
+                    valueStrings.Append(", ");
+                }
+            }
+            else if (attr.Value is IEnumerable<object> objValues)
+            {
+                foreach (object val in objValues)
+                {
+                    valueStrings.Append(val);
+                    valueStrings.Append(", ");
+                }
+            }
+            else
+            {
+                valueStrings.Append(attr.Value);
+            }
+            sb.AppendLine("    \"" + attr.Key + "\": " + valueStrings);
         }
 
         private void SetObjectives(StringBuilder sb)
         {
-            sb.AppendLine("------------------------------------");
-            sb.AppendLine("Objectives:");
-            sb.AppendLine("------------------------------------");
+            sb.AppendLine("  Objectives:");
             if (m_value.Objectives != null)
             {
                 foreach (KeyValuePair<string, double> objective in m_value.Objectives)
                 {
-                    sb.AppendLine("  \"" + objective.Key + "\": " + objective.Value);
+                    sb.AppendLine("    \"" + objective.Key + "\": " + objective.Value);
                 }
             }
         }
 
         private void SetTrialNumber(StringBuilder sb)
         {
-            sb.AppendLine("====================================");
             sb.AppendLine("Trial Number: " + m_value.TrialNumber + "");
-            sb.AppendLine("====================================");
         }
 
         private void SetVariables(StringBuilder sb)
         {
-            sb.AppendLine("Variables:");
-            sb.AppendLine("------------------------------------");
+            sb.AppendLine("  Variables:");
             foreach (KeyValuePair<string, object> variable in m_value.Variables)
             {
-                sb.AppendLine("  \"" + variable.Key + "\": " + variable.Value + "");
+                sb.AppendLine("    \"" + variable.Key + "\": " + variable.Value + "");
             }
         }
 

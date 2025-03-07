@@ -71,15 +71,154 @@ namespace Tunny.Type
         public static Fish FromBase64(string base64String)
         {
             TLog.MethodStart();
+            Fish fish;
             byte[] bytes = Convert.FromBase64String(base64String);
             using (var ms = new MemoryStream(bytes))
             {
                 using (var reader = new StreamReader(ms))
                 {
                     string json = reader.ReadToEnd();
-                    return JsonSerializer.Deserialize<Fish>(json);
+                    fish = JsonSerializer.Deserialize<Fish>(json);
                 }
             }
+            return UpdateObjectTypeProperties(fish);
+        }
+
+        private static Fish UpdateObjectTypeProperties(Fish fish)
+        {
+            fish.Variables = UpdateVariables(fish);
+            fish.Attributes = UpdateAttributes(fish);
+            return fish;
+        }
+
+        private static Dictionary<string, object> UpdateAttributes(Fish fish)
+        {
+            var newAttributes = new Dictionary<string, object>();
+
+            foreach (KeyValuePair<string, object> attrs in fish.Attributes)
+            {
+                if (attrs.Value is JsonElement jsonElement)
+                {
+                    if (jsonElement.ValueKind == JsonValueKind.Array)
+                    {
+                        var objs = new List<object>();
+                        foreach (JsonElement item in jsonElement.EnumerateArray())
+                        {
+                            if (item.ValueKind == JsonValueKind.Number)
+                            {
+                                objs.Add(item.GetDouble());
+                            }
+                            else if (item.ValueKind == JsonValueKind.String &&
+                                     double.TryParse(item.GetString(), out double parsedValue))
+                            {
+                                objs.Add(parsedValue);
+                            }
+                            else
+                            {
+                                objs.Add(item.ToString());
+                            }
+                        }
+                        newAttributes.Add(attrs.Key, objs);
+                    }
+                    else if (jsonElement.ValueKind == JsonValueKind.Number)
+                    {
+                        newAttributes.Add(attrs.Key, jsonElement.GetDouble());
+                    }
+                    else if (jsonElement.ValueKind == JsonValueKind.String &&
+                            double.TryParse(jsonElement.GetString(), out double parsedValue))
+                    {
+                        newAttributes.Add(attrs.Key, parsedValue);
+                    }
+                    else if (jsonElement.ValueKind == JsonValueKind.String)
+                    {
+                        string jsonString = jsonElement.GetString();
+                        if (jsonString.StartsWith("[", StringComparison.Ordinal) &&
+                            jsonString.EndsWith("]", StringComparison.Ordinal))
+                        {
+                            try
+                            {
+                                var doc = JsonDocument.Parse(jsonString);
+                                var numbers = new List<double>();
+
+                                foreach (JsonElement element in doc.RootElement.EnumerateArray())
+                                {
+                                    if (element.ValueKind == JsonValueKind.Number)
+                                    {
+                                        numbers.Add(element.GetDouble());
+                                    }
+                                    else if (element.ValueKind == JsonValueKind.String &&
+                                             double.TryParse(element.GetString(), out double parsedNum))
+                                    {
+                                        numbers.Add(parsedNum);
+                                    }
+                                }
+                                newAttributes.Add(attrs.Key, numbers);
+                            }
+                            catch (Exception)
+                            {
+                                newAttributes.Add(attrs.Key, jsonString);
+                            }
+                        }
+                        else
+                        {
+                            newAttributes.Add(attrs.Key, jsonElement.ToString());
+                        }
+                    }
+                    else if (attrs.Value is double v)
+                    {
+                        newAttributes.Add(attrs.Key, v);
+                    }
+                    else if (attrs.Value is string s && double.TryParse(s, out double parsedNum))
+                    {
+                        newAttributes.Add(attrs.Key, parsedNum);
+                    }
+                    else
+                    {
+                        newAttributes.Add(attrs.Key, attrs.Value.ToString());
+                    }
+                }
+            }
+
+            return newAttributes;
+        }
+
+        private static Dictionary<string, object> UpdateVariables(Fish fish)
+        {
+            var newVariables = new Dictionary<string, object>();
+
+            foreach (KeyValuePair<string, object> variable in fish.Variables)
+            {
+                if (variable.Value is JsonElement jsonElement)
+                {
+                    if (jsonElement.ValueKind == JsonValueKind.Number)
+                    {
+                        newVariables.Add(variable.Key, jsonElement.GetDouble());
+                    }
+                    else if (jsonElement.ValueKind == JsonValueKind.String &&
+                            double.TryParse(jsonElement.GetString(), out double parsedValue))
+                    {
+                        newVariables.Add(variable.Key, parsedValue);
+                    }
+                    else
+                    {
+                        newVariables.Add(variable.Key, jsonElement.ToString());
+                    }
+                }
+                else if (variable.Value is double v)
+                {
+                    newVariables.Add(variable.Key, v);
+                }
+                else if (variable.Value is string s && double.TryParse(s, out double parsedValue))
+                {
+                    newVariables.Add(variable.Key, parsedValue);
+                }
+                else
+                {
+                    newVariables.Add(variable.Key, variable.Value.ToString());
+                }
+            }
+
+            return newVariables;
         }
     }
 }
