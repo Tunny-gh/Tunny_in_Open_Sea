@@ -101,6 +101,15 @@ namespace Tunny.Component.Operation
                     return str.Select(s => new GH_String(s)).Cast<IGH_Goo>().ToList();
                 case List<GeometryBase> geom:
                     return geom.Select(GooConverter.GeometryBaseToGoo).Cast<IGH_Goo>().ToList();
+                case List<object> obj:
+                    if (obj[0] is double)
+                    {
+                        return obj.Select(d => new GH_Number((double)d)).Cast<IGH_Goo>().ToList();
+                    }
+                    else
+                    {
+                        return obj.Select(o => new GH_ObjectWrapper(o)).Cast<IGH_Goo>().ToList();
+                    }
                 default:
                     return new List<IGH_Goo>();
             }

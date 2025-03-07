@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
@@ -70,6 +71,10 @@ namespace Tunny.Component.Operation
                 if (variable.Value is double v)
                 {
                     number.Append(new GH_Number(v), path);
+                }
+                else if (variable.Value is string s && double.TryParse(s, out double parsedValue))
+                {
+                    number.Append(new GH_Number(parsedValue), path);
                 }
                 else
                 {
