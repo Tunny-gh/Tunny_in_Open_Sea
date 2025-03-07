@@ -5,36 +5,47 @@ on:
     branches: [main, develop]
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        configuration: [Debug]
-
-    runs-on: windows-latest # For a list of available runner types, refer to
-
-    env:
-      Main_Solution_Name: Tunny.sln
-      Plugin_File_Name: Tunny
+  windows:
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
         with:
-          fetch-depth: 0
-          submodules: true
+          dotnet-version: "9.0.x"
 
-      - name: Setup MSBuild.exe
-        uses: microsoft/setup-msbuild@v2
+      - name: Install dependencies
+        run: dotnet restore
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v2
+      - name: Build
+        run: dotnet build
 
-      - name: Restore the Tunny application
-        run: msbuild $env:Main_Solution_Name /t:Restore /p:Configuration=$env:Configuration
-        env:
-          Configuration: ${{ matrix.configuration }}
+  macos:
+    runs-on: macos-latest
 
-      - name: Build the Tunny application
-        run: msbuild $env:Main_Solution_Name /p:Configuration=$env:Configuration
-        env:
-          Configuration: ${{ matrix.configuration }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.0.406"
+
+      - name: Set dotnet version
+        run: |
+          dotnet new global.json --sdk-version 8.0.406
+
+      - name: Install required workloads
+        run: |
+          dotnet workload install macos
+          dotnet workload install wasm-tools-net7
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build
