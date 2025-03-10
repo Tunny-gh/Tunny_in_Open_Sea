@@ -73,7 +73,7 @@ jobs:
       - name: Install dependencies
         run: |
           dotnet restore
-          pip install optuna optunahub find-libpython
+          pip install find-libpython optuna optunahub cmaes scipy torch
 
       - name: Set Python DLL path and PYTHONHOME
         run: |
