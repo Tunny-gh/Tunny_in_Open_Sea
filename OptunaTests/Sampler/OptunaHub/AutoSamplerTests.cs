@@ -2,6 +2,8 @@ using Optuna.Util;
 
 using OptunaTests;
 
+using Python.Runtime;
+
 using Xunit;
 
 namespace Optuna.Sampler.OptunaHub.Tests
@@ -31,6 +33,15 @@ namespace Optuna.Sampler.OptunaHub.Tests
             Assert.Equal("AutoSampler", pyObj.ToString());
             dynamic pyObj2 = sampler.ToPython(true);
             Assert.Equal("AutoSampler", pyObj2.ToString());
+        }
+
+        [Fact]
+        public void RunOptimizeTest()
+        {
+            var sampler = new AutoSampler();
+            dynamic optuna = Py.Import("optuna");
+            dynamic study = optuna.create_study(sampler: sampler.ToPython());
+            study.optimize(_fixture.ObjectiveFunc, n_trials: 10);
         }
     }
 }
