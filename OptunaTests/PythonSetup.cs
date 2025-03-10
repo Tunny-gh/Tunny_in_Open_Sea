@@ -6,13 +6,18 @@ namespace OptunaTests
 {
     public class TestFixture : IDisposable
     {
-        public dynamic ObjectiveFunc { get; }
+        public dynamic ObjectiveFunc { get; private set; }
 
         public TestFixture()
         {
             PythonEngine.Initialize();
             PythonEngine.BeginAllowThreads();
 
+            InitializeObjectiveFunction();
+        }
+
+        private void InitializeObjectiveFunction()
+        {
             PyModule ps = Py.CreateScope();
             ps.Exec(
                 "def objective(trial):\n" +
