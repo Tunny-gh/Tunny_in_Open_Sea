@@ -8,13 +8,10 @@ namespace OptunaTests
     {
         public TestFixture()
         {
-            PythonEngine.Initialize();
-            PythonEngine.BeginAllowThreads();
         }
 
         public void Dispose()
         {
-            PythonEngine.Shutdown();
         }
 
         public static dynamic InitializeObjectiveFunction()

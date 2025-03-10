@@ -28,6 +28,8 @@ namespace Optuna.Sampler.OptunaHub.Tests
         [Fact]
         public void ToPythonTest()
         {
+            PythonEngine.Initialize();
+            PythonEngine.BeginAllowThreads();
             using(Py.GIL())
             {
                 var sampler = new AutoSampler();
@@ -36,11 +38,14 @@ namespace Optuna.Sampler.OptunaHub.Tests
                 dynamic pyObj2 = sampler.ToPython(true);
                 Assert.Equal("AutoSampler", pyObj2.ToString());
             }
+            PythonEngine.Shutdown();
         }
 
         [Fact]
         public void RunOptimizeTest()
         {
+            PythonEngine.Initialize();
+            PythonEngine.BeginAllowThreads();
             using(Py.GIL())
             {
                 var sampler = new AutoSampler();
@@ -49,6 +54,7 @@ namespace Optuna.Sampler.OptunaHub.Tests
                 dynamic objective = TestFixture.InitializeObjectiveFunction();
                 study.optimize(objective, n_trials: 10);
             }
+            PythonEngine.Shutdown();
         }
     }
 }
