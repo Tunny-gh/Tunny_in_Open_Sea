@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           dotnet restore
-          pip install optuna
+          pip install optuna find-libpython
 
       - name: Set Python DLL path and PYTHONHOME
         run: |
