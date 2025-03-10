@@ -16,5 +16,4 @@ namespace OptunaTests
             PythonEngine.Shutdown();
         }
     }
-
 }
