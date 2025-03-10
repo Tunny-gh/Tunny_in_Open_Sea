@@ -6,17 +6,18 @@ namespace OptunaTests
 {
     public class TestFixture : IDisposable
     {
-        public dynamic ObjectiveFunc { get; private set; }
-
         public TestFixture()
         {
             PythonEngine.Initialize();
             PythonEngine.BeginAllowThreads();
-
-            InitializeObjectiveFunction();
         }
 
-        private void InitializeObjectiveFunction()
+        public void Dispose()
+        {
+            PythonEngine.Shutdown();
+        }
+
+        public static dynamic InitializeObjectiveFunction()
         {
             PyModule ps = Py.CreateScope();
             ps.Exec(
@@ -24,12 +25,8 @@ namespace OptunaTests
                 "    x = trial.suggest_float('x', -10, 10)\n" +
                 "    return (x - 2) ** 2"
             );
-            ObjectiveFunc = ps.Get("objective");
+            return ps.Get("objective");
         }
 
-        public void Dispose()
-        {
-            PythonEngine.Shutdown();
-        }
     }
 }

@@ -28,20 +28,27 @@ namespace Optuna.Sampler.OptunaHub.Tests
         [Fact]
         public void ToPythonTest()
         {
-            var sampler = new AutoSampler();
-            dynamic pyObj = sampler.ToPython(false);
-            Assert.Equal("AutoSampler", pyObj.ToString());
-            dynamic pyObj2 = sampler.ToPython(true);
-            Assert.Equal("AutoSampler", pyObj2.ToString());
+            using(Py.GIL())
+            {
+                var sampler = new AutoSampler();
+                dynamic pyObj = sampler.ToPython(false);
+                Assert.Equal("AutoSampler", pyObj.ToString());
+                dynamic pyObj2 = sampler.ToPython(true);
+                Assert.Equal("AutoSampler", pyObj2.ToString());
+            }
         }
 
         [Fact]
         public void RunOptimizeTest()
         {
-            var sampler = new AutoSampler();
-            dynamic optuna = Py.Import("optuna");
-            dynamic study = optuna.create_study(sampler: sampler.ToPython());
-            study.optimize(_fixture.ObjectiveFunc, n_trials: 10);
+            using(Py.GIL())
+            {
+                var sampler = new AutoSampler();
+                dynamic optuna = Py.Import("optuna");
+                dynamic study = optuna.create_study(sampler: sampler.ToPython());
+                dynamic objective = TestFixture.InitializeObjectiveFunction();
+                study.optimize(objective, n_trials: 10);
+            }
         }
     }
 }
