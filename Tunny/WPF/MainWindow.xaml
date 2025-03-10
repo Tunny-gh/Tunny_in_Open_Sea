@@ -392,8 +392,8 @@
                     <RibbonButton
                         Command="{Binding ListOutputCommand}"
                         Label="Selection"
-                        LargeImageSource="{StaticResource TunnyIcon}"
-                        SmallImageSource="{StaticResource TunnyIcon}" />
+                        LargeImageSource="{StaticResource Export}"
+                        SmallImageSource="{StaticResource Export}" />
                 </RibbonGroup>
             </RibbonTab>
 
@@ -472,6 +472,12 @@
                         Label="Tunny"
                         LargeImageSource="{StaticResource TunnyIcon}"
                         SmallImageSource="{StaticResource TunnyIcon}" />
+                    <RibbonButton
+                        Command="{Binding OpenHelpPageCommand}"
+                        CommandParameter="{x:Static common:HelpType.FAQ}"
+                        Label="FAQ"
+                        LargeImageSource="{StaticResource FrequentlyAskedQuestions}"
+                        SmallImageSource="{StaticResource FrequentlyAskedQuestions}" />
                     <RibbonButton
                         Command="{Binding OpenHelpPageCommand}"
                         CommandParameter="{x:Static common:HelpType.OptunaSampler}"
