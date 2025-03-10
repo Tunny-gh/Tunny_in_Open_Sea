@@ -33,34 +33,48 @@ namespace Tunny.WPF.Common
             bool result = true;
             if (isHumanInTheLoop)
             {
-                if (sampler.HumanInTheLoopSupport == HumanInTheLoopSupport.NotRecommended)
-                {
-                    result = false;
-                }
-                else if (isMultiObjective && sampler.ObjectiveNumberSupport == ObjectiveNumberSupport.SingleObjective)
-                {
-                    result = false;
-                }
+                result = CheckHumanInTheLoopMode(isMultiObjective, sampler, result);
             }
             else
             {
-                if (hasConstraint && !sampler.SupportsConstraint)
-                {
-                    result = false;
-                }
-                else if (isMultiObjective && sampler.ObjectiveNumberSupport == ObjectiveNumberSupport.SingleObjective)
-                {
-                    result = false;
-                }
-                else if (!isMultiObjective && sampler.ObjectiveNumberSupport == ObjectiveNumberSupport.MultiObjective)
-                {
-                    result = false;
-                }
-                else if (sampler.HumanInTheLoopSupport == HumanInTheLoopSupport.OnlyHumanInTheLoop)
-                {
-                    result = false;
-                }
+                result = CheckNormalMode(isMultiObjective, hasConstraint, sampler, result);
             }
+            return result;
+        }
+
+        private static bool CheckHumanInTheLoopMode(bool isMultiObjective, SamplerBase sampler, bool result)
+        {
+            if (sampler.HumanInTheLoopSupport == HumanInTheLoopSupport.NotRecommended)
+            {
+                result = false;
+            }
+            else if (isMultiObjective && sampler.ObjectiveNumberSupport == ObjectiveNumberSupport.SingleObjective)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        private static bool CheckNormalMode(bool isMultiObjective, bool hasConstraint, SamplerBase sampler, bool result)
+        {
+            if (hasConstraint && !sampler.SupportsConstraint)
+            {
+                result = false;
+            }
+            else if (isMultiObjective && sampler.ObjectiveNumberSupport == ObjectiveNumberSupport.SingleObjective)
+            {
+                result = false;
+            }
+            else if (!isMultiObjective && sampler.ObjectiveNumberSupport == ObjectiveNumberSupport.MultiObjective)
+            {
+                result = false;
+            }
+            else if (sampler.HumanInTheLoopSupport == HumanInTheLoopSupport.OnlyHumanInTheLoop)
+            {
+                result = false;
+            }
+
             return result;
         }
 
