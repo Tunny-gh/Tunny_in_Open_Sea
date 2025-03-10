@@ -1,5 +1,7 @@
 using System;
 
+using Optuna.Util;
+
 using Python.Runtime;
 
 namespace Optuna.Sampler
@@ -12,7 +14,7 @@ namespace Optuna.Sampler
         public int NStartupTrials { get; set; } = 10;
 
         public BoTorchSampler()
-         : base(true, true, false, false)
+         : base(ObjectiveNumberSupport.Any, true, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

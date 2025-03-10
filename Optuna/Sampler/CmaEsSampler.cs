@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using Optuna.Util;
 
 using Python.Runtime;
 
@@ -24,7 +24,7 @@ namespace Optuna.Sampler
         public bool LrAdapt { get; set; }
 
         public CmaEsSampler()
-         : base(false, false, false, false)
+         : base(ObjectiveNumberSupport.SingleObjective, false, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

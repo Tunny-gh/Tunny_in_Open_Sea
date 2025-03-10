@@ -1,5 +1,7 @@
 using System;
 
+using Optuna.Util;
+
 using Python.Runtime;
 
 namespace Optuna.Sampler
@@ -13,7 +15,7 @@ namespace Optuna.Sampler
         public bool DeterministicObjective { get; set; } = true;
 
         public GPSampler()
-         : base(false, true, false, false)
+         : base(ObjectiveNumberSupport.SingleObjective, true, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

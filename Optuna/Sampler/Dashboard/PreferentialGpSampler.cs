@@ -1,3 +1,5 @@
+using Optuna.Util;
+
 using Python.Runtime;
 
 namespace Optuna.Sampler.Dashboard
@@ -5,7 +7,7 @@ namespace Optuna.Sampler.Dashboard
     public class PreferentialGpSampler : SamplerBase
     {
         public PreferentialGpSampler()
-         : base(false, false, false, true)
+         : base(ObjectiveNumberSupport.SingleObjective, false, HumanInTheLoopSupport.OnlyHumanInTheLoop)
         {
         }
 

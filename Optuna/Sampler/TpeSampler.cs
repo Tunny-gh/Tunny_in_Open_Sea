@@ -1,5 +1,7 @@
 using System;
 
+using Optuna.Util;
+
 using Python.Runtime;
 
 namespace Optuna.Sampler
@@ -22,7 +24,7 @@ namespace Optuna.Sampler
         public bool ConstantLiar { get; set; }
 
         public TpeSampler()
-         : base(true, true, false, true)
+         : base(ObjectiveNumberSupport.Any, true, HumanInTheLoopSupport.Recommended)
         {
         }
 
