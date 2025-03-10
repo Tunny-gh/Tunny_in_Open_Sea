@@ -1,3 +1,5 @@
+using Optuna.Util;
+
 using Python.Runtime;
 
 namespace Optuna.Sampler.OptunaHub
@@ -10,7 +12,7 @@ namespace Optuna.Sampler.OptunaHub
         private const string Package = "samplers/auto_sampler";
 
         public AutoSampler()
-            : base(true, true, false)
+            : base(ObjectiveNumberSupport.Any, true)
         {
         }
 

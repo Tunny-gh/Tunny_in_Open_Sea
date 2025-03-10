@@ -1,3 +1,5 @@
+using Optuna.Util;
+
 using Python.Runtime;
 
 namespace Optuna.Sampler.OptunaHub
@@ -18,7 +20,7 @@ namespace Optuna.Sampler.OptunaHub
         public bool ForceReload { get; set; }
 
         public MOEADSampler()
-            : base(true, false, true, false)
+            : base(ObjectiveNumberSupport.MultiObjective, false, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

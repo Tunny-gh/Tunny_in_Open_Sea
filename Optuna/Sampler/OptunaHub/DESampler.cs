@@ -1,3 +1,5 @@
+using Optuna.Util;
+
 using Python.Runtime;
 
 namespace Optuna.Sampler.OptunaHub
@@ -13,7 +15,7 @@ namespace Optuna.Sampler.OptunaHub
         public int? PopulationSize { get; set; }
 
         public DESampler()
-            : base(false, false, false)
+            : base(ObjectiveNumberSupport.SingleObjective, false)
         {
         }
 

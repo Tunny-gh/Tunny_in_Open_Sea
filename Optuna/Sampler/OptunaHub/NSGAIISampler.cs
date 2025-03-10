@@ -1,3 +1,5 @@
+using Optuna.Util;
+
 using Python.Runtime;
 
 namespace Optuna.Sampler.OptunaHub
@@ -15,7 +17,8 @@ namespace Optuna.Sampler.OptunaHub
         public double SwappingProb { get; set; } = 0.5;
         public bool ForceReload { get; set; }
 
-        public NSGAIISampler() : base(true, true, false, false)
+        public NSGAIISampler()
+            : base(ObjectiveNumberSupport.Any, true, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

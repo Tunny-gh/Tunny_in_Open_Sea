@@ -5,6 +5,7 @@ using System.Windows.Data;
 using Optuna.Sampler;
 using Optuna.Sampler.Dashboard;
 using Optuna.Sampler.OptunaHub;
+using Optuna.Util;
 
 namespace Tunny.WPF.Common
 {
@@ -32,11 +33,11 @@ namespace Tunny.WPF.Common
             bool result = true;
             if (isHumanInTheLoop)
             {
-                if (!sampler.RecommendedHumanInTheLoop)
+                if (sampler.HumanInTheLoopSupport == HumanInTheLoopSupport.NotRecommended)
                 {
                     result = false;
                 }
-                else if (isMultiObjective && !sampler.SupportsMultiObjective)
+                else if (isMultiObjective && sampler.ObjectiveNumberSupport == ObjectiveNumberSupport.SingleObjective)
                 {
                     result = false;
                 }
@@ -47,11 +48,15 @@ namespace Tunny.WPF.Common
                 {
                     result = false;
                 }
-                else if (isMultiObjective && !sampler.SupportsMultiObjective)
+                else if (isMultiObjective && sampler.ObjectiveNumberSupport == ObjectiveNumberSupport.SingleObjective)
                 {
                     result = false;
                 }
-                else if (!isMultiObjective && sampler.IsSinglePurposeRestricted)
+                else if (!isMultiObjective && sampler.ObjectiveNumberSupport == ObjectiveNumberSupport.MultiObjective)
+                {
+                    result = false;
+                }
+                else if (sampler.HumanInTheLoopSupport == HumanInTheLoopSupport.OnlyHumanInTheLoop)
                 {
                     result = false;
                 }

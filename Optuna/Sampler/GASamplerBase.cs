@@ -1,11 +1,13 @@
 using System;
 
+using Optuna.Util;
+
 namespace Optuna.Sampler
 {
     public class GASamplerBase : SamplerBase
     {
-        public GASamplerBase(bool supportMultiObjective, bool supportConstraint, bool isSinglePurposeRestricted, bool recommendedHumanInTheLoop)
-         : base(supportMultiObjective, supportConstraint, isSinglePurposeRestricted, recommendedHumanInTheLoop)
+        public GASamplerBase(ObjectiveNumberSupport objectiveNumberSupport, bool supportConstraint, HumanInTheLoopSupport humanInTheLoopSupport)
+         : base(objectiveNumberSupport, supportConstraint, humanInTheLoopSupport)
         {
         }
 
