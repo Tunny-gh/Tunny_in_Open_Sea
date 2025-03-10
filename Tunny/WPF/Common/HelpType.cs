@@ -9,5 +9,6 @@ namespace Tunny.WPF.Common
         TunnyLicense,
         PythonPackagesLicense,
         OtherLicense,
+        FAQ,
     }
 }
