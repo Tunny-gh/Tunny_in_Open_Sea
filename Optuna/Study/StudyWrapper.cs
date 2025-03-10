@@ -26,9 +26,15 @@ namespace Optuna.Study
         public StudyWrapper(dynamic study)
         {
             PyInstance = study;
+
+            dynamic optuna = Py.Import("optuna");
+            dynamic py = Py.Import("builtins");
+            if (!py.isinstance(study, optuna.study.Study))
+            {
+                throw new ArgumentException("study must be an instance of optuna.study.Study.");
+            }
         }
 
-        //TODO: Add check HumanInTheLoop instance
         public bool ShouldGenerate()
         {
             return PyInstance.should_generate();

@@ -17,7 +17,7 @@ namespace Optuna.Study.Tests
         {
             IOptunaStorage storage = type == "sqlite"
                 ? new SqliteStorage(path)
-                : (IOptunaStorage)new JournalStorage(path);
+                : new JournalStorage(path);
             StudySummary[] summary = Study.GetAllStudySummaries(storage);
             Assert.Equal(3, summary.Length);
             Assert.Equal(2, summary[0].Directions.Length);
