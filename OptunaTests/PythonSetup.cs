@@ -11,6 +11,7 @@ namespace OptunaTests
         public TestFixture()
         {
             PythonEngine.Initialize();
+            PythonEngine.BeginAllowThreads();
 
             PyModule ps = Py.CreateScope();
             ps.Exec(
