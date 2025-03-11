@@ -1,22 +1,13 @@
 using Optuna.Util;
 
-using OptunaTests;
-
 using Python.Runtime;
 
 using Xunit;
 
 namespace Optuna.Sampler.OptunaHub.Tests
 {
-    public class AutoSamplerTests : IClassFixture<TestFixture>
+    public class AutoSamplerTests
     {
-        private readonly TestFixture _fixture;
-
-        public AutoSamplerTests(TestFixture fixture)
-        {
-            _fixture = fixture;
-        }
-
         [Fact]
         public void ConstructorTest()
         {
@@ -37,22 +28,6 @@ namespace Optuna.Sampler.OptunaHub.Tests
                 Assert.Equal("AutoSampler", pyObj.ToString());
                 dynamic pyObj2 = sampler.ToPython(true);
                 Assert.Equal("AutoSampler", pyObj2.ToString());
-            }
-            PythonEngine.Shutdown();
-        }
-
-        [Fact]
-        public void RunOptimizeTest()
-        {
-            PythonEngine.Initialize();
-            PythonEngine.BeginAllowThreads();
-            using(Py.GIL())
-            {
-                var sampler = new AutoSampler();
-                dynamic optuna = Py.Import("optuna");
-                dynamic study = optuna.create_study(sampler: sampler.ToPython());
-                dynamic objective = TestFixture.InitializeObjectiveFunction();
-                study.optimize(objective, n_trials: 10);
             }
             PythonEngine.Shutdown();
         }

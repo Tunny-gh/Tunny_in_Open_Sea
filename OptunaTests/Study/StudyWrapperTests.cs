@@ -1,22 +1,13 @@
 using System;
 
-using OptunaTests;
-
 using Python.Runtime;
 
 using Xunit;
 
 namespace Optuna.Study.Tests
 {
-    public class StudyWrapperTests : IClassFixture<TestFixture>
+    public class StudyWrapperTests
     {
-        private readonly TestFixture _fixture;
-
-        public StudyWrapperTests(TestFixture fixture)
-        {
-            _fixture = fixture;
-        }
-
         [Fact]
         public void ConstructorArgTypeTest()
         {
