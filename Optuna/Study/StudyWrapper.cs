@@ -28,10 +28,11 @@ namespace Optuna.Study
             PyInstance = study;
 
             dynamic optuna = Py.Import("optuna");
+            dynamic dashboard = Py.Import("optuna_dashboard");
             dynamic py = Py.Import("builtins");
-            if (!py.isinstance(study, optuna.study.Study))
+            if (!py.isinstance(study, optuna.study.Study) && !py.isinstance(study, dashboard.preferential.PreferentialStudy))
             {
-                throw new ArgumentException("study must be an instance of optuna.study.Study.");
+                throw new ArgumentException("study must be an instance of optuna.study.Study or optuna_dashboard.preferential.PreferentialStudy.");
             }
         }
 

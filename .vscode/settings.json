@@ -8,6 +8,7 @@
         "HITL",
         "hovertemplate",
         "Hyperband",
+        "isinstance",
         "libpython",
         "rhinocode",
         "showlegend",
