@@ -73,7 +73,7 @@ jobs:
       - name: Install dependencies
         run: |
           dotnet restore
-          pip install optuna optuna_dashboard find-libpython
+          pip install optuna optuna_dashboard find-libpython botorch
 
       - name: Set Python DLL path and PYTHONHOME
         run: |
