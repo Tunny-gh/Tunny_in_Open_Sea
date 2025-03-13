@@ -18,7 +18,20 @@ namespace Optuna.Study.Tests
         }
 
         [Fact]
-        public void ConstructorArgTypeTest()
+        public void ConstructorArgStudyTest()
+        {
+            using (Py.GIL())
+            {
+                dynamic optuna = Py.Import("optuna");
+                dynamic study = optuna.create_study();
+                var studyWrapper = new StudyWrapper(study);
+                Assert.Equal(study, studyWrapper.PyInstance);
+                Assert.Equal(0, studyWrapper.Id);
+            }
+        }
+
+        [Fact]
+        public void ConstructorArgPyIntTest()
         {
             using (Py.GIL())
             {
