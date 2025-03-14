@@ -50,19 +50,13 @@ namespace Tunny.Component.Operation
 
         private void DrawWires(GH_Canvas canvas, Graphics graphics)
         {
-            Wire[] wires = Owner.Attributes.Selected
-                ? (new[]
-                {
-                        new Wire(3, Color.DarkMagenta),
-                })
-                : (new[]
-                {
-                        new Wire(2, Color.FromArgb(Convert.ToInt32("3388008B", 16))),
-                });
+            Wire wires = Owner.Attributes.Selected
+                ? new Wire(3, Color.DarkMagenta)
+                : new Wire(2, Color.FromArgb(Convert.ToInt32("3388008B", 16)));
 
-            for (int i = 0; i < 3; i++)
+            foreach (IGH_Param input in Owner.Params.Input)
             {
-                DrawPath(canvas, graphics, Owner.Params.Input[i], wires[0]);
+                DrawPath(canvas, graphics, input, wires);
             }
         }
 
