@@ -185,6 +185,17 @@ namespace Tunny.Eto.Message
             );
         }
 
+        internal static void Error_InitializeTunnyUI()
+        {
+            TLog.MethodStart();
+            Show(
+                "Fail to initialize Tunny UI. Deleting settings.json in the [UserProfile].tunny_env folder may help.",
+                "Tunny",
+                MessageBoxButtons.OK,
+                MessageBoxType.Error
+            );
+        }
+
         internal static void Error_NoStudyNameSelected()
         {
             TLog.MethodStart();

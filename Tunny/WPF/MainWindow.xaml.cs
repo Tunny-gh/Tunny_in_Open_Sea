@@ -42,7 +42,17 @@ namespace Tunny.WPF
                 File.Delete(TEnvVariables.QuitFishingPath);
             }
 
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (System.Exception)
+            {
+                TunnyMessageBox.Error_InitializeTunnyUI();
+                CoSharedItems.GH_DocumentEditor.EnableUI();
+                Close();
+                return;
+            }
             Closing += ClosingEventHandler;
         }
 
