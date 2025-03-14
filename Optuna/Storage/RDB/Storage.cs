@@ -356,7 +356,11 @@ namespace Optuna.Storage.RDB
                         {
                             while (reader.Read())
                             {
+# if NET48
                                 directions.Add((StudyDirection)Enum.Parse(typeof(StudyDirection), reader.GetString(0), true));
+#else
+                                directions.Add(Enum.Parse<StudyDirection>(reader.GetString(0), true));
+#endif
                             }
                         }
                     }
@@ -446,7 +450,11 @@ namespace Optuna.Storage.RDB
                             {
                                 TrialId = trialId,
                                 Number = reader.GetInt32(0),
+# if NET48
                                 State = (TrialState)Enum.Parse(typeof(TrialState), reader.GetString(1), true),
+#else
+                                State = Enum.Parse<TrialState>(reader.GetString(1), true),
+#endif
                                 DatetimeStart = reader.GetDateTime(2),
                                 DatetimeComplete = completeTime
                             };
