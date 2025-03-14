@@ -48,6 +48,10 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
   - Disable when Tunny UI wake up
   - Enable when Tunny UI closed
 - For improve visibility, ConstructFishAttribute is colored.
+- Improve result log file load speed.
+  - Tunny was loading the result file when launching the UI, and when the log file was large, it took a long time to launch.
+  - With this update, log files are now about 60 times faster to load.
+    - What used to take about 5 minutes to load the results of 30,000 trials can now be loaded in about 5 seconds.
 - Update optuna v4.2
 - Update python v3.10 to v3.12
 
