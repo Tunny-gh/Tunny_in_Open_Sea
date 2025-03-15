@@ -82,7 +82,7 @@ namespace Tunny.WPF.ViewModels
         {
             string storagePath = SharedItems.Settings.Storage.Path;
             string modeText = IsHumanInTheLoop ? "Human-In-The-Loop: " : string.Empty;
-            modeText += IsMultiObjective ? "Multi-Objective" : "Sine-Objective";
+            modeText += IsMultiObjective ? "Multi-Objective" : "Single-Objective";
             if (HasConstraint)
             {
                 modeText += " with Constraint";
