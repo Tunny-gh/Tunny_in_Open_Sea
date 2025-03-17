@@ -34,14 +34,8 @@ namespace Tunny.Component.Print
             string path = string.Empty;
             DA.GetData(0, ref path);
 
-            if (string.IsNullOrEmpty(path))
+            if (!CheckFilePath(path))
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Path is empty.");
-                return;
-            }
-            if (!File.Exists(path))
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "File not found.");
                 return;
             }
 
@@ -59,6 +53,22 @@ namespace Tunny.Component.Print
             {
                 fs.Close();
             }
+        }
+
+        private bool CheckFilePath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Path is empty.");
+                return false;
+            }
+            if (!File.Exists(path))
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "File not found.");
+                return false;
+            }
+
+            return true;
         }
 
         protected override Bitmap Icon => Resource.FishPrintByPath;
