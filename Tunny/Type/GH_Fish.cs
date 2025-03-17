@@ -5,6 +5,8 @@ using GH_IO.Serialization;
 
 using Grasshopper.Kernel.Types;
 
+using Optuna.Artifacts;
+
 namespace Tunny.Type
 {
     public class GH_Fish : GH_Goo<Fish>
@@ -52,7 +54,18 @@ namespace Tunny.Type
             SetVariables(sb);
             SetObjectives(sb);
             SetAttributes(sb);
+            SetArtifacts(sb);
             return sb.ToString();
+        }
+
+        private void SetArtifacts(StringBuilder sb)
+        {
+            sb.AppendLine("  Artifacts:");
+
+            foreach (ArtifactAttributes artifacts in m_value.Artifacts)
+            {
+                sb.AppendLine("    \"" + artifacts.Filename + "\"");
+            }
         }
 
         private void SetAttributes(StringBuilder sb)

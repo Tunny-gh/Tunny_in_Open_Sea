@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -17,13 +17,13 @@ using Tunny.Resources;
 using Tunny.Type;
 using Tunny.Util;
 
-namespace Tunny.Component.Util
+namespace Tunny.Component.Visualize
 {
     public class FishMarket : GH_Component
     {
         private readonly List<Plane> _tagPlanes = new List<Plane>();
-        private readonly List<GH_Fish> _fishes = new List<GH_Fish>();
-        private double _size = 1;
+        private List<GH_Fish> _fishes = new List<GH_Fish>();
+        private double _textHeight = 1;
         private Settings _settings = new Settings();
 
         public override GH_Exposure Exposure => GH_Exposure.quarternary;
@@ -31,7 +31,7 @@ namespace Tunny.Component.Util
         public FishMarket()
           : base("Fish Market", "FMarket",
             "A place to lay out the solutions we caught.",
-            "Tunny", "Util")
+            "Tunny", "Visualize")
         {
         }
 
@@ -47,9 +47,9 @@ namespace Tunny.Component.Util
             pManager.AddParameter(new Param_Fish(), "Fishes", "Fishes", "Fishes caught by the optimization nets.", GH_ParamAccess.list);
             pManager.AddPlaneParameter("Plane", "Plane", "Plane", GH_ParamAccess.item, Plane.WorldXY);
             pManager.AddIntegerParameter("xNum", "xNum", "Number of x.", GH_ParamAccess.item, 5);
-            pManager.AddNumberParameter("xInterval", "xIntvl", "Interval of x.", GH_ParamAccess.item, 1000);
-            pManager.AddNumberParameter("yInterval", "yIntvl", "Interval of y.", GH_ParamAccess.item, 1000);
-            pManager.AddNumberParameter("TextSize", "tSize", "Font size.", GH_ParamAccess.item, 1);
+            pManager.AddNumberParameter("xInterval", "xIntvl", "Interval of x.", GH_ParamAccess.item, 100);
+            pManager.AddNumberParameter("yInterval", "yIntvl", "Interval of y.", GH_ParamAccess.item, 100);
+            pManager.AddNumberParameter("TextHeight", "txtH", "Font hight.", GH_ParamAccess.item, 1);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -69,7 +69,7 @@ namespace Tunny.Component.Util
             if (!DA.GetData(2, ref xNum)) { return; }
             if (!DA.GetData(3, ref xInterval)) { return; }
             if (!DA.GetData(4, ref yInterval)) { return; }
-            if (!DA.GetData(5, ref _size)) { return; }
+            if (!DA.GetData(5, ref _textHeight)) { return; }
 
             _settings = new Settings(plane, xNum, xInterval, yInterval);
             if (xNum <= 0)
@@ -83,36 +83,35 @@ namespace Tunny.Component.Util
 
         private GH_Structure<IGH_GeometricGoo> ArrayedGeometries(IEnumerable<object> fishObjects)
         {
-            throw new NotImplementedException();
-            // int countY = 0;
-            // var arrayedGeometries = new GH_Structure<IGH_GeometricGoo>();
-            // _fishes = fishObjects.Select(x => (GH_Fish)x).ToList();
+            int countY = 0;
+            var arrayedGeometries = new GH_Structure<IGH_GeometricGoo>();
+            _fishes = fishObjects.Select(x => (GH_Fish)x).ToList();
 
-            // while (true)
-            // {
-            //     var fishGeometries = _fishes.Select(x => x.Value.GetGeometries()).ToList();
-            //     bool remainGeometry = SetGeometryToResultArray(countY, arrayedGeometries, fishGeometries);
-            //     if (!remainGeometry)
-            //     {
-            //         break;
-            //     }
-            //     countY++;
-            // }
+            while (true)
+            {
+                var fishGeometries = _fishes.Select(x => x.Value.GetGeometries()).ToList();
+                bool remainGeometry = SetGeometryToResultArray(countY, arrayedGeometries, fishGeometries);
+                if (!remainGeometry)
+                {
+                    break;
+                }
+                countY++;
+            }
 
-            // return arrayedGeometries;
+            return arrayedGeometries;
         }
 
-        private bool SetGeometryToResultArray(int countY, GH_Structure<IGH_GeometricGoo> arrayedGeometries, List<List<GeometryBase>> fishGeometries)
+        private bool SetGeometryToResultArray(int countY, GH_Structure<IGH_GeometricGoo> arrayedGeometries, List<GeometryBase[]> fishGeometries)
         {
             Vector3d yVec = _settings.Plane.YAxis * (_settings.YInterval * countY);
             for (int countX = 0; countX < _settings.XNum; countX++)
             {
-                int index = countX + _settings.XNum * countY;
+                int index = countX + (_settings.XNum * countY);
                 if (index == _fishes.Count)
                 {
                     return false;
                 }
-                Vector3d moveVec = _settings.Plane.XAxis * (_settings.XInterval * countX) + yVec;
+                Vector3d moveVec = (_settings.Plane.XAxis * (_settings.XInterval * countX)) + yVec;
                 if (fishGeometries[index] != null)
                 {
                     MoveGeometries(index, moveVec, fishGeometries, arrayedGeometries);
@@ -122,9 +121,9 @@ namespace Tunny.Component.Util
         }
 
         //FIXME: Possibly heavy because deep copying here and doing it for all geometry every time.
-        private void MoveGeometries(int index, Vector3d moveVec, List<List<GeometryBase>> fishGeometries, GH_Structure<IGH_GeometricGoo> arrayedGeometries)
+        private void MoveGeometries(int index, Vector3d moveVec, List<GeometryBase[]> fishGeometries, GH_Structure<IGH_GeometricGoo> arrayedGeometries)
         {
-            var movedGeometries = new GeometryBase[fishGeometries[index].Count];
+            var movedGeometries = new GeometryBase[fishGeometries[index].Length];
             Point3d modelMinPt = GetUnionBoundingBoxMinPt(fishGeometries[index]);
             foreach ((GeometryBase geometry, int i) in fishGeometries[index].Select((g, i) => (g, i)))
             {
@@ -136,7 +135,7 @@ namespace Tunny.Component.Util
             }
             modelMinPt = GetUnionBoundingBoxMinPt(movedGeometries);
             _tagPlanes.Add(new Plane(
-                modelMinPt - _settings.Plane.YAxis * 2.5 * _size,
+                modelMinPt - (_settings.Plane.YAxis * 2.5 * _textHeight),
                 _settings.Plane.XAxis,
                 _settings.Plane.YAxis
                 )
@@ -169,7 +168,7 @@ namespace Tunny.Component.Util
             base.DrawViewportWires(args);
             for (int i = 0; i < _fishes.Count; i++)
             {
-                var text3d = new Text3d(_fishes[i].ToString(), _tagPlanes[i], _size);
+                var text3d = new Text3d(_fishes[i].ToString(), _tagPlanes[i], _textHeight);
                 args.Display.Draw3dText(text3d, Color.Black);
             }
         }
@@ -180,7 +179,8 @@ namespace Tunny.Component.Util
 
             for (int i = 0; i < _fishes.Count; i++)
             {
-                doc.Objects.AddText(_fishes[i].ToString(), _tagPlanes[i], _size, "Meiryo", false, false, TextJustification.TopLeft);
+                doc.Objects.AddText(_fishes[i].ToString(), _tagPlanes[i], _textHeight, "Meiryo", false, false, TextJustification.TopLeft);
+                BoundingBox a = doc.Objects.BoundingBox;
             }
         }
 
