@@ -26,8 +26,10 @@ namespace Tunny.Util
                     return new GH_Surface(surface);
                 case SubD subD:
                     return new GH_SubD(subD);
+                case Point point:
+                    return new GH_Point(point.Location);
                 default:
-                    throw new ArgumentException("Tunny only supports mesh, curve, brep, surface, subd, so convert it and enter it.");
+                    throw new ArgumentException("Only supports mesh, curve, brep, surface, subD, point.");
             }
         }
 

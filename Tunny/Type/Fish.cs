@@ -6,6 +6,8 @@ using System.Text.Json;
 
 using Optuna.Trial;
 
+using Rhino.Geometry;
+
 using Tunny.Core.Input;
 using Tunny.Core.Util;
 
@@ -224,6 +226,27 @@ namespace Tunny.Type
             }
 
             return newVariables;
+        }
+
+        public GeometryBase[] GetGeometries()
+        {
+            TLog.MethodStart();
+            var geometries = new List<GeometryBase>();
+            if (Attributes != null)
+            {
+                foreach (KeyValuePair<string, object> attr in Attributes)
+                {
+                    if (attr.Value is GeometryBase geometry)
+                    {
+                        geometries.Add(geometry);
+                    }
+                }
+            }
+            if (geometries.Count == 0)
+            {
+                geometries.Add(new Point(new Point3d(0, 0, 0)));
+            }
+            return geometries.ToArray();
         }
     }
 }
