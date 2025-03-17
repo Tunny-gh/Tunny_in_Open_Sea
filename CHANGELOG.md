@@ -30,6 +30,8 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
   - using eto UI
 - Objective input values check
   - if null or list or tree input to objectives, Tunny throw error.
+- Added error handling when an unexpected file path is entered in FishPrintByPath
+  - support only bitmap type file.
 
 ### Changed
 

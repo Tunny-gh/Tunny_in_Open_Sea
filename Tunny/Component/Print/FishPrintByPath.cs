@@ -6,6 +6,7 @@ using Grasshopper.Kernel;
 
 using Tunny.Component.Params;
 using Tunny.Resources;
+using Tunny.Type;
 
 namespace Tunny.Component.Print
 {
@@ -33,22 +34,41 @@ namespace Tunny.Component.Print
             string path = string.Empty;
             DA.GetData(0, ref path);
 
-            if (string.IsNullOrEmpty(path))
+            if (!CheckFilePath(path))
             {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Path is empty.");
-                return;
-            }
-            if (!File.Exists(path))
-            {
-                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "File not found.");
                 return;
             }
 
             var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-            var bitmap = Image.FromStream(fs) as Bitmap;
-            fs.Close();
+            try
+            {
+                var bitmap = Image.FromStream(fs) as Bitmap;
+                DA.SetData(0, bitmap);
+            }
+            catch (Exception)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Only the path of files that can be converted to Bitmap can be input.");
+            }
+            finally
+            {
+                fs.Close();
+            }
+        }
 
-            DA.SetData(0, bitmap);
+        private bool CheckFilePath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Path is empty.");
+                return false;
+            }
+            if (!File.Exists(path))
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "File not found.");
+                return false;
+            }
+
+            return true;
         }
 
         protected override Bitmap Icon => Resource.FishPrintByPath;
