@@ -39,6 +39,5 @@ namespace Optuna.Artifacts
                 throw new ArgumentException("Failed to parse the attribute string as artifact attribute JSON", nameof(attribute), ex);
             }
         }
-
     }
 }

@@ -65,7 +65,7 @@ namespace Tunny.Process
         private static ArtifactAttributes[] SetArtifacts(Dictionary<string, List<string>> dictionary)
         {
             var artifacts = new List<ArtifactAttributes>();
-            string artifactDir = CommonSharedItems.Instance.Settings.Storage.GetArtifactBackendPath(); ;
+            string artifactDir = CommonSharedItems.Instance.Settings.Storage.GetArtifactBackendPath();
             foreach (KeyValuePair<string, List<string>> attr in dictionary)
             {
                 if (attr.Key.StartsWith("artifacts", StringComparison.InvariantCulture))

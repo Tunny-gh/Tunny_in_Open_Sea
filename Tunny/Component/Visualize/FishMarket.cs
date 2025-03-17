@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -106,12 +106,12 @@ namespace Tunny.Component.Visualize
             Vector3d yVec = _settings.Plane.YAxis * (_settings.YInterval * countY);
             for (int countX = 0; countX < _settings.XNum; countX++)
             {
-                int index = countX + _settings.XNum * countY;
+                int index = countX + (_settings.XNum * countY);
                 if (index == _fishes.Count)
                 {
                     return false;
                 }
-                Vector3d moveVec = _settings.Plane.XAxis * (_settings.XInterval * countX) + yVec;
+                Vector3d moveVec = (_settings.Plane.XAxis * (_settings.XInterval * countX)) + yVec;
                 if (fishGeometries[index] != null)
                 {
                     MoveGeometries(index, moveVec, fishGeometries, arrayedGeometries);
@@ -135,7 +135,7 @@ namespace Tunny.Component.Visualize
             }
             modelMinPt = GetUnionBoundingBoxMinPt(movedGeometries);
             _tagPlanes.Add(new Plane(
-                modelMinPt - _settings.Plane.YAxis * 2.5 * _textHeight,
+                modelMinPt - (_settings.Plane.YAxis * 2.5 * _textHeight),
                 _settings.Plane.XAxis,
                 _settings.Plane.YAxis
                 )
