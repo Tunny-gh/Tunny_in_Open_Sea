@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 
+using Optuna.Artifacts;
 using Optuna.Trial;
 
 using Rhino.Geometry;
 
 using Tunny.Core.Input;
 using Tunny.Core.Util;
+using Tunny.Util;
 
 namespace Tunny.Type
 {
@@ -20,18 +23,20 @@ namespace Tunny.Type
         public Dictionary<string, object> Variables { get; set; }
         public Dictionary<string, double> Objectives { get; set; }
         public Dictionary<string, object> Attributes { get; set; }
+        public ArtifactAttributes[] Artifacts { get; set; }
 
         public Fish()
         {
-            TLog.MethodStart();
         }
 
         public Fish(Trial trial, string[] objectiveNames)
         {
+            throw new NotImplementedException();
             TLog.MethodStart();
             TrialNumber = trial.Number;
             Variables = trial.Params;
             Attributes = trial.UserAttrs;
+            // Implement for Artifact
             Objectives = new Dictionary<string, double>();
             for (int i = 0; i < objectiveNames.Length; i++)
             {
@@ -232,21 +237,29 @@ namespace Tunny.Type
         {
             TLog.MethodStart();
             var geometries = new List<GeometryBase>();
-            if (Attributes != null)
+            if (Artifacts != null)
             {
-                foreach (KeyValuePair<string, object> attr in Attributes)
-                {
-                    if (attr.Value is GeometryBase geometry)
-                    {
-                        geometries.Add(geometry);
-                    }
-                }
+                LoadArtifacts(geometries);
             }
             if (geometries.Count == 0)
             {
                 geometries.Add(new Point(new Point3d(0, 0, 0)));
             }
             return geometries.ToArray();
+        }
+
+        private void LoadArtifacts(List<GeometryBase> geometries)
+        {
+            IEnumerable<ArtifactAttributes> rhino3dms = Artifacts.Where(a => a.Filename.EndsWith(".3dm", StringComparison.InvariantCulture));
+            foreach (ArtifactAttributes rhino3dm in rhino3dms)
+            {
+                string path = Path.Combine(rhino3dm.ArtifactDir, rhino3dm.Id);
+                List<GeometryBase> loadItems = Rhino3dmFileLoader.Load(path);
+                if (loadItems != null || loadItems.Count > 0)
+                {
+                    geometries.AddRange(loadItems);
+                }
+            }
         }
     }
 }

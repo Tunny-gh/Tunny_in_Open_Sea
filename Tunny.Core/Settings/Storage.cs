@@ -17,7 +17,7 @@ namespace Tunny.Core.Settings
         public string Path { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/fish.log";
         public StorageType Type { get; set; } = StorageType.Journal;
 
-        private string GetArtifactBackendPath()
+        public string GetArtifactBackendPath()
         {
             TLog.MethodStart();
             return System.IO.Path.GetDirectoryName(Path) + "/artifacts";

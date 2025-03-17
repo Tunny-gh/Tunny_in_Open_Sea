@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using Optuna.Artifacts;
 using Optuna.Trial;
 
 using Tunny.Component.Optimizer;
@@ -56,7 +58,23 @@ namespace Tunny.Process
                 Variables = SetVariables(trial.Params, varNickname),
                 Objectives = SetObjectives(trial.Values, objNickname),
                 Attributes = SetAttributes(ParseAttrs(trial.UserAttrs)),
+                Artifacts = SetArtifacts(ParseAttrs(trial.SystemAttrs))
             });
+        }
+
+        private static ArtifactAttributes[] SetArtifacts(Dictionary<string, List<string>> dictionary)
+        {
+            var artifacts = new List<ArtifactAttributes>();
+            string artifactDir = CommonSharedItems.Instance.Settings.Storage.GetArtifactBackendPath(); ;
+            foreach (KeyValuePair<string, List<string>> attr in dictionary)
+            {
+                if (attr.Key.StartsWith("artifacts", StringComparison.InvariantCulture))
+                {
+                    artifacts.Add(ArtifactAttributes.ParseAttributeJson(attr.Value[0], artifactDir));
+                }
+            }
+
+            return artifacts.ToArray();
         }
 
         private static Dictionary<string, object> SetVariables(Dictionary<string, object> variables, IEnumerable<string> nickNames)
