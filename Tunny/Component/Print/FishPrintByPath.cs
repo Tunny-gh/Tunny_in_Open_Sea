@@ -6,6 +6,7 @@ using Grasshopper.Kernel;
 
 using Tunny.Component.Params;
 using Tunny.Resources;
+using Tunny.Type;
 
 namespace Tunny.Component.Print
 {
@@ -45,10 +46,19 @@ namespace Tunny.Component.Print
             }
 
             var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-            var bitmap = Image.FromStream(fs) as Bitmap;
-            fs.Close();
-
-            DA.SetData(0, bitmap);
+            try
+            {
+                var bitmap = Image.FromStream(fs) as Bitmap;
+                DA.SetData(0, bitmap);
+            }
+            catch (Exception)
+            {
+                AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "Only the path of files that can be converted to Bitmap can be input.");
+            }
+            finally
+            {
+                fs.Close();
+            }
         }
 
         protected override Bitmap Icon => Resource.FishPrintByPath;
