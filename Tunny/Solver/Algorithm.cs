@@ -7,8 +7,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 
-using Eto.Forms;
-
 using Optuna.Dashboard.HumanInTheLoop;
 using Optuna.Study;
 using Optuna.Trial;
