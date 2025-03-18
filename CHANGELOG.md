@@ -55,6 +55,9 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
   - With this update, log files are now about 60 times faster to load.
     - What used to take about 5 minutes to load the results of 30,000 trials can now be loaded in about 5 seconds.
 - Add Fish panel output to artifact info.
+- Update ConstructFishEgg component
+  - Add fill color
+  - Add SkipIfExit input
 - Update optuna v4.2
 - Update python v3.10 to v3.12
 
