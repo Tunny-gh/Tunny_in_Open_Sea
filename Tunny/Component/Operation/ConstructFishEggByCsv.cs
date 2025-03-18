@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -92,7 +92,6 @@ namespace Tunny.Component.Operation
 
         private void AddVariablesToFishEgg(Dictionary<string, double[]> variableRange, IEnumerable<Dictionary<string, string>> csvData)
         {
-
             foreach (Dictionary<string, string> data in csvData)
             {
                 var egg = new FishEgg(_skipIfExist);

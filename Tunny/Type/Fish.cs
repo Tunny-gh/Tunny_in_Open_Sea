@@ -143,8 +143,8 @@ namespace Tunny.Type
                         if (jsonString.StartsWith('[') &&
                             jsonString.EndsWith(']'))
 #else
-                        if (jsonString.StartsWith("[", StringComparison.Ordinal) &&
-                            jsonString.EndsWith("]", StringComparison.Ordinal))
+                        if (jsonString.StartsWith('[') &&
+                            jsonString.EndsWith(']'))
 #endif
                         {
                             try
