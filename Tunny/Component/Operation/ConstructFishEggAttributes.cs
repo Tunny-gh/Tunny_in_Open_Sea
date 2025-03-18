@@ -23,6 +23,9 @@ namespace Tunny.Component.Operation
                         RenderInputComponentBoxes(graphics);
                     }
                     break;
+                case GH_CanvasChannel.Objects:
+                    DrawObjects(canvas, graphics, channel);
+                    break;
                 case GH_CanvasChannel.Wires:
                     DrawWires(canvas, graphics);
                     break;
@@ -30,6 +33,24 @@ namespace Tunny.Component.Operation
                     base.Render(canvas, graphics, channel);
                     break;
             }
+        }
+
+        private void DrawObjects(GH_Canvas canvas, Graphics graphics, GH_CanvasChannel channel)
+        {
+            var fillColor = Color.FromArgb(Convert.ToInt32("FFFFF176", 16));
+            var edgeColor = Color.FromArgb(Convert.ToInt32("FFFF9800", 16));
+            var textColor = Color.FromArgb(Convert.ToInt32("FF000000", 16));
+            var style = new GH_PaletteStyle(fillColor, edgeColor, textColor);
+            GH_PaletteStyle normalStyle = GH_Skin.palette_normal_standard;
+            GH_PaletteStyle warningStyle = GH_Skin.palette_warning_standard;
+            GH_PaletteStyle hiddenStyle = GH_Skin.palette_hidden_standard;
+            GH_Skin.palette_normal_standard = style;
+            GH_Skin.palette_warning_standard = style;
+            GH_Skin.palette_hidden_standard = style;
+            base.Render(canvas, graphics, channel);
+            GH_Skin.palette_normal_standard = normalStyle;
+            GH_Skin.palette_warning_standard = warningStyle;
+            GH_Skin.palette_hidden_standard = hiddenStyle;
         }
 
         private void RenderInputComponentBoxes(Graphics graphics)
@@ -50,15 +71,17 @@ namespace Tunny.Component.Operation
                         new Wire(3, Color.Orange),
                         new Wire(3, GH_Skin.wire_selected_a, GH_Skin.wire_selected_b),
                         new Wire(3, GH_Skin.wire_selected_a, GH_Skin.wire_selected_b),
+                        new Wire(3, GH_Skin.wire_selected_a, GH_Skin.wire_selected_b),
                 })
                 : (new[]
                 {
                         new Wire(2, Color.FromArgb(Convert.ToInt32("33FFA500", 16))),
                         new Wire(3, GH_Skin.wire_default),
+                        new Wire(3, GH_Skin.wire_default),
                         new Wire(3, GH_Skin.wire_default)
                 });
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 DrawPath(canvas, graphics, Owner.Params.Input[i], wires[i]);
             }
