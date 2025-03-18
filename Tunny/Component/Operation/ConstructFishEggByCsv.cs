@@ -15,6 +15,7 @@ namespace Tunny.Component.Operation
     public class ConstructFishEggByCsv : GH_Component
     {
         private readonly List<FishEgg> _fishEggs = new List<FishEgg>();
+        private bool _skipIfExist;
         public override GH_Exposure Exposure => GH_Exposure.secondary;
 
         public ConstructFishEggByCsv()
@@ -28,6 +29,7 @@ namespace Tunny.Component.Operation
         {
             pManager.AddNumberParameter("Variables", "Vars", "Variables pair to enqueue optimize.", GH_ParamAccess.list);
             pManager.AddTextParameter("CSV File Path", "Path", "CSV file path to enqueue optimize.", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Skip If Exist", "Skip", "If true, skip if the same egg already exists", GH_ParamAccess.item, true);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -39,6 +41,7 @@ namespace Tunny.Component.Operation
         {
             string csvPath = string.Empty;
             if (!DA.GetData(1, ref csvPath)) { return; }
+            if (!DA.GetData(2, ref _skipIfExist)) { return; }
             try
             {
                 LayFishEgg(csvPath);
@@ -92,7 +95,7 @@ namespace Tunny.Component.Operation
 
             foreach (Dictionary<string, string> data in csvData)
             {
-                var egg = new FishEgg();
+                var egg = new FishEgg(_skipIfExist);
                 foreach (KeyValuePair<string, string> item in data)
                 {
                     if (!variableRange.TryGetValue(item.Key, out double[] range))

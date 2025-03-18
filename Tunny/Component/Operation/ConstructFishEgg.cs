@@ -14,6 +14,7 @@ namespace Tunny.Component.Operation
     public class ConstructFishEgg : GH_Component
     {
         private readonly List<FishEgg> _fishEggs = new List<FishEgg>();
+        private bool _skipIfExist;
         public override GH_Exposure Exposure => GH_Exposure.secondary;
 
         public ConstructFishEgg()
@@ -28,6 +29,7 @@ namespace Tunny.Component.Operation
             pManager.AddNumberParameter("Variables", "Vars", "Variables pair to enqueue optimize.", GH_ParamAccess.list);
             pManager.AddBooleanParameter("Lay Egg", "Lay", "If true, add an egg", GH_ParamAccess.item, false);
             pManager.AddBooleanParameter("Clear", "Clear", "If true, clear eggs", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Skip If Exist", "Skip", "If true, skip if the same egg already exists", GH_ParamAccess.item, true);
         }
 
         protected override void RegisterOutputParams(GH_OutputParamManager pManager)
@@ -41,6 +43,7 @@ namespace Tunny.Component.Operation
             bool clear = false;
             if (!DA.GetData(1, ref lay)) { return; }
             if (!DA.GetData(2, ref clear)) { return; }
+            if (!DA.GetData(3, ref _skipIfExist)) { return; }
 
             if (clear)
             {
@@ -65,7 +68,7 @@ namespace Tunny.Component.Operation
 
         private void AddVariablesToFishEgg(IEnumerable<VariableBase> variables)
         {
-            var egg = new FishEgg();
+            var egg = new FishEgg(_skipIfExist);
             foreach (VariableBase variable in variables)
             {
                 string name = variable.NickName;

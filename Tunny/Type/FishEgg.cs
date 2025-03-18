@@ -46,6 +46,7 @@ namespace Tunny.Type
                 string str = $"\"{item.Key}\": {item.Value}, ";
                 sb.Append(str);
             }
+            sb.Append("SkipIfExist: " + _skipIfExist);
             return sb.ToString();
         }
 
