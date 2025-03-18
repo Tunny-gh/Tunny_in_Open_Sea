@@ -13,6 +13,7 @@ namespace Tunny.Type
     [Serializable]
     public class FishEgg
     {
+        public int RegisteredParamsCount => _paramDict.Count;
         private bool _skipIfExist;
         private Dictionary<string, string> _paramDict;
         private Dictionary<string, string> _attrDict;

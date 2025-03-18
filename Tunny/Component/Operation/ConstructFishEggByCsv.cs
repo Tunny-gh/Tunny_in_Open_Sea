@@ -100,6 +100,7 @@ namespace Tunny.Component.Operation
                 {
                     if (!variableRange.TryGetValue(item.Key, out double[] range))
                     {
+                        AddRuntimeMessage(GH_RuntimeMessageLevel.Remark, $"There is no slider named \"{item.Key}\" listed in the csv.");
                         continue;
                     }
 
@@ -118,7 +119,10 @@ namespace Tunny.Component.Operation
                         egg.AddParam(item.Key, item.Value);
                     }
                 }
-                _fishEggs.Add(egg);
+                if (egg.RegisteredParamsCount != 0)
+                {
+                    _fishEggs.Add(egg);
+                }
             }
         }
 
