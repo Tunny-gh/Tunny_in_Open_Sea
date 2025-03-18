@@ -13,6 +13,7 @@ namespace Tunny.Type
     [Serializable]
     public class FishEgg
     {
+        public int RegisteredParamsCount => _paramDict.Count;
         private bool _skipIfExist;
         private Dictionary<string, string> _paramDict;
         private Dictionary<string, string> _attrDict;
@@ -46,6 +47,7 @@ namespace Tunny.Type
                 string str = $"\"{item.Key}\": {item.Value}, ";
                 sb.Append(str);
             }
+            sb.Append("SkipIfExist: " + _skipIfExist);
             return sb.ToString();
         }
 
