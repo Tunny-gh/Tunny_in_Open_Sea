@@ -79,6 +79,7 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - If there is not examples dir in .tunny_env, tunny throw exception when Loading instruction.
 - Use try-catch syntax to avoid LoadingInstruction exception.
 - Same capture is saved when using FishPrintByCapture.
+- SQLite library conflict to speckle
 
 ### Security
 
