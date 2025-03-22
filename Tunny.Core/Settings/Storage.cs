@@ -59,18 +59,18 @@ namespace Tunny.Core.Settings
             }
         }
 
-        public string GetOptunaStorageCommandLinePathByExtension()
+        public StorageType GetStorageTypeByExtension()
         {
             TLog.MethodStart();
             switch (System.IO.Path.GetExtension(Path))
             {
                 case null:
-                    return string.Empty;
+                    return StorageType.InMemory;
                 case ".sqlite3":
                 case ".db":
-                    return @"sqlite:///" + $"\"{Path}\"";
+                    return StorageType.Sqlite;
                 case ".log":
-                    return $"\"{Path}\"";
+                    return StorageType.Journal;
                 default:
                     throw new NotImplementedException();
             }

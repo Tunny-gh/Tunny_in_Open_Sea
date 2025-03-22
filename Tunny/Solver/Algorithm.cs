@@ -540,7 +540,12 @@ namespace Tunny.Solver
             {
                 dynamic optuna = Py.Import("optuna");
                 string studyName = _settings.Optimize.StudyName;
-                optuna.copy_study(from_study_name: studyName, to_study_name: studyName, from_storage: storage, to_storage: new StorageHandler().CreateNewTStorage(false, _settings.Storage));
+                optuna.copy_study(
+                    from_study_name: studyName,
+                    to_study_name: studyName,
+                    from_storage: storage,
+                    to_storage: new StorageHandler().CreateNewTStorage(false, _settings.Storage)
+                );
             }
         }
 

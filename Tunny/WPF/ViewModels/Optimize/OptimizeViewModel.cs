@@ -94,6 +94,11 @@ namespace Tunny.WPF.ViewModels.Optimize
                     {
                         EnableExistStudyComboBox = false;
                     }
+                    _settings.Storage.Type = StorageType.InMemory;
+                }
+                else
+                {
+                    _settings.Storage.Type = _settings.Storage.GetStorageTypeByExtension();
                 }
                 SetProperty(ref _isInMemory, value);
             }
@@ -397,6 +402,11 @@ namespace Tunny.WPF.ViewModels.Optimize
 
             _settings.Optimize = GetCurrentSettings(true);
             SetupWindow();
+
+            if (IsInMemory == true)
+            {
+                _settings.Storage.Type = StorageType.InMemory;
+            }
 
             _windowViewModel.ReportProgress("Start Optimizing...", 0);
             InitializeOptimizeProcess();
