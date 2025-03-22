@@ -49,7 +49,7 @@ namespace Tunny.WPF.Views.Pages
                     _browser.Value.Address = "https://github.com/hrntsm/Tunny/blob/main/THIRD_PARTY_LICENSES";
                     break;
                 case HelpType.FAQ:
-                    _browser.Value.Address = "https://tunny-docs.deno.dev/docs/faq";
+                    _browser.Value.Address = "https://tunny-docs.deno.dev/faqs/faq";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
