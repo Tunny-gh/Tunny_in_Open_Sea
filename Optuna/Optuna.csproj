@@ -9,9 +9,15 @@
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'net7.0-macos'">
+  <!-- for MacOS ARM64 -->
+  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-macos' And (('$(MacArchitecture)' == 'arm64') Or ('$(MacArchitecture)' == ''))">
     <ApplicationId>com.hrnstm.optuna</ApplicationId>
     <RuntimeIdentifier>osx-arm64</RuntimeIdentifier>
+  </PropertyGroup>
+  <!-- for MacOS x64 -->
+  <PropertyGroup Condition="$(TargetFramework) == 'net7.0-macos' And '$(MacArchitecture)' == 'x64'">
+    <ApplicationId>com.hrnstm.optuna</ApplicationId>
+    <RuntimeIdentifier>osx-x64</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
