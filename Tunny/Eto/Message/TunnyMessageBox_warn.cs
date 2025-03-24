@@ -38,5 +38,18 @@ namespace Tunny.Eto.Message
                 MessageBoxType.Warning
             );
         }
+
+        internal static DialogResult Warn_ResultFileNameNotMatch()
+        {
+            TLog.MethodStart();
+            return Show(
+                "The selected csv file name does not match the target StudyName.\n" +
+                "Rhino may crash if results from a different Study are loaded.\n\n" +
+                "Do you want to continue loading?",
+                "Tunny",
+                MessageBoxButtons.YesNo,
+                MessageBoxType.Warning
+            );
+        }
     }
 }

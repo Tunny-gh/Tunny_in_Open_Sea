@@ -149,6 +149,11 @@ namespace Tunny.WPF.ViewModels.Output
             if (result == true)
             {
                 var reader = new CsvReader(dialog.FileName);
+                if (dialog.SafeFileName != _selectedStudyName.Name + ".csv" &&
+                    TunnyMessageBox.Warn_ResultFileNameNotMatch() == global::Eto.Forms.DialogResult.No)
+                {
+                    return;
+                }
                 int[] indices = reader.ReadSelectionCsv(type);
                 foreach (int index in indices)
                 {
