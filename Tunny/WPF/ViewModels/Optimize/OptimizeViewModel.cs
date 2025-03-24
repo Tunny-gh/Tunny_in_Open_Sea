@@ -471,6 +471,10 @@ namespace Tunny.WPF.ViewModels.Optimize
                 {
                     _settings.Optimize.StudyName = "no-name-" + Guid.NewGuid().ToString("D");
                 }
+                else
+                {
+                    _settings.Optimize.StudyName = StudyName;
+                }
                 new StorageHandler().DuplicateStudyInStorage(SelectedExistStudy.Name, _settings.Optimize.StudyName, _settings.Storage);
             }
             return true;
