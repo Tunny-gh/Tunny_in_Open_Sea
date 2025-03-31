@@ -59,6 +59,14 @@
                         Command="{Binding InstallPythonCommand}"
                         Header="Install Python Libraries"
                         ImageSource="{StaticResource Snake}" />
+                    <RibbonApplicationMenuItem
+                        Command="{Binding QuickAccessNewStorageFileCommand}"
+                        Header="Create New Result File"
+                        ImageSource="{StaticResource NewIcon}" />
+                    <RibbonApplicationMenuItem
+                        Command="{Binding QuickAccessStorageFileOpenCommand}"
+                        Header="Open Optimization Result File"
+                        ImageSource="{StaticResource OpenFolderOutline}" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
 
