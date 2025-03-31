@@ -9,8 +9,6 @@
     Title="{Binding WindowTitle}"
     Width="1200"
     Height="900"
-    MinWidth="700"
-    MinHeight="900"
     Background="#F0F4F8"
     Icon="Assets/Icon/Tunny.png"
     mc:Ignorable="d">
@@ -513,12 +511,16 @@
             </RibbonTab>
         </Ribbon>
 
-        <Frame
+        <ScrollViewer
             Grid.Row="1"
-            Background="#F0F4F8"
-            Content="{Binding MainWindowFrame}"
-            IsEnabled="{Binding EnableMainFrame}"
-            NavigationUIVisibility="Hidden" />
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto">
+            <Frame
+                Background="#F0F4F8"
+                Content="{Binding MainWindowFrame}"
+                IsEnabled="{Binding EnableMainFrame}"
+                NavigationUIVisibility="Hidden" />
+        </ScrollViewer>
 
         <StatusBar Grid.Row="2" Background="#93C6F8">
             <StatusBar.ItemsPanel>
