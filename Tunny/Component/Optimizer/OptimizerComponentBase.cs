@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 using GalapagosComponents;
@@ -57,13 +58,25 @@ namespace Tunny.Component.Optimizer
             TLog.MethodStart();
             base.AppendAdditionalMenuItems(menu);
             Menu_AppendItem(menu, "Open settings.json", Menu_OpenSettingsClicked);
+            Menu_AppendItem(menu, "Open environment directory", Menu_OpenDirectoryClicked);
+        }
+
+        private void Menu_OpenDirectoryClicked(object sender, EventArgs e)
+        {
+            TLog.MethodStart();
+            var process = new System.Diagnostics.Process();
+            process.StartInfo.FileName = RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
+                ? "open" : "explorer.exe";
+            process.StartInfo.Arguments = $"\"{TEnvVariables.TunnyEnvPath}\"";
+            process.Start();
         }
 
         private void Menu_OpenSettingsClicked(object sender, EventArgs e)
         {
             TLog.MethodStart();
             var process = new System.Diagnostics.Process();
-            process.StartInfo.FileName = "notepad.exe";
+            process.StartInfo.FileName = RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
+                ? "open" : "notepad.exe";
             process.StartInfo.Arguments = $"\"{TEnvVariables.OptimizeSettingsPath}\"";
             process.Start();
         }
