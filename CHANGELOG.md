@@ -32,6 +32,7 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
   - if null or list or tree input to objectives, Tunny throw error.
 - Added error handling when an unexpected file path is entered in FishPrintByPath
   - support only bitmap type file.
+- Tunny environment directory can open from Tunny fishing component menu items.
 
 ### Changed
 
