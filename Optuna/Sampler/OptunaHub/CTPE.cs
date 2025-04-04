@@ -7,12 +7,12 @@ namespace Optuna.Sampler.OptunaHub
     /// <summary>
     /// https://hub.optuna.org/samplers/auto_sampler/
     /// </summary>
-    public class AutoSampler : HubSamplerBase
+    public class C_TPESampler : HubSamplerBase
     {
-        private const string Package = "samplers/auto_sampler";
+        private const string Package = "samplers/ctpe";
 
-        public AutoSampler()
-            : base(ObjectiveNumberSupport.Any, ConstraintSupport.Supported)
+        public C_TPESampler()
+            : base(ObjectiveNumberSupport.SingleObjective, ConstraintSupport.OnlyWithConstraint)
         {
         }
 
@@ -20,7 +20,7 @@ namespace Optuna.Sampler.OptunaHub
         {
             dynamic optunahub = Py.Import("optunahub");
             dynamic module = optunahub.load_module(package: Package, force_reload: ForceReload);
-            return module.AutoSampler(
+            return module.cTPESampler(
                 seed: Seed,
                 constraints_func: hasConstraints ? ConstraintFunc() : null
             );

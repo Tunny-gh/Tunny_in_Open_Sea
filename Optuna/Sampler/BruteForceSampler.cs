@@ -10,7 +10,7 @@ namespace Optuna.Sampler
     public class BruteForceSampler : SamplerBase
     {
         public BruteForceSampler()
-          : base(ObjectiveNumberSupport.Any, false, HumanInTheLoopSupport.NotRecommended)
+          : base(ObjectiveNumberSupport.Any, ConstraintSupport.None, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

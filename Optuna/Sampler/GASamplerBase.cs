@@ -6,8 +6,8 @@ namespace Optuna.Sampler
 {
     public class GASamplerBase : SamplerBase
     {
-        public GASamplerBase(ObjectiveNumberSupport objectiveNumberSupport, bool supportConstraint, HumanInTheLoopSupport humanInTheLoopSupport)
-         : base(objectiveNumberSupport, supportConstraint, humanInTheLoopSupport)
+        public GASamplerBase(ObjectiveNumberSupport objectiveNumberSupport, ConstraintSupport constraintSupport, HumanInTheLoopSupport humanInTheLoopSupport)
+         : base(objectiveNumberSupport, constraintSupport, humanInTheLoopSupport)
         {
         }
 

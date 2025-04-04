@@ -20,7 +20,7 @@ namespace Optuna.Sampler.OptunaHub
         public bool ForceReload { get; set; }
 
         public MOEADSampler()
-            : base(ObjectiveNumberSupport.MultiObjective, false, HumanInTheLoopSupport.NotRecommended)
+            : base(ObjectiveNumberSupport.MultiObjective, ConstraintSupport.None, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

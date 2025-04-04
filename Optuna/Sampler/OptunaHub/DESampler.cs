@@ -15,7 +15,7 @@ namespace Optuna.Sampler.OptunaHub
         public int? PopulationSize { get; set; }
 
         public DESampler()
-            : base(ObjectiveNumberSupport.SingleObjective, false)
+            : base(ObjectiveNumberSupport.SingleObjective, ConstraintSupport.None)
         {
         }
 

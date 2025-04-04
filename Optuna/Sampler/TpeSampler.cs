@@ -24,7 +24,7 @@ namespace Optuna.Sampler
         public bool ConstantLiar { get; set; }
 
         public TpeSampler()
-         : base(ObjectiveNumberSupport.Any, true, HumanInTheLoopSupport.Recommended)
+         : base(ObjectiveNumberSupport.Any, ConstraintSupport.Supported, HumanInTheLoopSupport.Recommended)
         {
         }
 
