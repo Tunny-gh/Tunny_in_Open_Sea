@@ -18,7 +18,7 @@ namespace Optuna.Sampler.OptunaHub
         public bool ForceReload { get; set; }
 
         public NSGAIISampler()
-            : base(ObjectiveNumberSupport.Any, true, HumanInTheLoopSupport.NotRecommended)
+            : base(ObjectiveNumberSupport.Any, ConstraintSupport.Supported, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

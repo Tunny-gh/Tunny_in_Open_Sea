@@ -14,7 +14,7 @@ namespace Optuna.Sampler
         public int NStartupTrials { get; set; } = 10;
 
         public BoTorchSampler()
-         : base(ObjectiveNumberSupport.Any, true, HumanInTheLoopSupport.NotRecommended)
+         : base(ObjectiveNumberSupport.Any, ConstraintSupport.Supported, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

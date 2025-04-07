@@ -53,6 +53,7 @@ namespace Tunny.WPF.ViewModels.Optimize
         private Lazy<MOEADSettingsPage> _moeadPage;
         private Lazy<MoCmaEsSettingsPage> _moCmaEsPage;
         private Lazy<DESettingsPage> _dePage;
+        private Lazy<cTPESettingsPage> _cTpePage;
 
         private string _trialNumberParam1Label;
         public string TrialNumberParam1Label { get => _trialNumberParam1Label; set => SetProperty(ref _trialNumberParam1Label, value); }
@@ -236,6 +237,7 @@ namespace Tunny.WPF.ViewModels.Optimize
             _moCmaEsPage = new Lazy<MoCmaEsSettingsPage>(() => MoCmaEsSettingsPage.FromSettings(_settings));
             _dePage = new Lazy<DESettingsPage>(() => DESettingsPage.FromSettings(_settings));
             _preferentialGpPage = new Lazy<PreferentialGpSettingsPage>(() => PreferentialGpSettingsPage.FromSettings(_settings));
+            _cTpePage = new Lazy<cTPESettingsPage>(() => cTPESettingsPage.FromSettings(_settings));
         }
 
         public void ChangeTargetSampler(SamplerType samplerType)
@@ -298,6 +300,10 @@ namespace Tunny.WPF.ViewModels.Optimize
                 case SamplerType.PreferentialGp:
                     param = _preferentialGpPage.Value;
                     OptimizeSettingsPage = _preferentialGpPage.Value;
+                    break;
+                case SamplerType.cTPE:
+                    param = _cTpePage.Value;
+                    OptimizeSettingsPage = _cTpePage.Value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(samplerType), samplerType, null);
@@ -582,7 +588,9 @@ namespace Tunny.WPF.ViewModels.Optimize
                 Auto = _autoPage.Value.ToSettings(),
                 MOEAD = _moeadPage.Value.ToSettings(),
                 MoCmaEs = _moCmaEsPage.Value.ToSettings(),
-                DE = _dePage.Value.ToSettings()
+                DE = _dePage.Value.ToSettings(),
+                PreferentialGp = _preferentialGpPage.Value.ToSettings(),
+                cTPE = _cTpePage.Value.ToSettings()
             };
 
             int param1 = int.Parse(TrialNumberParam1, CultureInfo.InvariantCulture);

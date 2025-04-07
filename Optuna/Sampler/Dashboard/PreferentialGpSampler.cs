@@ -7,7 +7,7 @@ namespace Optuna.Sampler.Dashboard
     public class PreferentialGpSampler : SamplerBase
     {
         public PreferentialGpSampler()
-         : base(ObjectiveNumberSupport.SingleObjective, false, HumanInTheLoopSupport.OnlyHumanInTheLoop)
+         : base(ObjectiveNumberSupport.SingleObjective, ConstraintSupport.None, HumanInTheLoopSupport.OnlyHumanInTheLoop)
         {
         }
 

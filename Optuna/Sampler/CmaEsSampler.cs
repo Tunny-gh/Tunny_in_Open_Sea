@@ -24,7 +24,7 @@ namespace Optuna.Sampler
         public bool LrAdapt { get; set; }
 
         public CmaEsSampler()
-         : base(ObjectiveNumberSupport.SingleObjective, false, HumanInTheLoopSupport.NotRecommended)
+         : base(ObjectiveNumberSupport.SingleObjective, ConstraintSupport.None, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

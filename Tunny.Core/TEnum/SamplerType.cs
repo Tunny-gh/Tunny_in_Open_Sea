@@ -17,5 +17,6 @@ namespace Tunny.Core.TEnum
         MoCmaEs = 12,
         MOEAD = 13,
         DE = 14,
+        cTPE = 15,
     }
 }

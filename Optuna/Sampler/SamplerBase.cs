@@ -11,15 +11,15 @@ namespace Optuna.Sampler
     /// </summary>
     public class SamplerBase
     {
-        public bool SupportsConstraint { get; }
+        public ConstraintSupport ConstraintSupport { get; }
         public ObjectiveNumberSupport ObjectiveNumberSupport { get; }
         public HumanInTheLoopSupport HumanInTheLoopSupport { get; }
         public int? Seed { get; set; }
 
-        public SamplerBase(ObjectiveNumberSupport objectiveNumberSupport, bool supportConstraint, HumanInTheLoopSupport humanInTheLoopSupport)
+        public SamplerBase(ObjectiveNumberSupport objectiveNumberSupport, ConstraintSupport constraintSupport, HumanInTheLoopSupport humanInTheLoopSupport)
         {
             ObjectiveNumberSupport = objectiveNumberSupport;
-            SupportsConstraint = supportConstraint;
+            ConstraintSupport = constraintSupport;
             HumanInTheLoopSupport = humanInTheLoopSupport;
         }
 

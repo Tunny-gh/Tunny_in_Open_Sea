@@ -106,6 +106,21 @@
                     </RibbonButton>
                     <RibbonButton
                         Command="{Binding SelectSamplerCommand}"
+                        CommandParameter="{x:Static common:SelectSamplerType.cTPE}"
+                        Label="cTPE"
+                        LargeImageSource="{StaticResource Tree}"
+                        SmallImageSource="{StaticResource Tree}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
+                    <RibbonButton
+                        Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.GpOptuna}"
                         Label="GP Optuna"
                         LargeImageSource="{StaticResource Fish}"

@@ -15,7 +15,7 @@ namespace Optuna.Sampler
         public bool WarnAsynchronousSeeding { get; set; } = true;
 
         public QMCSampler()
-         : base(ObjectiveNumberSupport.Any, false, HumanInTheLoopSupport.NotRecommended)
+         : base(ObjectiveNumberSupport.Any, ConstraintSupport.None, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

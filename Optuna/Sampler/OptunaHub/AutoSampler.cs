@@ -12,7 +12,7 @@ namespace Optuna.Sampler.OptunaHub
         private const string Package = "samplers/auto_sampler";
 
         public AutoSampler()
-            : base(ObjectiveNumberSupport.Any, true)
+            : base(ObjectiveNumberSupport.Any, ConstraintSupport.Supported)
         {
         }
 

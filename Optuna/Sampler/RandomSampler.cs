@@ -10,7 +10,7 @@ namespace Optuna.Sampler
     public class RandomSampler : SamplerBase
     {
         public RandomSampler()
-         : base(ObjectiveNumberSupport.Any, false, HumanInTheLoopSupport.NotRecommended)
+         : base(ObjectiveNumberSupport.Any, ConstraintSupport.None, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

@@ -58,7 +58,11 @@ namespace Tunny.WPF.Common
 
         private static bool CheckNormalMode(bool isMultiObjective, bool hasConstraint, SamplerBase sampler, bool result)
         {
-            if (hasConstraint && !sampler.SupportsConstraint)
+            if (hasConstraint && sampler.ConstraintSupport == ConstraintSupport.None)
+            {
+                result = false;
+            }
+            else if (!hasConstraint && sampler.ConstraintSupport == ConstraintSupport.OnlyWithConstraint)
             {
                 result = false;
             }
@@ -129,6 +133,9 @@ namespace Tunny.WPF.Common
                     break;
                 case SelectSamplerType.DE:
                     sampler = new DESampler();
+                    break;
+                case SelectSamplerType.cTPE:
+                    sampler = new cTPESampler();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(selectSamplerType), selectSamplerType, null);

@@ -15,7 +15,7 @@ namespace Optuna.Sampler
         public bool DeterministicObjective { get; set; } = true;
 
         public GPSampler()
-         : base(ObjectiveNumberSupport.SingleObjective, true, HumanInTheLoopSupport.NotRecommended)
+         : base(ObjectiveNumberSupport.SingleObjective, ConstraintSupport.Supported, HumanInTheLoopSupport.NotRecommended)
         {
         }
 

@@ -10,7 +10,7 @@ namespace Optuna.Sampler.OptunaHub
         public int? PopulationSize { get; set; }
 
         public MoCmaEsSampler()
-            : base(ObjectiveNumberSupport.MultiObjective, false)
+            : base(ObjectiveNumberSupport.MultiObjective, ConstraintSupport.None)
         {
         }
 
