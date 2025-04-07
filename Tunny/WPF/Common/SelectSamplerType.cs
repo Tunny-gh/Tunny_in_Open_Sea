@@ -16,5 +16,6 @@
         QMC,
         BruteForce,
         DE,
+        cTPE,
     }
 }

@@ -217,6 +217,9 @@ namespace Tunny.WPF.ViewModels
                 case SelectSamplerType.DE:
                     samplerType = SamplerType.DE;
                     break;
+                case SelectSamplerType.cTPE:
+                    samplerType = SamplerType.cTPE;
+                    break;
                 default:
                     samplerType = SamplerType.TPE;
                     break;

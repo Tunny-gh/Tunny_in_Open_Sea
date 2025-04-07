@@ -18,7 +18,7 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - Variables can now be set to log scale from the UI.
 - Checkbox which minimize Rhino Window when start optimization
 - Support some optunahub sampler.
-  - Auto sampler, MOEA/D sampler, MO-CMA-ES sampler, DifferentialEvolution sampler
+  - Auto sampler, MOEA/D sampler, MO-CMA-ES sampler, DifferentialEvolution sampler, c-TPE sampler
 - ConstructFishEggByCsv component
   - Make it easy to set FishEgg to use csv.
 - Other Grasshopper component compatibility check.

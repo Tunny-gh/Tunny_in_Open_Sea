@@ -134,6 +134,9 @@ namespace Tunny.WPF.Common
                 case SelectSamplerType.DE:
                     sampler = new DESampler();
                     break;
+                case SelectSamplerType.cTPE:
+                    sampler = new cTPESampler();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(selectSamplerType), selectSamplerType, null);
             }
