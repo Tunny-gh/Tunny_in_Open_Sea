@@ -35,7 +35,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             {
                 Seed = CTpeSeedTextBox.Text == "AUTO"
                     ? null
-                    : int.Parse(CTpeSeedTextBox.Text, CultureInfo.InvariantCulture),
+                    : (int?)int.Parse(CTpeSeedTextBox.Text, CultureInfo.InvariantCulture),
                 NStartupTrials = CTpeStartupTrialsTextBox.Text == "AUTO"
                     ? -1
                     : int.Parse(CTpeStartupTrialsTextBox.Text, CultureInfo.InvariantCulture),
