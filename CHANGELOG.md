@@ -36,7 +36,8 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 
 ### Changed
 
-- Default log file is set to "Verbose" with a retention period of 1 day.
+- Default log file is set to "Information" with a retention period of 1 day.
+  - Use AOP to check method boundary
 - Dashboard & TT-DesignExplorer trial attribute handling.
   - Attribute values are shown in ParallelCoordinate plot in dashboard.
   - Attribute values are shown in graph & trial value table in TT-DesignExplorer.
