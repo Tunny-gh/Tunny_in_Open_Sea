@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 
-using Optuna.Study;
-
 using Tunny.Core.Settings;
+using Tunny.Core.Util;
 
 namespace Tunny.WPF.ViewModels.Visualize
 {
+    [LoggingAspect]
     internal sealed class ParallelCoordinateViewModel : PlotSettingsViewModelBase
     {
         public ParallelCoordinateViewModel() : base()

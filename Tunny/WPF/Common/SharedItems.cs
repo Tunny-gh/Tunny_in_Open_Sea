@@ -15,6 +15,7 @@ using Tunny.WPF.ViewModels.Optimize;
 
 namespace Tunny.WPF.Common
 {
+    [LoggingAspect]
     internal sealed class SharedItems
     {
         private static SharedItems s_instance;
@@ -35,7 +36,6 @@ namespace Tunny.WPF.Common
             get => _studySummaries;
             set
             {
-                TLog.MethodStart();
                 if (value == null)
                 {
                     return;
@@ -52,7 +52,6 @@ namespace Tunny.WPF.Common
 
         internal void Clear()
         {
-            TLog.MethodStart();
             TunnyWindow = null;
             OptimizeViewModel = null;
             StudySummaries = null;
@@ -73,7 +72,6 @@ namespace Tunny.WPF.Common
 
         internal void UpdateStudySummaries()
         {
-            TLog.MethodStart();
             StudySummaries = new StorageHandler().GetStudySummaries(Settings.Storage.Path);
         }
     }

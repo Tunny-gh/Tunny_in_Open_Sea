@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace Tunny.Core.Util
 {
+    [LoggingAspect]
     public static class TEnvVariables
     {
         public static Version Version { get; } = Assembly.GetExecutingAssembly().GetName().Version;

@@ -1,5 +1,8 @@
+using Tunny.Core.Util;
+
 namespace Tunny.Core.Settings
 {
+    [LoggingAspect]
     public class PlotSettings
     {
         public string PlotTypeName { get; set; }

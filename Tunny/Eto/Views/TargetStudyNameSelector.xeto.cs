@@ -3,11 +3,13 @@ using System;
 using Eto.Forms;
 using Eto.Serialization.Xaml;
 
+using Tunny.Core.Util;
 using Tunny.Eto.Models;
 using Tunny.Eto.ViewModels;
 
 namespace Tunny.Eto.Views
 {
+    [LoggingAspect]
     internal sealed class TargetStudyNameSelector : Dialog
     {
         public DropDown StudyNameDropDown { get; set; }

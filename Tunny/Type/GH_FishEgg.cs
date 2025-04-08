@@ -1,14 +1,15 @@
 ﻿using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.Json;
 
 using GH_IO.Serialization;
 
 using Grasshopper.Kernel.Types;
 
+using Tunny.Core.Util;
+
 namespace Tunny.Type
 {
+    [LoggingAspect]
     public class GH_FishEgg : GH_Goo<FishEgg>
     {
         public GH_FishEgg()

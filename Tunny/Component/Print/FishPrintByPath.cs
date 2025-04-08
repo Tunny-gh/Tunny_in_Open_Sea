@@ -5,11 +5,12 @@ using System.IO;
 using Grasshopper.Kernel;
 
 using Tunny.Component.Params;
+using Tunny.Core.Util;
 using Tunny.Resources;
-using Tunny.Type;
 
 namespace Tunny.Component.Print
 {
+    [LoggingAspect]
     public class FishPrintByPath : GH_Component
     {
         public FishPrintByPath()

@@ -14,6 +14,7 @@ using Tunny.Type;
 
 namespace Tunny.Process
 {
+    [LoggingAspect]
     internal static class OutputProcess
     {
         public static string StudyName;
@@ -21,7 +22,6 @@ namespace Tunny.Process
 
         internal static void Run()
         {
-            TLog.MethodStart();
             OptimizeComponentBase component = CommonSharedItems.Instance.Component;
 
             var fishes = new List<Fish>();
@@ -51,7 +51,6 @@ namespace Tunny.Process
 
         public static void SetResultToFish(List<Fish> fishes, Trial trial, IEnumerable<string> varNickname, string[] objNickname)
         {
-            TLog.MethodStart();
             fishes.Add(new Fish
             {
                 TrialNumber = trial.Number,
@@ -79,14 +78,12 @@ namespace Tunny.Process
 
         private static Dictionary<string, object> SetVariables(Dictionary<string, object> variables, IEnumerable<string> nickNames)
         {
-            TLog.MethodStart();
             return nickNames.SelectMany(name => variables.Where(obj => obj.Key == name))
                 .ToDictionary(variable => variable.Key, variable => variable.Value);
         }
 
         private static Dictionary<string, double> SetObjectives(double[] values, string[] nickNames)
         {
-            TLog.MethodStart();
             var objectives = new Dictionary<string, double>();
             if (values == null)
             {
@@ -109,7 +106,6 @@ namespace Tunny.Process
 
         private static Dictionary<string, object> SetAttributes(Dictionary<string, List<string>> trialAttr)
         {
-            TLog.MethodStart();
             var attribute = new Dictionary<string, object>();
             foreach (KeyValuePair<string, List<string>> attr in trialAttr)
             {
@@ -120,7 +116,6 @@ namespace Tunny.Process
 
         private static Dictionary<string, List<string>> ParseAttrs(Dictionary<string, object> userAttrs)
         {
-            TLog.MethodStart();
             var attributes = new Dictionary<string, List<string>>();
             foreach (string key in userAttrs.Keys)
             {

@@ -5,9 +5,11 @@ using Optuna.Trial;
 
 using Tunny.Core.Input;
 using Tunny.Core.Settings;
+using Tunny.Core.Util;
 
 namespace Tunny.Core.Handler
 {
+    [LoggingAspect]
     public class ProgressState
     {
         public IList<Parameter> Parameter { get; set; }

@@ -8,6 +8,7 @@ using Tunny.Type;
 
 namespace Tunny.Solver
 {
+    [LoggingAspect]
     sealed internal class OptimizationHandlingInfo
     {
         public int NTrials { get; set; }
@@ -24,7 +25,6 @@ namespace Tunny.Solver
                                         dynamic artifactBackend, List<FishEgg> enqueueItems,
                                         string[] objectiveNames)
         {
-            TLog.MethodStart();
             NTrials = nTrials;
             Timeout = timeout;
             Study = study;

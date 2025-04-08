@@ -6,10 +6,12 @@ using Grasshopper.Kernel;
 
 using Tunny.Component.Optimizer;
 using Tunny.Component.Params;
+using Tunny.Core.Util;
 using Tunny.Resources;
 
 namespace Tunny.Component.Obsolete
 {
+    [LoggingAspect]
     [Obsolete("This component is obsolete in v0.11.1 and will be removed in v1.0. Please use ConstructFishAttribute instead.")]
     public class FishingComponent_v0_11_1 : UIOptimizeComponentBase
     {

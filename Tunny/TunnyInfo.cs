@@ -3,10 +3,12 @@ using System.Drawing;
 
 using Grasshopper.Kernel;
 
+using Tunny.Core.Util;
 using Tunny.Resources;
 
 namespace Tunny
 {
+    [LoggingAspect]
     public class Tunny : GH_AssemblyInfo
     {
         public override string Name => "Tunny";

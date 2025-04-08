@@ -5,6 +5,7 @@ using Tunny.Core.Util;
 namespace Tunny.Core.Input
 {
     [Serializable]
+    [LoggingAspect]
     public class CategoricalVariable : VariableBase
     {
         public string[] Categories { get; }
@@ -13,7 +14,6 @@ namespace Tunny.Core.Input
         public CategoricalVariable(string[] categories, string selectedItem, string nickName, Guid id)
          : base(nickName, id)
         {
-            TLog.MethodStart();
             Categories = categories;
             SelectedItem = selectedItem;
         }

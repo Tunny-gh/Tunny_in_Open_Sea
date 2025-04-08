@@ -1,10 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 
 using Tunny.Core.Settings;
+using Tunny.Core.Util;
 using Tunny.Eto.Models;
 
 namespace Tunny.WPF.ViewModels.Visualize
 {
+    [LoggingAspect]
     internal sealed class OptimizationHistoryViewModel : PlotSettingsViewModelBase
     {
         private ObservableCollection<NameComboBoxItem> _compareStudyNameItems;

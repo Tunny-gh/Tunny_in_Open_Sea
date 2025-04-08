@@ -18,6 +18,7 @@ using Tunny.Type;
 
 namespace Tunny.Input
 {
+    [LoggingAspect]
     public class Objective
     {
         public List<IGH_Param> Sources { get; set; }
@@ -32,7 +33,6 @@ namespace Tunny.Input
 
         public Objective(double[] values)
         {
-            TLog.MethodStart();
             Numbers = values;
             Images = Array.Empty<Bitmap>();
             Geometries = Array.Empty<GeometryBase>();
@@ -41,7 +41,6 @@ namespace Tunny.Input
 
         public Objective(List<IGH_Param> sources)
         {
-            TLog.MethodStart();
             var numbers = new List<double>();
             var images = new List<Bitmap>();
             var geometries = new List<GeometryBase>();
@@ -58,7 +57,6 @@ namespace Tunny.Input
 
         private static void SetParamsValue(List<IGH_Param> sources, List<double> numbers, List<Bitmap> images, List<GeometryBase> geometries)
         {
-            TLog.MethodStart();
             foreach (IGH_StructureEnumerator ghEnumerator in sources.Select(objective => objective.VolatileData.AllData(false)))
             {
                 foreach (IGH_Goo goo in ghEnumerator)
@@ -89,7 +87,6 @@ namespace Tunny.Input
 
         private void SetHumanInTheLoopType()
         {
-            TLog.MethodStart();
             if (NoNumberLength == 0)
             {
                 HumanInTheLoopType = HumanInTheLoopType.None;
@@ -106,7 +103,6 @@ namespace Tunny.Input
 
         public string[] GetNickNames()
         {
-            TLog.MethodStart();
             var nickNames = new List<string>();
             foreach (IGH_Param source in Sources)
             {
@@ -127,7 +123,6 @@ namespace Tunny.Input
 
         internal void SetDirections(IEnumerable<ObjectiveSettingItem> items)
         {
-            TLog.MethodStart();
             var directions = new List<string>();
             foreach (ObjectiveSettingItem item in items)
             {

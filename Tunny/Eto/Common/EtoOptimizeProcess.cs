@@ -15,13 +15,13 @@ using Tunny.Process;
 
 namespace Tunny.Eto.Common
 {
+    [LoggingAspect]
     internal static class EtoOptimizeProcess
     {
         private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
 
         internal async static Task RunAsync(EtoMainWindow etoMainWindow)
         {
-            TLog.MethodStart();
             CoSharedItems.Component?.GhInOutInstantiate();
             CoSharedItems.EtoWindow = etoMainWindow;
 
@@ -57,13 +57,11 @@ namespace Tunny.Eto.Common
 
         private static async Task ReportAsync(ProgressState progressState)
         {
-            TLog.MethodStart();
             await Task.Run(() => CoSharedItems.ReportProgress(progressState));
         }
 
         private static async Task<ProgressState> RunOptimizationLoopAsync()
         {
-            TLog.MethodStart();
             Objective objectives = SetObjectives();
             List<VariableBase> variables = SetVariables();
             bool hasConstraint = CoSharedItems.Component.GhInOut.HasConstraint;
@@ -99,7 +97,6 @@ namespace Tunny.Eto.Common
 
         private static TrialGrasshopperItems EvaluateFunction(ProgressState pState, int progress)
         {
-            TLog.MethodStart();
             CoSharedItems.ReportProgress(pState);
             OptimizeComponentBase component = CoSharedItems.Component;
             if (pState.IsReportOnly)

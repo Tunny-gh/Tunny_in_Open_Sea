@@ -2,17 +2,15 @@ using System;
 
 using Grasshopper.GUI;
 
-using Optuna.Study;
-
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Settings;
-using Tunny.Core.Storage;
 using Tunny.Core.Util;
 using Tunny.Eto.Views;
 
 namespace Tunny.Eto.Common
 {
+    [LoggingAspect]
     internal sealed class CommonSharedItems
     {
         private static CommonSharedItems s_instance;
@@ -33,25 +31,21 @@ namespace Tunny.Eto.Common
 
         internal void AddProgress(IProgress<ProgressState> progress)
         {
-            TLog.MethodStart();
             _progress = progress;
         }
 
         internal void ReportProgress(ProgressState progressState)
         {
-            TLog.MethodStart();
             _progress?.Report(progressState);
         }
 
         private void ClearProgress()
         {
-            TLog.MethodStart();
             _progress = null;
         }
 
         internal void Clear()
         {
-            TLog.MethodStart();
             Component = null;
             Settings = null;
             GH_DocumentEditor = null;

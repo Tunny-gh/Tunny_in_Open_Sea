@@ -15,9 +15,9 @@ using Grasshopper.Kernel.Types;
 
 using Rhino.Geometry;
 
+using Tunny.Component.Input;
 using Tunny.Component.Params;
 using Tunny.Component.Print;
-using Tunny.Component.Util;
 using Tunny.Core.Input;
 using Tunny.Core.Util;
 using Tunny.Eto.Message;
@@ -26,6 +26,7 @@ using Tunny.Type;
 
 namespace Tunny.Util
 {
+    [LoggingAspect]
     public class GrasshopperInOut
     {
         private readonly GH_Document _document;
@@ -78,7 +79,6 @@ namespace Tunny.Util
 
         public GrasshopperInOut(GH_Component component, bool getVariableOnly = false)
         {
-            TLog.MethodStart();
             _component = component;
             _document = _component.OnPingDocument();
             _inputGuids = new List<Guid>();
@@ -90,7 +90,6 @@ namespace Tunny.Util
 
         private bool SetVariables()
         {
-            TLog.MethodStart();
             _sliders = new List<GH_NumberSlider>();
             _valueLists = new List<TunnyValueList>();
             _genePool = new List<GalapagosGeneListObject>();
@@ -115,7 +114,6 @@ namespace Tunny.Util
 
         private bool FilterInputVariables()
         {
-            TLog.MethodStart();
             var errorInputGuids = new List<Guid>();
             foreach ((IGH_DocumentObject docObject, int _) in _inputGuids.Select((guid, i) => (_document.FindObject(guid, false), i)))
             {
@@ -159,13 +157,11 @@ namespace Tunny.Util
 
         private bool CheckHasIncorrectVariableInput(List<Guid> errorInputGuids)
         {
-            TLog.MethodStart();
             return errorInputGuids.Count <= 0 || ShowIncorrectVariableInputMessage(errorInputGuids);
         }
 
         private bool ShowIncorrectVariableInputMessage(IEnumerable<Guid> errorGuids)
         {
-            TLog.MethodStart();
             TunnyMessageBox.Error_IncorrectVariableInput();
             foreach (Guid guid in errorGuids)
             {
@@ -177,7 +173,6 @@ namespace Tunny.Util
 
         private void SetInputSliderValues(List<VariableBase> variables)
         {
-            TLog.MethodStart();
             int i = 0;
 
             foreach (GH_NumberSlider slider in _sliders)
@@ -226,7 +221,6 @@ namespace Tunny.Util
 
         private void SetInputGenePoolValues(List<VariableBase> variables)
         {
-            TLog.MethodStart();
             var nickNames = new List<string>();
             for (int i = 0; i < _genePool.Count; i++)
             {
@@ -251,7 +245,6 @@ namespace Tunny.Util
 
         private void SetInputValueItem(List<VariableBase> variables)
         {
-            TLog.MethodStart();
             foreach (TunnyValueList valueList in _valueLists)
             {
                 string nickName = valueList.NickName;
@@ -264,7 +257,6 @@ namespace Tunny.Util
 
         private bool GetObjectives()
         {
-            TLog.MethodStart();
             if (_component.Params.Input[1].SourceCount == 0)
             {
                 return TunnyMessageBox.Error_ShowNoObjectiveFound();
@@ -308,7 +300,6 @@ namespace Tunny.Util
 
         private static bool CheckObjectiveNicknameDuplication(IEnumerable<IGH_Param> objectives)
         {
-            TLog.MethodStart();
             var nickname = objectives.Select(x => x.NickName)
                                      .GroupBy(name => name).Where(name => name.Count() > 1).Select(group => group.Key).ToList();
             if (nickname.Count > 0)
@@ -321,7 +312,6 @@ namespace Tunny.Util
 
         private bool ShowIncorrectObjectiveInputMessage(List<IGH_Param> unsupportedSources)
         {
-            TLog.MethodStart();
             TunnyMessageBox.Error_IncorrectObjectiveInput();
             foreach (IGH_Param unsupportedSource in unsupportedSources)
             {
@@ -334,7 +324,6 @@ namespace Tunny.Util
 
         private bool GetFishAttributes()
         {
-            TLog.MethodStart();
             _fishAttributes = new GH_FishAttribute();
             if (_component.Params.Input[2].SourceCount == 0)
             {
@@ -360,14 +349,12 @@ namespace Tunny.Util
 
         private static bool ShowIncorrectAttributeInputMessage()
         {
-            TLog.MethodStart();
             TunnyMessageBox.Error_IncorrectAttributeInput();
             return false;
         }
 
         private void SetCategoryValues(string[] categoryParameters)
         {
-            TLog.MethodStart();
             int i = 0;
             foreach (TunnyValueList valueList in _valueLists)
             {
@@ -387,7 +374,6 @@ namespace Tunny.Util
 
         private void SetSliderValues(decimal[] parameters)
         {
-            TLog.MethodStart();
             int i = 0;
 
             foreach (GH_NumberSlider slider in _sliders)
@@ -428,13 +414,11 @@ namespace Tunny.Util
 
         private static decimal GetNormalisedGenePoolValue(decimal unnormalized, GalapagosGeneListObject genePool)
         {
-            TLog.MethodStart();
             return (unnormalized - genePool.Minimum) / (genePool.Maximum - genePool.Minimum);
         }
 
         private async Task RecalculateAsync()
         {
-            TLog.MethodStart();
             while (_document.SolutionState != GH_ProcessStep.PreProcess || _document.SolutionDepth != 0) { }
             _document.NewSolution(false);
             await WaitForSolutionEnd();
@@ -460,7 +444,6 @@ namespace Tunny.Util
 
         public async void NewSolution(IList<Parameter> parameters)
         {
-            TLog.MethodStart();
             decimal[] decimalParameters = parameters.Where(p => p.HasNumber).Select(p => (decimal)p.Number).ToArray();
             string[] categoryParameters = parameters.Where(p => p.HasCategory).Select(p => p.Category).ToArray();
             SetSliderValues(decimalParameters);
@@ -476,7 +459,6 @@ namespace Tunny.Util
 
         private void ExpireInput(IGH_Param input)
         {
-            TLog.MethodStart();
             // TopLevel is acquired
             // because it is necessary to Expire the component itself, not the value of the output.
             foreach (Guid guid in input.Sources.Select(p => p.InstanceGuid))
@@ -494,7 +476,6 @@ namespace Tunny.Util
         private void ExpireFishPrint()
         {
             //FishPrintByCapture has no input and will not be recalculated unless intentionally expire.
-            TLog.MethodStart();
             _document.Objects.OfType<IGH_Component>()
                 .Where(c => c is FishPrintByCapture).ToList()
                 .ForEach(c => c.ExpireSolution(false));
@@ -502,7 +483,6 @@ namespace Tunny.Util
 
         private Dictionary<string, List<string>> FishAttributesToDict()
         {
-            TLog.MethodStart();
             var attrs = new Dictionary<string, List<string>>();
             if (_fishAttributes.Value == null)
             {
@@ -532,7 +512,6 @@ namespace Tunny.Util
 
         private void AddGooValues(string key, List<string> value)
         {
-            TLog.MethodStart();
             if (_fishAttributes.Value[key] is List<object> objList)
             {
                 foreach (object param in objList)
@@ -547,7 +526,6 @@ namespace Tunny.Util
 
         private bool GetArtifacts()
         {
-            TLog.MethodStart();
             _artifacts = new Artifact();
             if (_component.Params.Input[3].SourceCount == 0)
             {

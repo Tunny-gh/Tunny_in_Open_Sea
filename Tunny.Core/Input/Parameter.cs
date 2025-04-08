@@ -4,6 +4,7 @@ using Tunny.Core.Util;
 
 namespace Tunny.Core.Input
 {
+    [LoggingAspect]
     public class Parameter
     {
         public string Category { get; }
@@ -13,19 +14,16 @@ namespace Tunny.Core.Input
 
         public Parameter(double number)
         {
-            TLog.MethodStart();
             Number = number;
         }
 
         public Parameter(string category)
         {
-            TLog.MethodStart();
             Category = category;
         }
 
         public override string ToString()
         {
-            TLog.MethodStart();
             if (HasCategory)
             {
                 return Category;

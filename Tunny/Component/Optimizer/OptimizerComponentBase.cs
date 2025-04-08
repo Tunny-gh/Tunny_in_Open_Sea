@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -12,9 +11,9 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Special;
 
+using Tunny.Component.Input;
 using Tunny.Component.Params;
 using Tunny.Component.Print;
-using Tunny.Component.Util;
 using Tunny.Core.Handler;
 using Tunny.Core.TEnum;
 using Tunny.Core.Util;
@@ -23,6 +22,7 @@ using Tunny.Util;
 
 namespace Tunny.Component.Optimizer
 {
+    [LoggingAspect]
     public class OptimizeComponentBase : GH_Component
     {
         internal GrasshopperInOut GhInOut;
@@ -49,13 +49,11 @@ namespace Tunny.Component.Optimizer
 
         public void SetInfo(string info)
         {
-            TLog.MethodStart();
             Info = info;
         }
 
         public override void AppendAdditionalMenuItems(ToolStripDropDown menu)
         {
-            TLog.MethodStart();
             base.AppendAdditionalMenuItems(menu);
             Menu_AppendItem(menu, "Open settings.json", Menu_OpenSettingsClicked);
             Menu_AppendItem(menu, "Open environment directory", Menu_OpenDirectoryClicked);
@@ -63,7 +61,6 @@ namespace Tunny.Component.Optimizer
 
         private void Menu_OpenDirectoryClicked(object sender, EventArgs e)
         {
-            TLog.MethodStart();
             var process = new System.Diagnostics.Process();
             process.StartInfo.FileName = RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
                 ? "open" : "explorer.exe";
@@ -73,7 +70,6 @@ namespace Tunny.Component.Optimizer
 
         private void Menu_OpenSettingsClicked(object sender, EventArgs e)
         {
-            TLog.MethodStart();
             var process = new System.Diagnostics.Process();
             process.StartInfo.FileName = RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
                 ? "open" : "notepad.exe";
@@ -86,7 +82,6 @@ namespace Tunny.Component.Optimizer
         /// </summary>
         protected void MakeFishPrintByCaptureToTopOrder()
         {
-            TLog.MethodStart();
             IList<IGH_DocumentObject> objs = OnPingDocument().Objects;
             var fishPrints = new List<FishPrintByCapture>();
             foreach (IGH_DocumentObject obj in objs)
@@ -111,7 +106,6 @@ namespace Tunny.Component.Optimizer
 
         public void UpdateGrasshopper(ProgressState progressState)
         {
-            TLog.MethodStart();
             GrasshopperStatus = GrasshopperStates.RequestProcessing;
             TLog.Debug("Requesting Grasshopper to process the solution.");
             if (progressState.IsReportOnly)
@@ -128,13 +122,11 @@ namespace Tunny.Component.Optimizer
 
         public override void CreateAttributes()
         {
-            TLog.MethodStart();
             m_attributes = new OptimizerAttributeBase(this, Color.DimGray, Color.Black, Color.White);
         }
 
         protected void CheckVariablesInput(IEnumerable<Guid> inputGuids)
         {
-            TLog.MethodStart();
             foreach ((IGH_DocumentObject docObject, int _) in inputGuids.Select((guid, i) => (OnPingDocument().FindObject(guid, false), i)))
             {
                 switch (docObject)
@@ -153,7 +145,6 @@ namespace Tunny.Component.Optimizer
 
         protected void CheckObjectivesInput(IEnumerable<Guid> inputGuids)
         {
-            TLog.MethodStart();
             foreach ((IGH_DocumentObject docObject, int _) in inputGuids.Select((guid, i) => (OnPingDocument().FindObject(guid, false), i)))
             {
                 switch (docObject)
@@ -170,7 +161,6 @@ namespace Tunny.Component.Optimizer
 
         protected void CheckArtifactsInput(IEnumerable<Guid> inputGuids)
         {
-            TLog.MethodStart();
             foreach ((IGH_DocumentObject docObject, int _) in inputGuids.Select((guid, i) => (OnPingDocument().FindObject(guid, false), i)))
             {
                 switch (docObject)

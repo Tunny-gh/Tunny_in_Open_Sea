@@ -15,6 +15,7 @@ using Tunny.Core.Util;
 
 namespace Tunny.Input
 {
+    [LoggingAspect]
     public class Artifact
     {
         public List<GeometryBase> Geometries { get; set; } = new List<GeometryBase>();
@@ -23,7 +24,6 @@ namespace Tunny.Input
 
         public void AddFilePathToArtifact(string path)
         {
-            TLog.MethodStart();
             if (File.Exists(path))
             {
                 ArtifactPaths.Add(path);
@@ -32,13 +32,11 @@ namespace Tunny.Input
 
         public int Count()
         {
-            TLog.MethodStart();
             return Geometries.Count + Images.Count + ArtifactPaths.Count;
         }
 
         public void UploadArtifacts(dynamic artifactBackend, TrialWrapper trial)
         {
-            TLog.MethodStart();
             string fileName = $"artifact_trial_{trial.Number}";
             string basePath = Path.Combine(TEnvVariables.TmpDirPath, fileName);
             SaveAllArtifacts(basePath);
@@ -52,7 +50,6 @@ namespace Tunny.Input
 
         private void SaveAllArtifacts(string basePath)
         {
-            TLog.MethodStart();
             if (Geometries.Count > 0)
             {
                 SaveRhino3dm(basePath);
@@ -65,7 +62,6 @@ namespace Tunny.Input
 
         private void SaveRhino3dm(string basePath)
         {
-            TLog.MethodStart();
             string path = basePath + "_model.3dm";
             var rhinoDoc = RhinoDoc.CreateHeadless("");
             foreach (GeometryBase geom in Geometries)
@@ -92,7 +88,6 @@ namespace Tunny.Input
 
         private void SaveImage(string basePath)
         {
-            TLog.MethodStart();
             for (int i = 0; i < Images.Count; i++)
             {
                 Bitmap bitmap = Images[i];

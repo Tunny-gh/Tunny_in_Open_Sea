@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 using Optuna.Storage;
 using Optuna.Study;
@@ -11,6 +10,7 @@ using Tunny.Core.Util;
 
 namespace Tunny.Core.Solver
 {
+    [LoggingAspect]
     public class Output
     {
         private readonly string _storagePath;
@@ -22,7 +22,6 @@ namespace Tunny.Core.Solver
 
         public Trial[] GetTargetTrial(int[] targetNumbers, string studyName)
         {
-            TLog.MethodStart();
             IOptunaStorage storage = StorageHelper.GetStorage(_storagePath);
             Study targetStudy = storage.GetAllStudies().FirstOrDefault(s => s.StudyName == studyName);
             return targetStudy == null ? Array.Empty<Trial>() : GetTargetTrials(targetNumbers, targetStudy);
@@ -30,7 +29,6 @@ namespace Tunny.Core.Solver
 
         public Dictionary<int, Trial[]> GetAllTrial()
         {
-            TLog.MethodStart();
             IOptunaStorage storage = StorageHelper.GetStorage(_storagePath);
             Study[] studies = storage.GetAllStudies();
             var dict = new Dictionary<int, Trial[]>();
@@ -43,7 +41,6 @@ namespace Tunny.Core.Solver
 
         public string[] GetMetricNames(string studyName)
         {
-            TLog.MethodStart();
             IOptunaStorage storage = StorageHelper.GetStorage(_storagePath);
             Study targetStudy = storage.GetAllStudies().FirstOrDefault(s => s.StudyName == studyName);
             if (targetStudy == null)
@@ -59,7 +56,6 @@ namespace Tunny.Core.Solver
 
         private static Trial[] GetTargetTrials(int[] targetNumbers, Study study)
         {
-            TLog.MethodStart();
             if (targetNumbers[0] == -1)
             {
                 return study.BestTrials;
@@ -76,7 +72,6 @@ namespace Tunny.Core.Solver
 
         private static Trial[] UseTrialNumber(int[] targetNumbers, Study study)
         {
-            TLog.MethodStart();
             var trials = new List<Trial>();
             for (int i = 0; i < targetNumbers.Length; i++)
             {

@@ -4,6 +4,7 @@ using Tunny.Core.Util;
 
 namespace Tunny.Core.Input
 {
+    [LoggingAspect]
     public class VariableBase
     {
         public string NickName { get; }
@@ -11,7 +12,6 @@ namespace Tunny.Core.Input
 
         public VariableBase(string nickName, Guid id)
         {
-            TLog.MethodStart();
             NickName = nickName;
             InstanceId = id;
         }

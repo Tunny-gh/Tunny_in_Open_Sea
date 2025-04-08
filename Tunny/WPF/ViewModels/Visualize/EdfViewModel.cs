@@ -1,7 +1,9 @@
 ﻿using Tunny.Core.Settings;
+using Tunny.Core.Util;
 
 namespace Tunny.WPF.ViewModels.Visualize
 {
+    [LoggingAspect]
     internal sealed class EdfViewModel : PlotSettingsViewModelBase
     {
         public EdfViewModel() : base()

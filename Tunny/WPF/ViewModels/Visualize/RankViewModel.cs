@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 
 using Tunny.Core.Settings;
+using Tunny.Core.Util;
 
 namespace Tunny.WPF.ViewModels.Visualize
 {
+    [LoggingAspect]
     internal sealed class RankViewModel : PlotSettingsViewModelBase
     {
         public RankViewModel() : base()

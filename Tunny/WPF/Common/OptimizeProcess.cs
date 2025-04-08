@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Optuna.Trial;
-
 using Tunny.Component.Optimizer;
 using Tunny.Core.Handler;
 using Tunny.Core.Input;
-using Tunny.Core.Settings;
 using Tunny.Core.TEnum;
 using Tunny.Core.Util;
 using Tunny.Eto.Common;
@@ -19,6 +16,7 @@ using Tunny.WPF.ViewModels.Optimize;
 
 namespace Tunny.WPF.Common
 {
+    [LoggingAspect]
     internal static class OptimizeProcess
     {
         private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;
@@ -26,7 +24,6 @@ namespace Tunny.WPF.Common
         private static SharedItems SharedItems => SharedItems.Instance;
         internal async static Task RunAsync(OptimizeViewModel optimizeViewModel)
         {
-            TLog.MethodStart();
             CoSharedItems.Component?.GhInOutInstantiate();
             SharedItems.OptimizeViewModel = optimizeViewModel;
 
@@ -63,13 +60,11 @@ namespace Tunny.WPF.Common
 
         private static async Task ReportAsync(ProgressState progressState)
         {
-            TLog.MethodStart();
             await Task.Run(() => CoSharedItems.ReportProgress(progressState));
         }
 
         private static async Task<ProgressState> RunOptimizationLoopAsync()
         {
-            TLog.MethodStart();
             Objective objectives = SetObjectives();
             List<VariableBase> variables = SetVariables();
             bool hasConstraint = CoSharedItems.Component.GhInOut.HasConstraint;
@@ -111,7 +106,6 @@ namespace Tunny.WPF.Common
 
         private static TrialGrasshopperItems EvaluateFunction(ProgressState pState, int progress)
         {
-            TLog.MethodStart();
             CoSharedItems.ReportProgress(pState);
             OptimizeComponentBase component = CoSharedItems.Component;
             if (pState.IsReportOnly)

@@ -13,12 +13,14 @@ using Rhino.Display;
 using Rhino.Geometry;
 
 using Tunny.Component.Params;
+using Tunny.Core.Util;
 using Tunny.Resources;
 using Tunny.Type;
 using Tunny.Util;
 
 namespace Tunny.Component.Visualize
 {
+    [LoggingAspect]
     public class FishMarket : GH_Component
     {
         private readonly List<Plane> _tagPlanes = new List<Plane>();

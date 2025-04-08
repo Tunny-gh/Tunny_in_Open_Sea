@@ -10,6 +10,7 @@ using Tunny.Eto.Common;
 
 namespace Tunny.Process
 {
+    [LoggingAspect]
     public static class PruneProcess
     {
         private const string IntermediateValueKey = "intermediate_value_step_";

@@ -4,8 +4,11 @@ using System.Drawing;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel.Special;
 
-namespace Tunny.Component.Util
+using Tunny.Core.Util;
+
+namespace Tunny.Component.Input
 {
+    [LoggingAspect]
     public class TunnyValueList : GH_ValueList
     {
         public TunnyValueList()

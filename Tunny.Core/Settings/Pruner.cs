@@ -11,6 +11,7 @@ using Tunny.Core.Util;
 
 namespace Tunny.Core.Settings
 {
+    [LoggingAspect]
     public class Pruner : IDisposable
     {
         public PrunerType Type { get; set; } = PrunerType.None;
@@ -119,7 +120,6 @@ namespace Tunny.Core.Settings
 
         public dynamic ToPython()
         {
-            TLog.MethodStart();
             dynamic optunaPruner;
             dynamic optuna = Py.Import("optuna");
             switch (Type)

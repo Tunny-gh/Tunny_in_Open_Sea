@@ -10,15 +10,15 @@ using Tunny.Core.Util;
 
 namespace Tunny.Core.Settings
 {
+    [LoggingAspect]
     public class TSettings
     {
         public string Version { get; set; } = TEnvVariables.Version.ToString();
         public Optimize Optimize { get; set; } = new Optimize();
         public Pruner Pruner { get; set; } = new Pruner();
-        public Result Result { get; set; } = new Result();
         public Storage Storage { get; set; } = new Storage();
         public bool CheckPythonLibraries { get; set; } = true;
-        public LogEventLevel LogLevel { get; set; } = LogEventLevel.Verbose;
+        public LogEventLevel LogLevel { get; set; } = LogEventLevel.Information;
 
         public TSettings()
         {
@@ -40,7 +40,6 @@ namespace Tunny.Core.Settings
 
         public void Serialize(string path)
         {
-            TLog.MethodStart();
             string json = JsonConvert.SerializeObject(this, Formatting.Indented);
             string dirPath = Path.GetDirectoryName(path);
             if (!Directory.Exists(dirPath))
@@ -52,7 +51,6 @@ namespace Tunny.Core.Settings
 
         public static TSettings Deserialize(string settingsPath)
         {
-            TLog.MethodStart();
             try
             {
                 return JsonConvert.DeserializeObject<TSettings>(File.ReadAllText(settingsPath));
@@ -68,7 +66,6 @@ namespace Tunny.Core.Settings
 
         public void CreateNewSettingsFile(string path)
         {
-            TLog.MethodStart();
             Serialize(path);
         }
 

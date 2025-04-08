@@ -2,11 +2,11 @@ using Python.Runtime;
 
 namespace Tunny.Core.Util
 {
+    [LoggingAspect]
     public abstract class PythonInit
     {
         protected static void InitializePythonEngine()
         {
-            TLog.MethodStart();
             TLog.Debug("Check PythonEngine status.");
             if (PythonEngine.IsInitialized)
             {

@@ -1,7 +1,10 @@
 ﻿using Prism.Mvvm;
 
+using Tunny.Core.Util;
+
 namespace Tunny.Eto.Models
 {
+    [LoggingAspect]
     internal sealed class ObjectiveSettingItem : BindableBase
     {
         private bool _minimize;

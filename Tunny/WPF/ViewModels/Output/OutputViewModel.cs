@@ -24,6 +24,7 @@ using Tunny.WPF.Views.Pages.Output;
 
 namespace Tunny.WPF.ViewModels.Output
 {
+    [LoggingAspect]
     internal sealed class OutputViewModel : BindableBase
     {
         public OutputViewModel()
@@ -176,7 +177,6 @@ namespace Tunny.WPF.ViewModels.Output
         }
         private void OpenOptunaDashboardTrialSelection()
         {
-            TLog.MethodStart();
             if (!File.Exists(SharedItems.Instance.Settings.Storage.Path))
             {
                 TunnyMessageBox.Error_ResultFileNotExist();
@@ -204,7 +204,6 @@ namespace Tunny.WPF.ViewModels.Output
         }
         private void Reinstate()
         {
-            TLog.MethodStart();
             OutputProcess.StudyName = SelectedStudyName.Name;
             OutputProcess.Indices = new[] { int.Parse(TargetTrialNumber, NumberStyles.Integer, CultureInfo.InvariantCulture) };
             OutputProcess.Run();
@@ -480,7 +479,6 @@ namespace Tunny.WPF.ViewModels.Output
         }
         private void OutputSelection()
         {
-            TLog.MethodStart();
             OutputProcess.StudyName = SelectedStudyName.Name;
             OutputProcess.Indices = OutputTargetItems.Where(t => t.IsSelected).Select(t => t.Id).ToArray();
             OutputProcess.Run();

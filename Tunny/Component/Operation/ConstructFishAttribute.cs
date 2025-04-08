@@ -6,10 +6,12 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 
 using Tunny.Component.Params;
+using Tunny.Core.Util;
 using Tunny.Resources;
 
 namespace Tunny.Component.Operation
 {
+    [LoggingAspect]
     public class ConstructFishAttribute : GH_Component, IGH_VariableParameterComponent
     {
         private const string ConstraintDescription

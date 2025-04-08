@@ -17,6 +17,7 @@ using Tunny.WPF;
 
 namespace Tunny.Component.Optimizer
 {
+    [LoggingAspect]
     public class UIOptimizeComponentBase : OptimizeComponentBase
     {
         private static CommonSharedItems CoSharedItems => CommonSharedItems.Instance;

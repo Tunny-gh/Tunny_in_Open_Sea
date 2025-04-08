@@ -14,6 +14,7 @@ using Tunny.Core.Util;
 
 namespace Tunny.Core.Handler
 {
+    [LoggingAspect]
     public class DesignExplorer : PythonInit
     {
         private bool _hasImage;
@@ -22,7 +23,6 @@ namespace Tunny.Core.Handler
 
         public DesignExplorer(string targetStudyName, Settings.Storage storage)
         {
-            TLog.MethodStart();
             _targetStudyName = targetStudyName;
             _storage = storage;
 
@@ -35,7 +35,6 @@ namespace Tunny.Core.Handler
 
         public void Run()
         {
-            TLog.MethodStart();
             OutputResultCsv();
             KillExistTunnyServerProcess();
             int port = FindAvailablePort(8081);
@@ -65,7 +64,6 @@ namespace Tunny.Core.Handler
 
         private void OutputResultCsv()
         {
-            TLog.MethodStart();
             InitializePythonEngine();
             using (Py.GIL())
             {
@@ -82,7 +80,6 @@ namespace Tunny.Core.Handler
 
         private static void KillExistTunnyServerProcess()
         {
-            TLog.MethodStart();
             int killCount = 0;
             Process[] server = Process.GetProcessesByName("TunnyDEServer");
             if (server.Length > 0)
@@ -97,7 +94,6 @@ namespace Tunny.Core.Handler
 
         private static int FindAvailablePort(int startPort)
         {
-            TLog.MethodStart();
             int port = startPort;
             while (IsPortInUse(port))
             {
@@ -108,7 +104,6 @@ namespace Tunny.Core.Handler
 
         private static bool IsPortInUse(int port)
         {
-            TLog.MethodStart();
             var ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();
             IPEndPoint[] tcpConnInfoArray = ipGlobalProperties.GetActiveTcpListeners();
 
@@ -125,7 +120,6 @@ namespace Tunny.Core.Handler
 
         public static void SetupTTDesignExplorer()
         {
-            TLog.MethodStart();
             string envPath = TEnvVariables.TunnyEnvPath;
             string componentFolderPath = TEnvVariables.ComponentFolder;
             TLog.Info("Unzip TT-DesignExplorer libraries: " + envPath);

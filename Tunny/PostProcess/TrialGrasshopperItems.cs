@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 
+using Tunny.Core.Util;
 using Tunny.Input;
 
 namespace Tunny.PostProcess
 {
+    [LoggingAspect]
     public class TrialGrasshopperItems
     {
         public Objective Objectives { get; set; }

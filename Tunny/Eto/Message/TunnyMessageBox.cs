@@ -4,6 +4,7 @@ using Tunny.Core.Util;
 
 namespace Tunny.Eto.Message
 {
+    [LoggingAspect]
     internal static partial class TunnyMessageBox
     {
         internal static DialogResult Show(string messageBoxText, string caption, MessageBoxButtons button = MessageBoxButtons.OK, MessageBoxType icon = MessageBoxType.Information)

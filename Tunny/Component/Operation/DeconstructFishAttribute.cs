@@ -11,12 +11,14 @@ using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
 using Tunny.Component.Params;
+using Tunny.Core.Util;
 using Tunny.Resources;
 using Tunny.Type;
 using Tunny.Util;
 
 namespace Tunny.Component.Operation
 {
+    [LoggingAspect]
     public class DeconstructFishAttribute : GH_Component, IGH_VariableParameterComponent
     {
         private int _outputCount;

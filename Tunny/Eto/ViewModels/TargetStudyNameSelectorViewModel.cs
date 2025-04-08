@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 
 using Eto.Forms;
@@ -20,6 +18,7 @@ using Tunny.Eto.Models;
 
 namespace Tunny.Eto.ViewModels
 {
+    [LoggingAspect]
     internal sealed class TargetStudyNameSelectorViewModel : BindableBase
     {
         private readonly TSettings _settings;
@@ -41,7 +40,6 @@ namespace Tunny.Eto.ViewModels
 
         private void OK()
         {
-            TLog.MethodStart();
             if (SelectedStudyName == null || string.IsNullOrEmpty(SelectedStudyName.Name))
             {
                 TunnyMessageBox.Error_NoStudyNameSelected();
@@ -69,13 +67,11 @@ namespace Tunny.Eto.ViewModels
 
         private void Cancel()
         {
-            TLog.MethodStart();
             Close();
         }
 
         private void Close()
         {
-            TLog.MethodStart();
             _dialog.Close();
         }
 

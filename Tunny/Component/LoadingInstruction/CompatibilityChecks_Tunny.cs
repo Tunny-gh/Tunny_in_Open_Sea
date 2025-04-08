@@ -6,8 +6,11 @@ using Grasshopper.Kernel;
 
 using Rhino;
 
+using Tunny.Core.Util;
+
 namespace Tunny.Component.LoadingInstruction
 {
+    [LoggingAspect]
     public class CheckIncompatibility_Tunny : GH_AssemblyPriority
     {
         public override GH_LoadingInstruction PriorityLoad()

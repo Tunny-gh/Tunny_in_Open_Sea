@@ -9,11 +9,11 @@ using Tunny.Core.Util;
 
 namespace Tunny.Util
 {
+    [LoggingAspect]
     public static class GooConverter
     {
         public static IGH_GeometricGoo GeometryBaseToGoo(GeometryBase geometryBase)
         {
-            TLog.MethodStart();
             switch (geometryBase)
             {
                 case Mesh mesh:
@@ -35,14 +35,12 @@ namespace Tunny.Util
 
         public static string GooToString(IGH_Goo goo, bool isGeometryBaseToJson)
         {
-            TLog.MethodStart();
             var option = new SerializationOptions();
             return goo.GooToString(isGeometryBaseToJson, option);
         }
 
         private static string GooToString(this IGH_Goo goo, bool isGeometryBaseToJson, SerializationOptions option)
         {
-            TLog.MethodStart();
             if (isGeometryBaseToJson)
             {
                 switch (goo)

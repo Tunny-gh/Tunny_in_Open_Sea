@@ -10,7 +10,6 @@ namespace Tunny.Eto.Message
     {
         internal static TrialGrasshopperItems Error_TenTimesNullResultErrorMessage()
         {
-            TLog.MethodStart();
             Show(
                 "The objective function returned NaN 10 times in a row. Tunny terminates the optimization. Please check the objective function.",
                 "Tunny",
@@ -22,7 +21,6 @@ namespace Tunny.Eto.Message
 
         internal static bool Error_ObjectiveHasSomeValue(string nickname)
         {
-            TLog.MethodStart();
             Show(
                 $"Objective \"{nickname}\" has some values(List or Tree input). \nPlease connect a single number or FishPrint to the objective.",
                 "Tunny",
@@ -33,7 +31,6 @@ namespace Tunny.Eto.Message
 
         internal static bool Error_ObjectiveIsNull(string nickname)
         {
-            TLog.MethodStart();
             Show(
                 $"Objective \"{nickname}\" is null. \nPlease connect a single number or FishPrint to the objective.",
                 "Tunny",
@@ -44,7 +41,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_RhinoCodePythonNotFound()
         {
-            TLog.MethodStart();
             Show(
                 "RhinoCode Python is not found. \n\nWhen the Python3 component is placed in Grasshopper, RhinoCode Python is automatically installed.",
                 "Tunny",
@@ -54,7 +50,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_NoArtifactFound()
         {
-            TLog.MethodStart();
             Show(
                 "Failed to load Artifact. Please check the value.",
                 "Tunny",
@@ -64,7 +59,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_IncorrectVariableInput()
         {
-            TLog.MethodStart();
             Show(
                 "Input variables must be either a number slider or a gene pool.\nError input will automatically remove.",
                 "Tunny",
@@ -74,7 +68,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_NoSourceStudySelected()
         {
-            TLog.MethodStart();
             Show(
                 "Please set CopySourceStudy.",
                 "Tunny",
@@ -84,7 +77,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_CopySourceAndDestinationAreSame()
         {
-            TLog.MethodStart();
             Show(
                 "Copy source and destination StudyName are the same.",
                 "Tunny",
@@ -94,7 +86,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_PrunerPath()
         {
-            TLog.MethodStart();
             Show(
                 "PrunerPath has something wrong. Please check.",
                 "Tunny",
@@ -104,7 +95,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_IncorrectObjectiveInput()
         {
-            TLog.MethodStart();
             Show(
                 "Objective must be either a number or a FishPrint.\nError input will automatically remove.",
                 "Tunny",
@@ -114,7 +104,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_IncorrectAttributeInput()
         {
-            TLog.MethodStart();
             Show(
                 "Inputs to Attribute should be grouped together into one FishAttribute.",
                 "Tunny",
@@ -124,7 +113,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_ObjectiveNicknamesMustUnique()
         {
-            TLog.MethodStart();
             Show(
                 "Objective nicknames must be unique.",
                 "Tunny",
@@ -134,7 +122,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_NoVariableInput()
         {
-            TLog.MethodStart();
             Show(
                 "No input variables found. \nPlease connect a number slider to the input of the component.",
                 "Tunny",
@@ -144,7 +131,6 @@ namespace Tunny.Eto.Message
 
         internal static bool Error_ShowNoObjectiveFound()
         {
-            TLog.MethodStart();
             Show(
                 "No objective found.\nPlease connect number or FishPrint to the objective.",
                 "Tunny",
@@ -155,7 +141,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_DirectionCountNotMatch()
         {
-            TLog.MethodStart();
             Show(
                 "The number of the direction in FishAttr must be the same as the number of the objective.",
                 "Tunny",
@@ -165,7 +150,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_DirectionValue()
         {
-            TLog.MethodStart();
             Show(
                 "Direction must be either 1(maximize) or -1(minimize).",
                 "Tunny",
@@ -176,7 +160,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_ComponentLoadFail()
         {
-            TLog.MethodStart();
             Show(
                 "Fail to load Grasshopper data into Tunny",
                 "Tunny",
@@ -187,7 +170,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_InitializeTunnyUI()
         {
-            TLog.MethodStart();
             Show(
                 "Fail to initialize Tunny UI. Deleting settings.json in the [UserProfile].tunny_env folder may help.",
                 "Tunny",
@@ -198,7 +180,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_NoStudyNameSelected()
         {
-            TLog.MethodStart();
             Show(
                 "Please set StudyName.",
                 "Error",
@@ -209,7 +190,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_ResultFileNotExist()
         {
-            TLog.MethodStart();
             Show(
                 "Please set exist result file path.",
                 "Error",
@@ -220,7 +200,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_VisualizationTypeNotSupported()
         {
-            TLog.MethodStart();
             Show(
                 "This visualization type is not supported in this study case.",
                 "Tunny",
@@ -231,7 +210,6 @@ namespace Tunny.Eto.Message
 
         internal static void Error_PlotParameterSet()
         {
-            TLog.MethodStart();
             Show(
                 "Your plot parameter is not set correctly.",
                 "Tunny",

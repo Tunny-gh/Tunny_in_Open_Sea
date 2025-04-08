@@ -17,6 +17,7 @@ using EtoForms = Eto.Forms;
 
 namespace Tunny.Component.LoadingInstruction
 {
+    [LoggingAspect]
     public class RegisterTunnyToolbarItems : GH_AssemblyPriority, IDisposable
     {
         private ToolStripMenuItem _tutorialStripMenuItem;
@@ -49,7 +50,6 @@ namespace Tunny.Component.LoadingInstruction
 
         void RegisterTunnyMenuItems(GH_Canvas canvas)
         {
-            TLog.MethodStart();
             Grasshopper.Instances.CanvasCreated -= RegisterTunnyMenuItems;
 
             GH_DocumentEditor docEditor = Grasshopper.Instances.DocumentEditor;
@@ -61,7 +61,6 @@ namespace Tunny.Component.LoadingInstruction
 
         private void SetupTunnyMenu(GH_DocumentEditor docEditor)
         {
-            TLog.MethodStart();
             ToolStripMenuItem tunnyToolStripMenuItem;
             tunnyToolStripMenuItem = new ToolStripMenuItem();
 
@@ -89,7 +88,6 @@ namespace Tunny.Component.LoadingInstruction
 
         private void AddTunnyMenuItems(ToolStripItemCollection dropDownItems)
         {
-            TLog.MethodStart();
             _tunnyHelpStripMenuItem = new ToolStripMenuItem("Help", null, null, "TunnyHelpStripMenuItem");
             _tutorialStripMenuItem = new ToolStripMenuItem("Tutorial Files", null, null, "TutorialStripMenuItem");
             _optunaDashboardToolStripMenuItem = new ToolStripMenuItem("Run Optuna Dashboard...", Resource.optuna_dashboard, OptunaDashboardToolStripMenuItem_Click, "OptunaDashboardToolStripMenuItem");
@@ -111,7 +109,6 @@ namespace Tunny.Component.LoadingInstruction
 
         private void SetTutorialDropDownItems()
         {
-            TLog.MethodStart();
             if (Directory.Exists(Path.Combine(TEnvVariables.ExampleDirPath, "Optimization")))
             {
                 var optExample = new ToolStripMenuItem("Optimization", null, null, "TutorialOptimizationStripMenuItem");
@@ -130,7 +127,6 @@ namespace Tunny.Component.LoadingInstruction
 
         private static void SetMenuItemsFromFilePath(ToolStripMenuItem menuItem, string[] filePaths)
         {
-            TLog.MethodStart();
             for (int i = 0; i < filePaths.Length; i++)
             {
                 string file = filePaths[i];
@@ -145,14 +141,12 @@ namespace Tunny.Component.LoadingInstruction
 
         private void AboutTunnyStripMenuItem_Click(object sender, EventArgs e)
         {
-            TLog.MethodStart();
             TLog.Debug("AboutTunnyStripMenuItem Clicked");
             TunnyMessageBox.Info_About();
         }
 
         private void OptunaDashboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TLog.MethodStart();
             TLog.Debug("OptunaDashboardToolStripMenuItem Clicked");
             string pythonDirectory = TEnvVariables.PythonPath;
             string dashboardPath = TEnvVariables.DashboardPath;
@@ -169,7 +163,6 @@ namespace Tunny.Component.LoadingInstruction
 
         private static void RunOptunaDashboard(string dashboardPath)
         {
-            TLog.MethodStart();
             string settingsPath = TEnvVariables.OptimizeSettingsPath;
             string storagePath = string.Empty;
             if (File.Exists(settingsPath))
@@ -195,7 +188,6 @@ namespace Tunny.Component.LoadingInstruction
 
         private void TTDesignExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TLog.MethodStart();
             string settingsPath = TEnvVariables.OptimizeSettingsPath;
             string storagePath = string.Empty;
             TSettings settings;
@@ -228,7 +220,6 @@ namespace Tunny.Component.LoadingInstruction
 
         public void Dispose()
         {
-            TLog.MethodStart();
             _tunnyHelpStripMenuItem.Dispose();
             _tutorialStripMenuItem.Dispose();
             _optunaDashboardToolStripMenuItem.Dispose();

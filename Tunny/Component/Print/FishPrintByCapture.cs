@@ -7,10 +7,12 @@ using Rhino;
 using Rhino.Display;
 
 using Tunny.Component.Params;
+using Tunny.Core.Util;
 using Tunny.Resources;
 
 namespace Tunny.Component.Print
 {
+    [LoggingAspect]
     public class FishPrintByCapture : GH_Component
     {
         public FishPrintByCapture()

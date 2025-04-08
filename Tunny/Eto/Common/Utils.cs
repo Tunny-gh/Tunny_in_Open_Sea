@@ -2,10 +2,12 @@
 
 using Optuna.Study;
 
+using Tunny.Core.Util;
 using Tunny.Eto.Models;
 
 namespace Tunny.Eto.Common
 {
+    [LoggingAspect]
     internal static class Utils
     {
         internal static ObservableCollection<NameComboBoxItem> StudyNamesFromStudySummaries(StudySummary[] summaries)

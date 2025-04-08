@@ -17,6 +17,7 @@ using Tunny.Util;
 namespace Tunny.Type
 {
     [Serializable]
+    [LoggingAspect]
     public class Fish
     {
         public int TrialNumber { get; set; }
@@ -32,7 +33,6 @@ namespace Tunny.Type
         public Fish(Trial trial, string[] objectiveNames)
         {
             throw new NotImplementedException();
-            TLog.MethodStart();
             TrialNumber = trial.Number;
             Variables = trial.Params;
             Attributes = trial.UserAttrs;
@@ -46,7 +46,6 @@ namespace Tunny.Type
 
         public Parameter[] GetParameterClassFormatVariables()
         {
-            TLog.MethodStart();
             var parameters = new List<Parameter>();
             if (Variables == null)
             {
@@ -69,7 +68,6 @@ namespace Tunny.Type
 
         public static string ToBase64(Fish fish)
         {
-            TLog.MethodStart();
             string json = JsonSerializer.Serialize(fish);
             byte[] bytes = Encoding.UTF8.GetBytes(json);
             return Convert.ToBase64String(bytes);
@@ -77,7 +75,6 @@ namespace Tunny.Type
 
         public static Fish FromBase64(string base64String)
         {
-            TLog.MethodStart();
             Fish fish;
             byte[] bytes = Convert.FromBase64String(base64String);
             using (var ms = new MemoryStream(bytes))
@@ -235,7 +232,6 @@ namespace Tunny.Type
 
         public GeometryBase[] GetGeometries()
         {
-            TLog.MethodStart();
             var geometries = new List<GeometryBase>();
             if (Artifacts != null)
             {

@@ -5,8 +5,11 @@ using System.Linq;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 
+using Tunny.Core.Util;
+
 namespace Tunny.Component.Operation
 {
+    [LoggingAspect]
     internal sealed class ConstructFishEggByCsvAttributes : Tunny_ComponentAttributes
     {
         public ConstructFishEggByCsvAttributes(IGH_Component component) : base(component)

@@ -6,10 +6,12 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 
 using Tunny.Component.Params;
+using Tunny.Core.Util;
 using Tunny.Resources;
 
 namespace Tunny.Component.Obsolete
 {
+    [LoggingAspect]
     [Obsolete("This component is obsolete in v0.11.1 and will be removed in v1.3. Please use newConstructFishAttribute instead.")]
     public class ConstructFishAttribute_v0_11_1 : GH_Component, IGH_VariableParameterComponent
     {

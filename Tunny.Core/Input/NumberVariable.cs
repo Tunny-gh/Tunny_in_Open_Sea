@@ -5,6 +5,7 @@ using Tunny.Core.Util;
 namespace Tunny.Core.Input
 {
     [Serializable]
+    [LoggingAspect]
     public class NumberVariable : VariableBase
     {
         public double LowerBond { get; }
@@ -19,7 +20,6 @@ namespace Tunny.Core.Input
             double value, Guid id)
         : base(nickName, id)
         {
-            TLog.MethodStart();
             LowerBond = lowerBond;
             UpperBond = upperBond;
             IsInteger = isInteger;

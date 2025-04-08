@@ -10,8 +10,11 @@ using Prism.Mvvm;
 
 using SkiaSharp;
 
+using Tunny.Core.Util;
+
 namespace Tunny.WPF.ViewModels.Optimize
 {
+    [LoggingAspect]
     public class LiveChartViewModel : BindableBase
     {
 

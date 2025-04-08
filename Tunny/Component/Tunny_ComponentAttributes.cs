@@ -6,8 +6,11 @@ using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Attributes;
 
+using Tunny.Core.Util;
+
 namespace Tunny.Component
 {
+    [LoggingAspect]
     internal class Tunny_ComponentAttributes : GH_ComponentAttributes
     {
         protected Tunny_ComponentAttributes(IGH_Component component) : base(component)

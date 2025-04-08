@@ -1,7 +1,9 @@
-﻿using Tunny.Eto.Message;
+﻿using Tunny.Core.Util;
+using Tunny.Eto.Message;
 
 namespace Tunny.WPF.Models
 {
+    [LoggingAspect]
     internal sealed class VariableSettingItem
     {
         public double Low { get; set; }

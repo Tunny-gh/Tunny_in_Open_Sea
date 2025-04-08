@@ -4,10 +4,12 @@ using System.Drawing;
 
 using Grasshopper.Kernel;
 
+using Tunny.Core.Util;
 using Tunny.Type;
 
 namespace Tunny.Component.Params
 {
+    [LoggingAspect]
     public class Param_FishEgg : GH_PersistentParam<GH_FishEgg>
     {
         public override GH_Exposure Exposure => GH_Exposure.primary;

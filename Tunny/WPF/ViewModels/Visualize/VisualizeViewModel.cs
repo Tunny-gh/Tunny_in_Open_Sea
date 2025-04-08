@@ -13,6 +13,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 
 using Tunny.Core.Settings;
+using Tunny.Core.Util;
 using Tunny.Eto.Message;
 using Tunny.Process;
 using Tunny.WPF.Common;
@@ -20,6 +21,7 @@ using Tunny.WPF.Views.Pages.Visualize;
 
 namespace Tunny.WPF.ViewModels.Visualize
 {
+    [LoggingAspect]
     internal sealed class VisualizeViewModel : BindableBase
     {
         private readonly TSettings _settings;

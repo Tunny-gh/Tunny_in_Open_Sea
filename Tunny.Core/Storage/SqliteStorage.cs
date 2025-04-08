@@ -9,13 +9,13 @@ using Tunny.Core.Util;
 
 namespace Tunny.Core.Storage
 {
+    [LoggingAspect]
     public class SqliteStorage : PythonInit, ITStorage
     {
         public dynamic Storage { get; set; }
 
         public dynamic CreateNewTStorage(bool useInnerPythonEngine, Settings.Storage storageSetting)
         {
-            TLog.MethodStart();
             string sqlitePath = storageSetting.GetOptunaStoragePathByExtension();
             if (useInnerPythonEngine)
             {
@@ -36,14 +36,12 @@ namespace Tunny.Core.Storage
 
         private void CreateTStorageProcess(string sqlitePath)
         {
-            TLog.MethodStart();
             dynamic optuna = Py.Import("optuna");
             Storage = optuna.storages.RDBStorage(sqlitePath);
         }
 
         public void DuplicateStudyInStorage(string fromStudyName, string toStudyName, Settings.Storage storageSetting)
         {
-            TLog.MethodStart();
             string storage = storageSetting.GetOptunaStoragePath();
             InitializePythonEngine();
             using (Py.GIL())
@@ -56,7 +54,6 @@ namespace Tunny.Core.Storage
 
         public StudySummary[] GetStudySummaries(string storagePath)
         {
-            TLog.MethodStart();
             var storage = new Optuna.Storage.RDB.SqliteStorage(storagePath);
             StudySummary[] studySummaries = Study.GetAllStudySummaries(storage);
 
@@ -76,7 +73,6 @@ namespace Tunny.Core.Storage
 
         private static void UpdateVariableNamesAttr(StudySummary studySummary)
         {
-            TLog.MethodStart();
             studySummary.UserAttrs["variable_names"] = (studySummary.UserAttrs["variable_names"] as string[])[0].Split(',').ToArray();
         }
     }

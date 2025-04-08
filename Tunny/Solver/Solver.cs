@@ -17,6 +17,7 @@ using Tunny.PostProcess;
 
 namespace Tunny.Solver
 {
+    [LoggingAspect]
     public class Solver
     {
         public Parameter[] OptimalParameters { get; private set; }
@@ -28,7 +29,6 @@ namespace Tunny.Solver
 
         public Solver(TSettings settings, bool hasConstraint)
         {
-            TLog.MethodStart();
             _settings = settings;
             _hasConstraint = hasConstraint;
         }
@@ -38,7 +38,6 @@ namespace Tunny.Solver
             Objective objectives,
             Func<ProgressState, int, TrialGrasshopperItems> evaluate)
         {
-            TLog.MethodStart();
             TrialGrasshopperItems Eval(ProgressState pState, int progress)
             {
                 return evaluate(pState, progress);
@@ -63,7 +62,6 @@ namespace Tunny.Solver
 
         private static void InitializeTmpDir()
         {
-            TLog.MethodStart();
             if (!Directory.Exists(TEnvVariables.TmpDirPath))
             {
                 TLog.Info("Create tmp folder");
@@ -90,7 +88,6 @@ namespace Tunny.Solver
 
         private static DialogResult EndMessage(Algorithm optimize, bool isMultiObjective)
         {
-            TLog.MethodStart();
             DialogResult msgResult = DialogResult.None;
             ToComponentEndMessage(optimize);
             if (CoSharedItems.Component is UIOptimizeComponentBase)
@@ -102,7 +99,6 @@ namespace Tunny.Solver
 
         private static void ToComponentEndMessage(Algorithm optimize)
         {
-            TLog.MethodStart();
             string message;
             switch (optimize.EndState)
             {
@@ -137,7 +133,6 @@ namespace Tunny.Solver
 
         private static DialogResult ShowUIEndMessages(EndState endState, bool isMultiObjective)
         {
-            TLog.MethodStart();
             DialogResult msgResult;
             MessageBoxButtons button = isMultiObjective ? MessageBoxButtons.OK : MessageBoxButtons.YesNo;
             string reinstateMessage = isMultiObjective ? string.Empty : "\nReinstate the best trial to the slider?\n\nIf reinstated, The components connected to the sliders are recomputed as the sliders are updated.\n";
@@ -173,7 +168,6 @@ namespace Tunny.Solver
 
         private static void ShowErrorMessages(Exception e)
         {
-            TLog.MethodStart();
             TunnyMessageBox.Show(
                 "Tunny runtime error:\n" +
                 "Please send below message (& gh file if possible) to Tunny support.\n" +

@@ -9,13 +9,13 @@ using Tunny.Core.Util;
 
 namespace Tunny.Core.Storage
 {
+    [LoggingAspect]
     public class JournalStorage : PythonInit, ITStorage
     {
         public dynamic Storage { get; set; }
 
         public StudySummary[] GetStudySummaries(string storagePath)
         {
-            TLog.MethodStart();
             var storage = new Optuna.Storage.Journal.JournalStorage(storagePath, true);
             StudySummary[] studySummaries = Study.GetAllStudySummaries(storage);
 
@@ -35,13 +35,11 @@ namespace Tunny.Core.Storage
 
         private static void UpdateVariableNamesAttr(StudySummary studySummary)
         {
-            TLog.MethodStart();
             studySummary.UserAttrs["variable_names"] = (studySummary.UserAttrs["variable_names"] as string[])[0].Split(',').ToArray();
         }
 
         public dynamic CreateNewTStorage(bool useInnerPythonEngine, Settings.Storage storageSetting)
         {
-            TLog.MethodStart();
             string storagePath = storageSetting.GetOptunaStoragePathByExtension();
             if (useInnerPythonEngine)
             {
@@ -62,7 +60,6 @@ namespace Tunny.Core.Storage
 
         private void CreateTStorageProcess(string storagePath)
         {
-            TLog.MethodStart();
             dynamic optuna = Py.Import("optuna");
             dynamic optunaJournal = Py.Import("optuna.storages.journal");
             dynamic lockObj = optunaJournal.JournalFileOpenLock(storagePath);
@@ -72,7 +69,6 @@ namespace Tunny.Core.Storage
 
         public void DuplicateStudyInStorage(string fromStudyName, string toStudyName, Settings.Storage storageSetting)
         {
-            TLog.MethodStart();
             InitializePythonEngine();
             using (Py.GIL())
             {

@@ -19,6 +19,7 @@ using Tunny.Eto.Message;
 
 namespace Tunny.Eto.Views
 {
+    [LoggingAspect]
     public class EtoMainWindow : Form
     {
         public bool IsLoadCorrectly { get; private set; }
@@ -37,7 +38,6 @@ namespace Tunny.Eto.Views
 
         public EtoMainWindow(OptimizeComponentBase component)
         {
-            TLog.MethodStart();
             XamlReader.Load(this);
             CoSharedItems.GH_DocumentEditor.DisableUI();
             CoSharedItems.Component = component;
@@ -185,7 +185,6 @@ namespace Tunny.Eto.Views
         {
             return new Progress<ProgressState>(value =>
             {
-                TLog.MethodStart();
                 CoSharedItems.Component.UpdateGrasshopper(value);
                 ProgressBar.Value = value.PercentComplete;
             });
@@ -193,7 +192,6 @@ namespace Tunny.Eto.Views
 
         private void StopButton_Click(object sender, EventArgs e)
         {
-            TLog.MethodStart();
             CoSharedItems.IsForcedStopOptimize = true;
             FileStream fs = null;
             try
@@ -209,7 +207,6 @@ namespace Tunny.Eto.Views
 
         private void UpdateUIStates()
         {
-            TLog.MethodStart();
             RunButton.Enabled = true;
             StopButton.Enabled = false;
             SamplerComboBox.Enabled = true;
@@ -229,7 +226,6 @@ namespace Tunny.Eto.Views
 
         private void PlotButton_Click(object sender, EventArgs e)
         {
-            TLog.MethodStart();
             if (File.Exists(CommonSharedItems.Instance.Settings.Storage.Path) == false)
             {
                 TunnyMessageBox.Error_ResultFileNotExist();

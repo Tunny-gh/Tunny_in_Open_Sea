@@ -1,7 +1,10 @@
 ﻿using Prism.Mvvm;
 
+using Tunny.Core.Util;
+
 namespace Tunny.WPF.Models
 {
+    [LoggingAspect]
     internal sealed class VisualizeListItem : BindableBase
     {
         private bool _isSelected;

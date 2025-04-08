@@ -1,7 +1,6 @@
 using System;
 using System.Globalization;
 using System.IO;
-using System.Runtime.CompilerServices;
 
 using Serilog;
 using Serilog.Core;
@@ -61,6 +60,24 @@ namespace Tunny.Core.Util
             Log.Verbose(message);
         }
 
+        public static void Verbose(string messageTemplate, string arg1, string arg2, object arg3)
+        {
+            if (!s_isInitialized)
+            {
+                return;
+            }
+            Log.Verbose(messageTemplate, arg1, arg2, arg3);
+        }
+
+        public static void Verbose(string messageTemplate, string arg1, string arg2, object[] arg3)
+        {
+            if (!s_isInitialized)
+            {
+                return;
+            }
+            Log.Verbose(messageTemplate, arg1, arg2, arg3);
+        }
+
         public static void Debug(string message)
         {
             if (!s_isInitialized)
@@ -97,6 +114,15 @@ namespace Tunny.Core.Util
             Log.Error(message);
         }
 
+        public static void Error(Exception exception, string messageTemplate, string arg1, string arg2, string arg3)
+        {
+            if (!s_isInitialized)
+            {
+                return;
+            }
+            Log.Error(exception, messageTemplate, arg1, arg2, arg3);
+        }
+
         public static void Fatal(string message)
         {
             if (!s_isInitialized)
@@ -104,20 +130,6 @@ namespace Tunny.Core.Util
                 return;
             }
             Log.Fatal(message);
-        }
-
-        public static void MethodStart(
-            string message = "started.",
-            [CallerMemberName] string memberName = "",
-            [CallerFilePath] string filePath = "",
-            [CallerLineNumber] int lineNumber = -1)
-        {
-            if (!s_isInitialized)
-            {
-                return;
-            }
-            string fileName = Path.GetFileName(filePath);
-            Log.Verbose($"|{fileName}|{memberName}|{lineNumber}|{message}");
         }
     }
 }

@@ -15,6 +15,7 @@ using Tunny.WPF.Models;
 
 namespace Tunny.WPF.ViewModels.Visualize
 {
+    [LoggingAspect]
     internal abstract class PlotSettingsViewModelBase : BindableBase, IPlotSettings
     {
         public abstract bool TryGetPlotSettings(out PlotSettings plotSettings);

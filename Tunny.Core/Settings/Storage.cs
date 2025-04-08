@@ -12,6 +12,7 @@ using Tunny.Core.Util;
 
 namespace Tunny.Core.Settings
 {
+    [LoggingAspect]
     public class Storage : PythonInit
     {
         public string Path { get; set; } = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/fish.log";
@@ -19,13 +20,11 @@ namespace Tunny.Core.Settings
 
         public string GetArtifactBackendPath()
         {
-            TLog.MethodStart();
             return System.IO.Path.GetDirectoryName(Path) + "/artifacts";
         }
 
         public string GetOptunaStoragePath()
         {
-            TLog.MethodStart();
             switch (Type)
             {
                 case StorageType.InMemory:
@@ -44,7 +43,6 @@ namespace Tunny.Core.Settings
 
         public string GetOptunaStoragePathByExtension()
         {
-            TLog.MethodStart();
             switch (System.IO.Path.GetExtension(Path))
             {
                 case null:
@@ -61,7 +59,6 @@ namespace Tunny.Core.Settings
 
         public StorageType GetStorageTypeByExtension()
         {
-            TLog.MethodStart();
             switch (System.IO.Path.GetExtension(Path))
             {
                 case null:
@@ -78,7 +75,6 @@ namespace Tunny.Core.Settings
 
         public dynamic CreateNewOptunaStorage(bool useInnerPythonEngine)
         {
-            TLog.MethodStart();
             dynamic storage;
             switch (Type)
             {
@@ -100,7 +96,6 @@ namespace Tunny.Core.Settings
 
         public dynamic CreateNewOptunaArtifactBackend(bool useInnerPythonEngine)
         {
-            TLog.MethodStart();
             dynamic backend;
 
             if (useInnerPythonEngine)
@@ -122,7 +117,6 @@ namespace Tunny.Core.Settings
 
         private dynamic CreateArtifactBackendProcess()
         {
-            TLog.MethodStart();
             dynamic optuna = Py.Import("optuna");
             string backendPath = GetArtifactBackendPath();
             Directory.CreateDirectory(backendPath);
@@ -131,7 +125,6 @@ namespace Tunny.Core.Settings
 
         public Study[] GetAllStudies()
         {
-            TLog.MethodStart();
             IOptunaStorage storage;
             switch (Type)
             {

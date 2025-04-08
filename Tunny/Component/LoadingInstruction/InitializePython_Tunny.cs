@@ -9,6 +9,7 @@ using Tunny.Core.Util;
 
 namespace Tunny.Component.LoadingInstruction
 {
+    [LoggingAspect]
     public class InitializePython_Tunny : GH_AssemblyPriority
     {
         public override GH_LoadingInstruction PriorityLoad()

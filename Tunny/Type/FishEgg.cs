@@ -11,6 +11,7 @@ using Tunny.Core.Util;
 namespace Tunny.Type
 {
     [Serializable]
+    [LoggingAspect]
     public class FishEgg
     {
         public int RegisteredParamsCount => _paramDict.Count;
@@ -20,13 +21,11 @@ namespace Tunny.Type
 
         public FishEgg()
         {
-            TLog.MethodStart();
             Initialize(true);
         }
 
         public FishEgg(bool skipIfExist)
         {
-            TLog.MethodStart();
             Initialize(skipIfExist);
         }
 
@@ -40,7 +39,6 @@ namespace Tunny.Type
 
         public override string ToString()
         {
-            TLog.MethodStart();
             var sb = new StringBuilder();
             foreach (KeyValuePair<string, string> item in _paramDict)
             {
@@ -53,19 +51,16 @@ namespace Tunny.Type
 
         public void AddParam(string key, string value)
         {
-            TLog.MethodStart();
             _paramDict.Add(key, value);
         }
 
         public void AddAttr(string key, string value)
         {
-            TLog.MethodStart();
             _attrDict.Add(key, value);
         }
 
         internal PyDict GetParamPyDict()
         {
-            TLog.MethodStart();
             var dict = new PyDict();
             foreach (KeyValuePair<string, string> item in _paramDict)
             {
@@ -80,7 +75,6 @@ namespace Tunny.Type
 
         private PyDict GetAttrPyDict()
         {
-            TLog.MethodStart();
             var dict = new PyDict();
             foreach (KeyValuePair<string, string> item in _attrDict)
             {
@@ -93,7 +87,6 @@ namespace Tunny.Type
 
         public void EnqueueStudy(StudyWrapper study)
         {
-            TLog.MethodStart();
             study.EnqueueTrial(GetParamPyDict(), GetAttrPyDict(), _skipIfExist);
         }
     }

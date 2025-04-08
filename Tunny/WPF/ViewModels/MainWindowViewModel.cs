@@ -24,6 +24,7 @@ using Tunny.WPF.Views.Pages.Visualize;
 
 namespace Tunny.WPF.ViewModels
 {
+    [LoggingAspect]
     public class MainWindowViewModel : BindableBase, IDisposable
     {
         private readonly OptimizePage _optimizePage;
@@ -92,7 +93,6 @@ namespace Tunny.WPF.ViewModels
 
         private static void CheckPruner()
         {
-            TLog.MethodStart();
             SharedItems.Settings.Pruner.CheckStatus();
             if (SharedItems.Settings.Pruner.GetPrunerStatus() == PrunerStatus.PathError)
             {
@@ -102,7 +102,6 @@ namespace Tunny.WPF.ViewModels
 
         private void CheckPythonInstalled()
         {
-            TLog.MethodStart();
             string tunnyAssembleVersion = TEnvVariables.Version.ToString();
             TSettings settings = SharedItems.Settings;
             bool isPythonDllExist = File.Exists(TEnvVariables.PythonDllPath);
@@ -348,7 +347,6 @@ namespace Tunny.WPF.ViewModels
         }
         private void RunOptunaDashboard()
         {
-            TLog.MethodStart();
             if (File.Exists(SharedItems.Settings.Storage.Path) == false)
             {
                 TunnyMessageBox.Error_ResultFileNotExist();
@@ -375,7 +373,6 @@ namespace Tunny.WPF.ViewModels
         }
         private void RunDesignExplorer()
         {
-            TLog.MethodStart();
             var selector = new TargetStudyNameSelector();
             selector.ShowModal();
         }
@@ -401,7 +398,6 @@ namespace Tunny.WPF.ViewModels
 
         internal async void InstallPython()
         {
-            TLog.MethodStart();
             var installer = new PythonInstaller(this);
             EnableMainFrame = false;
             _ = Task.Run(() => TunnyMessageBox.Info_PythonInstallStart());

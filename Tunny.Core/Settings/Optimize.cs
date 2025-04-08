@@ -1,9 +1,11 @@
 using System;
 
 using Tunny.Core.TEnum;
+using Tunny.Core.Util;
 
 namespace Tunny.Core.Settings
 {
+    [LoggingAspect]
     public class Optimize
     {
         public string StudyName { get; set; } = string.Empty;

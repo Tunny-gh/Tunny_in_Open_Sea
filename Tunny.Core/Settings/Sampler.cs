@@ -12,6 +12,7 @@ using Tunny.Core.Util;
 
 namespace Tunny.Core.Settings
 {
+    [LoggingAspect]
     public class Sampler
     {
         // OptunaHub
@@ -37,7 +38,6 @@ namespace Tunny.Core.Settings
 
         public dynamic ToPython(SamplerType type, string storagePath, bool hasConstraints, PyDict cmaEsX0)
         {
-            TLog.MethodStart();
             dynamic optunaSampler;
             dynamic os = Py.Import("os");
             os.environ["OPTUNAHUB_CACHE_HOME"] = new PyString(Path.Combine(TEnvVariables.TunnyEnvPath, "optunahub"));

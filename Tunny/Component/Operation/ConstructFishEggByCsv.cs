@@ -12,6 +12,7 @@ using Tunny.Util;
 
 namespace Tunny.Component.Operation
 {
+    [LoggingAspect]
     public class ConstructFishEggByCsv : GH_Component
     {
         private readonly List<FishEgg> _fishEggs = new List<FishEgg>();

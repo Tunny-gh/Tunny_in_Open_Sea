@@ -19,10 +19,12 @@ using Prism.Mvvm;
 
 using SkiaSharp;
 
+using Tunny.Core.Util;
 using Tunny.WPF.Common;
 
 namespace Tunny.WPF.ViewModels.Output
 {
+    [LoggingAspect]
     internal sealed class AnalysisChartViewModel : BindableBase
     {
         private int _selectedStudyId;

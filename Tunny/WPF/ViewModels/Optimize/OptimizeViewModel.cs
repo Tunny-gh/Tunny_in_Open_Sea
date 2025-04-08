@@ -29,6 +29,7 @@ using Tunny.WPF.Views.Pages.Settings.Sampler;
 
 namespace Tunny.WPF.ViewModels.Optimize
 {
+    [LoggingAspect]
     internal sealed class OptimizeViewModel : BindableBase
     {
         private const string SamplerTypeLabelPrefix = "SamplerType: ";
@@ -376,7 +377,6 @@ namespace Tunny.WPF.ViewModels.Optimize
         }
         private async void PerformRunOptimize()
         {
-            TLog.MethodStart();
             InitializePerformRunOptimize();
 
             try
@@ -498,7 +498,6 @@ namespace Tunny.WPF.ViewModels.Optimize
         {
             return new Progress<ProgressState>(value =>
             {
-                TLog.MethodStart();
                 CoSharedItems.Component.UpdateGrasshopper(value);
                 _windowViewModel.ReportProgress("Running optimization", $"{TrialNumberLabelPrefix}{value.TrialNumber + 1}", value.PercentComplete);
 
@@ -558,7 +557,6 @@ namespace Tunny.WPF.ViewModels.Optimize
 
         private void PerformStopOptimize()
         {
-            TLog.MethodStart();
             CoSharedItems.IsForcedStopOptimize = true;
             FileStream fs = null;
             try
@@ -573,7 +571,6 @@ namespace Tunny.WPF.ViewModels.Optimize
 
         internal Core.Settings.Optimize GetCurrentSettings(bool computeAutoValue = false)
         {
-            TLog.MethodStart();
             var sampler = new Sampler
             {
                 Tpe = _tpePage.Value.ToSettings(),

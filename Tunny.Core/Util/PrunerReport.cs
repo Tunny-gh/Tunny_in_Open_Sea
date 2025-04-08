@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace Tunny.Core.Util
 {
+    [LoggingAspect]
     public class PrunerReport
     {
         public double IntermediateValue { get; set; }

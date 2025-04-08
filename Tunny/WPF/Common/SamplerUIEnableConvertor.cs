@@ -7,8 +7,11 @@ using Optuna.Sampler.Dashboard;
 using Optuna.Sampler.OptunaHub;
 using Optuna.Util;
 
+using Tunny.Core.Util;
+
 namespace Tunny.WPF.Common
 {
+    [LoggingAspect]
     internal sealed class SamplerUIEnableConvertor : IMultiValueConverter
     {
         public object Convert(object[] values, System.Type targetType, object parameter, CultureInfo culture)

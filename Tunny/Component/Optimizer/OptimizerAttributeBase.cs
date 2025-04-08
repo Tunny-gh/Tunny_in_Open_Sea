@@ -5,8 +5,11 @@ using System.Linq;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 
+using Tunny.Core.Util;
+
 namespace Tunny.Component.Optimizer
 {
+    [LoggingAspect]
     internal class OptimizerAttributeBase : Tunny_ComponentAttributes
     {
         private readonly Color _capsuleFillColor;

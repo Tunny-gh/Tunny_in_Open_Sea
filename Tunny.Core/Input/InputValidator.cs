@@ -2,8 +2,11 @@
 using System.Globalization;
 using System.Linq;
 
+using Tunny.Core.Util;
+
 namespace Tunny.Core.Input
 {
+    [LoggingAspect]
     public static class InputValidator
     {
         public static bool IsPositiveInt(string input, bool includeZero)

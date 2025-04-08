@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Tunny.Core.Util
 {
+    [LoggingAspect]
     public class CsvReader
     {
         private readonly string _filePath;

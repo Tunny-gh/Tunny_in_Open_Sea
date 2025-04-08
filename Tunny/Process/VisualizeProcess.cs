@@ -12,6 +12,7 @@ using Tunny.Eto.Message;
 
 namespace Tunny.Process
 {
+    [LoggingAspect]
     internal sealed class VisualizeProcess : PythonInit
     {
         internal static void Save(Storage storage, PlotSettings plotSettings, string htmlPath)
@@ -21,7 +22,6 @@ namespace Tunny.Process
 
         internal static string Plot(Storage storage, PlotSettings plotSettings, string htmlPath = "")
         {
-            TLog.MethodStart();
             InitializePythonEngine();
             using (Py.GIL())
             {
@@ -54,7 +54,6 @@ namespace Tunny.Process
 
         private static PlotlyFigure CreateFigure(StudyWrapper study, PlotSettings settings)
         {
-            TLog.MethodStart();
             switch (settings.PlotTypeName)
             {
                 case "contour":

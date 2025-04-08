@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Data;
 using Grasshopper.Kernel.Types;
 
 using Tunny.Component.Params;
+using Tunny.Core.Util;
 using Tunny.Resources;
 using Tunny.Type;
 
 namespace Tunny.Component.Operation
 {
+    [LoggingAspect]
     public class DeconstructFish : GH_Component
     {
         public override GH_Exposure Exposure => GH_Exposure.secondary;

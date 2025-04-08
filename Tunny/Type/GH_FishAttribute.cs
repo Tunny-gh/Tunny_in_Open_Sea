@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.Json;
 
@@ -12,10 +10,12 @@ using Grasshopper.Kernel.Types;
 
 using Rhino.Geometry;
 
+using Tunny.Core.Util;
 using Tunny.Util;
 
 namespace Tunny.Type
 {
+    [LoggingAspect]
     public class GH_FishAttribute : GH_Goo<Dictionary<string, object>>
     {
         public GH_FishAttribute()

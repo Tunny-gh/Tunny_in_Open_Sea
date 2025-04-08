@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
 using GH_IO.Serialization;
 
 using Grasshopper.Kernel.Types;
 
+using Tunny.Core.Util;
+
 namespace Tunny.Type
 {
+    [LoggingAspect]
     public class GH_FishPrint : GH_Goo<Bitmap>
     {
         public GH_FishPrint()

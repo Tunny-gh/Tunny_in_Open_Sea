@@ -11,6 +11,7 @@ using Tunny.WPF.ViewModels;
 
 namespace Tunny.WPF
 {
+    [LoggingAspect]
     public partial class MainWindow : RibbonWindow
     {
         private static SharedItems SharedItems => SharedItems.Instance;
@@ -18,7 +19,6 @@ namespace Tunny.WPF
 
         public MainWindow(OptimizeComponentBase component)
         {
-            TLog.MethodStart();
             SharedItems.TunnyWindow = this;
             CoSharedItems.GH_DocumentEditor.DisableUI();
             CoSharedItems.Component = component;
@@ -58,7 +58,6 @@ namespace Tunny.WPF
 
         private void ClosingEventHandler(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            TLog.MethodStart();
             ((MainWindowViewModel)DataContext).SaveSettingsFile();
             CoSharedItems.GH_DocumentEditor.EnableUI();
 

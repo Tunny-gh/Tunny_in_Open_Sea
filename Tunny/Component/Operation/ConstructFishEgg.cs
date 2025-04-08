@@ -6,11 +6,13 @@ using Grasshopper.Kernel;
 
 using Tunny.Component.Params;
 using Tunny.Core.Input;
+using Tunny.Core.Util;
 using Tunny.Type;
 using Tunny.Util;
 
 namespace Tunny.Component.Operation
 {
+    [LoggingAspect]
     public class ConstructFishEgg : GH_Component
     {
         private readonly List<FishEgg> _fishEggs = new List<FishEgg>();

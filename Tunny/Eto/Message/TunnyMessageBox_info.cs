@@ -8,7 +8,6 @@ namespace Tunny.Eto.Message
     {
         internal static void Info_OutputFinish()
         {
-            TLog.MethodStart();
             Show(
                 "Output result to fish completed successfully.",
                 "Tunny",
@@ -19,7 +18,6 @@ namespace Tunny.Eto.Message
 
         internal static DialogResult Info_PythonAlreadyInstalled()
         {
-            TLog.MethodStart();
             return Show(
                 "It appears that the Tunny Python environment is already installed.\nWould you like to reinstall it?",
                 "Python is already installed",
@@ -30,7 +28,6 @@ namespace Tunny.Eto.Message
 
         internal static void Info_About()
         {
-            TLog.MethodStart();
             Show(
                 "Tunny\nVersion: " + TEnvVariables.Version + "\n\n🐟Tunny🐟 is Grasshopper's optimization component using Optuna, an open source hyperparameter auto-optimization framework.\n\nTunny is developed by hrntsm.\nFor more information, visit https://tunny-docs.deno.dev/",
                 "About Tunny",
@@ -41,7 +38,6 @@ namespace Tunny.Eto.Message
 
         internal static void Info_PythonInstallStart()
         {
-            TLog.MethodStart();
             Show(
                 "Tunny is installing the Python environment.\n\nThe progress bar at the bottom of TunnyUI is progress.\nThis may take a few minutes.",
                 "Installing Python",
@@ -52,7 +48,6 @@ namespace Tunny.Eto.Message
 
         internal static void Info_OptunaDashboardAlreadyInstalled()
         {
-            TLog.MethodStart();
             Show("optuna-dashboard is not installed.\nFirst install optuna-dashboard from the Tunny component.",
                 "optuna-dashboard is not installed",
                 MessageBoxButtons.OK,
@@ -62,7 +57,6 @@ namespace Tunny.Eto.Message
 
         internal static void Info_ResultFileHasNoStudy()
         {
-            TLog.MethodStart();
             Show(
                 "There is no study to visualize.\nPlease set 'Target Study'",
                 "Tunny",

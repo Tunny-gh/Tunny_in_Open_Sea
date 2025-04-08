@@ -10,10 +10,12 @@ using Optuna.Trial;
 using Prism.Commands;
 using Prism.Mvvm;
 
+using Tunny.Core.Util;
 using Tunny.WPF.Common;
 
 namespace Tunny.WPF.ViewModels.Output
 {
+    [LoggingAspect]
     internal sealed class AnalysisTableViewModel : BindableBase
     {
         internal int SelectedStudyId { get; set; }

@@ -19,6 +19,7 @@ using Tunny.Type;
 
 namespace Tunny.Component.Optimizer
 {
+    [LoggingAspect]
     public class BoneFishComponent : OptimizeComponentBase
     {
         private int _count;

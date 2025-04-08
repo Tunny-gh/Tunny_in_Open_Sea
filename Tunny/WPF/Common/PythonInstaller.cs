@@ -8,6 +8,7 @@ using Tunny.WPF.ViewModels;
 
 namespace Tunny.WPF.Common
 {
+    [LoggingAspect]
     public class PythonInstaller
     {
         private readonly MainWindowViewModel _viewModel;
@@ -20,7 +21,6 @@ namespace Tunny.WPF.Common
 
         public Task RunAsync()
         {
-            TLog.MethodStart();
             return Task.Run(() =>
             {
                 _viewModel.ReportProgress($"{NotifierPrefix}started", 0);
@@ -33,7 +33,6 @@ namespace Tunny.WPF.Common
 
         private void CheckDashboardProcess()
         {
-            TLog.MethodStart();
             _viewModel.ReportProgress($"{NotifierPrefix}Check Dashboard process...", 0);
 
             if (Optuna.Dashboard.Handler.KillExistDashboardProcess())
@@ -44,7 +43,6 @@ namespace Tunny.WPF.Common
 
         private string[] UnzipLibraries()
         {
-            TLog.MethodStart();
             _viewModel.ReportProgress($"{NotifierPrefix}Unzip library...", 0);
             TLog.Info("Unzip library...");
             string envPath = TEnvVariables.TunnyEnvPath;
@@ -66,7 +64,6 @@ namespace Tunny.WPF.Common
 
         private void InstallPackages(string[] packageList)
         {
-            TLog.MethodStart();
             int num = packageList.Length;
             for (int i = 0; i < num; i++)
             {

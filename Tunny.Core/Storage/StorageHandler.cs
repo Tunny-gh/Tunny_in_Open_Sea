@@ -1,20 +1,19 @@
 using System;
 using System.IO;
 
-using Optuna.Storage;
 using Optuna.Study;
 
 using Tunny.Core.Util;
 
 namespace Tunny.Core.Storage
 {
+    [LoggingAspect]
     public class StorageHandler : ITStorage
     {
         public dynamic Storage { get; set; }
 
         public dynamic CreateNewTStorage(bool useInnerPythonEngine, Settings.Storage storageSetting)
         {
-            TLog.MethodStart();
             ICreateTStorage storage;
 
             switch (Path.GetExtension(storageSetting.Path))
@@ -38,7 +37,6 @@ namespace Tunny.Core.Storage
 
         public void DuplicateStudyInStorage(string fromStudyName, string toStudyName, Settings.Storage storageSetting)
         {
-            TLog.MethodStart();
             ITStorage storage;
 
             switch (Path.GetExtension(storageSetting.Path))
@@ -58,7 +56,6 @@ namespace Tunny.Core.Storage
 
         public StudySummary[] GetStudySummaries(string storagePath)
         {
-            TLog.MethodStart();
             ITStorage storage;
 
             switch (Path.GetExtension(storagePath))

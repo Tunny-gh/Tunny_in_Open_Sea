@@ -7,8 +7,11 @@ using Grasshopper.Kernel.Types;
 
 using Optuna.Artifacts;
 
+using Tunny.Core.Util;
+
 namespace Tunny.Type
 {
+    [LoggingAspect]
     public class GH_Fish : GH_Goo<Fish>
     {
         public GH_Fish()

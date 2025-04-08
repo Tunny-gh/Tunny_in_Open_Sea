@@ -5,10 +5,12 @@ using System.Linq;
 using Grasshopper.Kernel;
 
 using Tunny.Component.Params;
+using Tunny.Core.Util;
 using Tunny.Resources;
 
 namespace Tunny.Component.Optimizer
 {
+    [LoggingAspect]
     public class FishingComponent : UIOptimizeComponentBase
     {
         public FishingComponent()
