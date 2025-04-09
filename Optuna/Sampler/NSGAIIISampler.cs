@@ -12,7 +12,7 @@ namespace Optuna.Sampler
         public double[] ReferencePoints { get; set; }
         public int DividingParameter { get; set; } = 3;
 
-        public new dynamic ToPython(bool hasConstraints)
+        public dynamic ToPython(bool hasConstraints)
         {
             dynamic optuna = Py.Import("optuna");
             return optuna.samplers.NSGAIIISampler(

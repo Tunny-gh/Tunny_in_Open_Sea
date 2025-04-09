@@ -16,10 +16,10 @@ namespace Optuna.Sampler.OptunaHub
         {
         }
 
-        public dynamic ToPython(bool hasConstraints)
+        public dynamic ToPython(string refCommit, bool hasConstraints)
         {
             dynamic optunahub = Py.Import("optunahub");
-            dynamic module = optunahub.load_module(package: Package, force_reload: ForceReload);
+            dynamic module = optunahub.load_module(package: Package, force_reload: ForceReload, @ref: refCommit);
             return module.AutoSampler(
                 seed: Seed,
                 constraints_func: hasConstraints ? ConstraintFunc() : null

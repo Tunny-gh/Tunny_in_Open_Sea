@@ -1,5 +1,7 @@
 using System.Reflection;
 
+using Newtonsoft.Json;
+
 using Optuna.Util;
 
 using Python.Runtime;
@@ -11,8 +13,11 @@ namespace Optuna.Sampler
     /// </summary>
     public class SamplerBase
     {
+        [JsonIgnore]
         public ConstraintSupport ConstraintSupport { get; }
+        [JsonIgnore]
         public ObjectiveNumberSupport ObjectiveNumberSupport { get; }
+        [JsonIgnore]
         public HumanInTheLoopSupport HumanInTheLoopSupport { get; }
         public int? Seed { get; set; }
 
