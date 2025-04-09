@@ -22,11 +22,11 @@ namespace Optuna.Sampler.OptunaHub
         {
         }
 
-        public dynamic ToPython(bool hasConstraints)
+        public dynamic ToPython(string refCommit, bool hasConstraints)
         {
             dynamic optuna = Py.Import("optuna");
             dynamic optunahub = Py.Import("optunahub");
-            dynamic module = optunahub.load_module(package: Package, force_reload: ForceReload);
+            dynamic module = optunahub.load_module(package: Package, force_reload: ForceReload, @ref: refCommit);
             return module.NSGAIIwITSampler(
                 population_size: PopulationSize,
                 mutation_prob: MutationProb,

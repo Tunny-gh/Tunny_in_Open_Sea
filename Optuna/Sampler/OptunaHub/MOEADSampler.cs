@@ -24,7 +24,7 @@ namespace Optuna.Sampler.OptunaHub
         {
         }
 
-        public dynamic ToPython()
+        public dynamic ToPython(string refCommit)
         {
             dynamic optuna = Py.Import("optuna");
             dynamic optunahub = Py.Import("optunahub");
@@ -33,7 +33,7 @@ namespace Optuna.Sampler.OptunaHub
             {
                 NumNeighbors = PopulationSize / 5;
             }
-            dynamic module = optunahub.load_module(package: Package, force_reload: ForceReload);
+            dynamic module = optunahub.load_module(package: Package, force_reload: ForceReload, @ref: refCommit);
             return module.MOEADSampler(
                 population_size: PopulationSize,
                 mutation_prob: MutationProb,
