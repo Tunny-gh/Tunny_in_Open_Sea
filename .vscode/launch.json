@@ -53,7 +53,7 @@
       "name": "Rhino8 - netfx",
       "type": "clr",
       "request": "launch",
-      "preLaunchTask": "build",
+      "preLaunchTask": "build_net48",
       "program": "C:/Program Files/Rhino 8/System/Rhino.exe",
       "targetArchitecture": "x86_64",
       "args": "/netfx /nosplash /runscript=\"_Grasshopper\"",
@@ -68,7 +68,7 @@
       "name": "Run Rhino7",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
+      "preLaunchTask": "build_net48",
       "program": "C:/Program Files/Rhino 7/System/Rhino.exe",
       "args": "/nosplash /runscript=\"_Grasshopper\"",
       "env": {

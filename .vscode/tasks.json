@@ -18,6 +18,23 @@
             "group": "build",
         },
         {
+            "label": "build_net48",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "/p:TargetFramework=net48",
+                "/clp:NoSummary",
+                "${workspaceFolder}/Tunny/Tunny.csproj"
+            ],
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            },
+            "group": "build",
+        },
+        {
             "label": "build_net7.0-win",
             "command": "dotnet",
             "type": "shell",
