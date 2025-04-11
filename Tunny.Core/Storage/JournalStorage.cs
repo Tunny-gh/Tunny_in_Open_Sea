@@ -23,17 +23,13 @@ namespace Tunny.Core.Storage
             var oldFormatVersion = new Version("0.9.1");
             foreach (StudySummary studySummary in studySummaries)
             {
-                bool flowControl = CheckVersion(oldFormatVersion, studySummary);
-                if (!flowControl)
-                {
-                    continue;
-                }
+                CheckVersion(oldFormatVersion, studySummary);
             }
 
             return studySummaries;
         }
 
-        private static bool CheckVersion(Version oldFormatVersion, StudySummary studySummary)
+        private static void CheckVersion(Version oldFormatVersion, StudySummary studySummary)
         {
             try
             {
@@ -49,10 +45,8 @@ namespace Tunny.Core.Storage
             }
             catch (KeyNotFoundException)
             {
-                return false;
+                TLog.Debug("tunny_version not found in user attributes. Assuming new format.");
             }
-
-            return true;
         }
 
         private static void UpdateVariableNamesAttr(StudySummary studySummary)
