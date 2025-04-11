@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -71,7 +72,7 @@ namespace Tunny.Solver
             using (Py.GIL())
             {
                 TLog.Debug("Wake Python GIL.");
-
+                SetLocale();
                 dynamic optuna = Py.Import("optuna");
                 dynamic sampler = SetSamplerSettings(samplerType, _hasConstraints);
                 dynamic storage = _settings.Storage.CreateNewOptunaStorage(false);
@@ -100,6 +101,19 @@ namespace Tunny.Solver
             }
             PythonEngine.Shutdown();
             TLog.Debug("Shutdown PythonEngine.");
+        }
+
+        private static void SetLocale()
+        {
+            dynamic locale = Py.Import("locale");
+            try
+            {
+                locale.setlocale(locale.LC_ALL, "C");
+            }
+            catch (Exception e)
+            {
+                TLog.Error($"Python locale set error: {e.Message}: {e.StackTrace}");
+            }
         }
 
         private void NormalOptimization(int nTrials, double timeout, string[] directions, dynamic sampler, dynamic storage, dynamic artifactBackend, out Parameter[] parameter, out TrialGrasshopperItems result, out StudyWrapper study)

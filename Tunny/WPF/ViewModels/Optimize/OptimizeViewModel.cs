@@ -54,6 +54,7 @@ namespace Tunny.WPF.ViewModels.Optimize
         private Lazy<MoCmaEsSettingsPage> _moCmaEsPage;
         private Lazy<DESettingsPage> _dePage;
         private Lazy<cTPESettingsPage> _cTpePage;
+        private Lazy<HEBOSettingsPage> _heboPage;
 
         private string _trialNumberParam1Label;
         public string TrialNumberParam1Label { get => _trialNumberParam1Label; set => SetProperty(ref _trialNumberParam1Label, value); }
@@ -238,6 +239,7 @@ namespace Tunny.WPF.ViewModels.Optimize
             _dePage = new Lazy<DESettingsPage>(() => DESettingsPage.FromSettings(_settings));
             _preferentialGpPage = new Lazy<PreferentialGpSettingsPage>(() => PreferentialGpSettingsPage.FromSettings(_settings));
             _cTpePage = new Lazy<cTPESettingsPage>(() => cTPESettingsPage.FromSettings(_settings));
+            _heboPage = new Lazy<HEBOSettingsPage>(() => HEBOSettingsPage.FromSettings(_settings));
         }
 
         public void ChangeTargetSampler(SamplerType samplerType)
@@ -304,6 +306,10 @@ namespace Tunny.WPF.ViewModels.Optimize
                 case SamplerType.cTPE:
                     param = _cTpePage.Value;
                     OptimizeSettingsPage = _cTpePage.Value;
+                    break;
+                case SamplerType.HEBO:
+                    param = _heboPage.Value;
+                    OptimizeSettingsPage = _heboPage.Value;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(samplerType), samplerType, null);

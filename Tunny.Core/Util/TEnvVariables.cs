@@ -7,7 +7,7 @@ namespace Tunny.Core.Util
 {
     public static class TEnvVariables
     {
-        public static Version Version { get; } = Assembly.GetExecutingAssembly().GetName().Version;
+        public static Version Version { get; } = new Version(1, 0, 5);
         public static string DefaultStoragePath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "fish.log");
         public static string TunnyEnvPath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".tunny_dev_env");
         public static string LogPath { get; } = Path.Combine(TunnyEnvPath, "logs");
@@ -42,7 +42,7 @@ namespace Tunny.Core.Util
             {
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    return Path.Combine(PythonPath, @"python312.dll");
+                    return Path.Combine(PythonPath, @"python310.dll");
                 }
                 else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 {

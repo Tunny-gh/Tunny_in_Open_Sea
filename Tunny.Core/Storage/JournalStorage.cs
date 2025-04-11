@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Optuna.Study;
@@ -22,15 +23,33 @@ namespace Tunny.Core.Storage
             var oldFormatVersion = new Version("0.9.1");
             foreach (StudySummary studySummary in studySummaries)
             {
-                string versionString = (studySummary.UserAttrs["tunny_version"] as string[])[0];
-                var version = new Version(versionString);
-                if (version <= oldFormatVersion)
-                {
-                    UpdateVariableNamesAttr(studySummary);
-                }
+                CheckVersion(oldFormatVersion, studySummary);
             }
 
             return studySummaries;
+        }
+
+        private static void CheckVersion(Version oldFormatVersion, StudySummary studySummary)
+        {
+            try
+            {
+                if (studySummary.UserAttrs.TryGetValue("tunny_version", out object tunnyVersionObj) && tunnyVersionObj != null)
+                {
+                    string versionString = (tunnyVersionObj as string[])?[0];
+                    if (versionString != null)
+                    {
+                        var version = new Version(versionString);
+                        if (version <= oldFormatVersion)
+                        {
+                            UpdateVariableNamesAttr(studySummary);
+                        }
+                    }
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+                TLog.Debug("tunny_version not found in user attributes. Assuming new format.");
+            }
         }
 
         private static void UpdateVariableNamesAttr(StudySummary studySummary)

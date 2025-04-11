@@ -149,6 +149,21 @@
                             </MultiBinding>
                         </RibbonButton.IsEnabled>
                     </RibbonButton>
+                    <RibbonButton
+                        Command="{Binding SelectSamplerCommand}"
+                        CommandParameter="{x:Static common:SelectSamplerType.HEBO}"
+                        Label="HEBO"
+                        LargeImageSource="{StaticResource HexagonSlice4}"
+                        SmallImageSource="{StaticResource HexagonSlice4}">
+                        <RibbonButton.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ValueConvertor}">
+                                <Binding Path="IsMultiObjective" />
+                                <Binding Path="HasConstraint" />
+                                <Binding Path="IsHumanInTheLoop" />
+                                <Binding Path="CommandParameter" RelativeSource="{RelativeSource Self}" />
+                            </MultiBinding>
+                        </RibbonButton.IsEnabled>
+                    </RibbonButton>
                 </RibbonGroup>
                 <RibbonGroup Header="Evolution Algorithm">
                     <RibbonButton

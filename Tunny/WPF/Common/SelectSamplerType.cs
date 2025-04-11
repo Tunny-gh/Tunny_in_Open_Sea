@@ -17,5 +17,6 @@
         BruteForce,
         DE,
         cTPE,
+        HEBO
     }
 }

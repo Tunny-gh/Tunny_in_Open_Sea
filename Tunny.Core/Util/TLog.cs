@@ -18,6 +18,11 @@ namespace Tunny.Core.Util
         public static void InitializeLogger()
         {
             SetInitialLogLevels();
+            if (!Directory.Exists(TEnvVariables.LogPath))
+            {
+                Directory.CreateDirectory(TEnvVariables.LogPath);
+            }
+
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.ControlledBy(LevelSwitch)
                 .WriteTo.File(path: TEnvVariables.LogPath + "/log_.txt", rollingInterval: RollingInterval.Day, formatProvider: CultureInfo.InvariantCulture)

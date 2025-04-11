@@ -18,5 +18,6 @@ namespace Tunny.Core.TEnum
         MOEAD = 13,
         DE = 14,
         cTPE = 15,
+        HEBO = 16,
     }
 }
