@@ -1,7 +1,7 @@
 :: This batch file based on https://github.com/lmbelo/python3-embeddable
 echo off
 
-set PYVER=3.12.7
+set PYVER=3.10.11
 set ARCH=amd64
 
 if exist python.zip del python.zip

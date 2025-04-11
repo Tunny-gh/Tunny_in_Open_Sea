@@ -5,7 +5,7 @@ using Python.Runtime;
 namespace Optuna.Sampler.OptunaHub
 {
     /// <summary>
-    /// https://hub.optuna.org/samplers/auto_sampler/
+    /// https://hub.optuna.org/samplers/ctpe/
     /// </summary>
     public class cTPESampler : HubSamplerBase
     {

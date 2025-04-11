@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 
-using Optuna.Sampler;
 using Optuna.Sampler.OptunaHub;
 
 using Tunny.Core.Input;

@@ -220,6 +220,9 @@ namespace Tunny.WPF.ViewModels
                 case SelectSamplerType.cTPE:
                     samplerType = SamplerType.cTPE;
                     break;
+                case SelectSamplerType.HEBO:
+                    samplerType = SamplerType.HEBO;
+                    break;
                 default:
                     samplerType = SamplerType.TPE;
                     break;

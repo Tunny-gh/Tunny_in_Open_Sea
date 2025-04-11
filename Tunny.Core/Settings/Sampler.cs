@@ -21,6 +21,7 @@ namespace Tunny.Core.Settings
         public MoCmaEsSampler MoCmaEs { get; set; } = new MoCmaEsSampler();
         public DESampler DE { get; set; } = new DESampler();
         public cTPESampler cTPE { get; set; } = new cTPESampler();
+        public HEBOSampler HEBO { get; set; } = new HEBOSampler();
 
         // Optuna
         public RandomSampler Random { get; set; } = new RandomSampler();
@@ -54,7 +55,7 @@ namespace Tunny.Core.Settings
                     optunaSampler = BoTorch.ToPython(hasConstraints);
                     break;
                 case SamplerType.NSGAII:
-                    optunaSampler = NsgaII.ToPython(Sampler.OptunaHubRefCommitSHA, hasConstraints);
+                    optunaSampler = NsgaII.ToPython(OptunaHubRefCommitSHA, hasConstraints);
                     break;
                 case SamplerType.NSGAIII:
                     optunaSampler = NsgaIII.ToPython(hasConstraints);
@@ -75,19 +76,22 @@ namespace Tunny.Core.Settings
                     optunaSampler = PreferentialGp.ToPython();
                     break;
                 case SamplerType.AUTO:
-                    optunaSampler = Auto.ToPython(Sampler.OptunaHubRefCommitSHA, hasConstraints);
+                    optunaSampler = Auto.ToPython(OptunaHubRefCommitSHA, hasConstraints);
                     break;
                 case SamplerType.MOEAD:
-                    optunaSampler = MOEAD.ToPython(Sampler.OptunaHubRefCommitSHA);
+                    optunaSampler = MOEAD.ToPython(OptunaHubRefCommitSHA);
                     break;
                 case SamplerType.MoCmaEs:
-                    optunaSampler = MoCmaEs.ToPython(Sampler.OptunaHubRefCommitSHA);
+                    optunaSampler = MoCmaEs.ToPython(OptunaHubRefCommitSHA);
                     break;
                 case SamplerType.DE:
-                    optunaSampler = DE.ToPython(Sampler.OptunaHubRefCommitSHA);
+                    optunaSampler = DE.ToPython(OptunaHubRefCommitSHA);
                     break;
                 case SamplerType.cTPE:
-                    optunaSampler = cTPE.ToPython(Sampler.OptunaHubRefCommitSHA, hasConstraints);
+                    optunaSampler = cTPE.ToPython(OptunaHubRefCommitSHA, hasConstraints);
+                    break;
+                case SamplerType.HEBO:
+                    optunaSampler = HEBO.ToPython(OptunaHubRefCommitSHA);
                     break;
                 default:
                     throw new ArgumentException("Invalid sampler type.");
