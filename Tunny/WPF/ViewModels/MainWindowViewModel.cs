@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Prism.Commands;
 using Prism.Mvvm;
 
+using Tunny.Core.Handler;
 using Tunny.Core.Settings;
 using Tunny.Core.TEnum;
 using Tunny.Core.Util;
@@ -76,6 +77,15 @@ namespace Tunny.WPF.ViewModels
 
             CheckPruner();
             CheckPythonInstalled();
+            SetupTTDesignExplorer();
+        }
+
+        private static void SetupTTDesignExplorer()
+        {
+            if (!Directory.Exists(TEnvVariables.DesignExplorerPath))
+            {
+                DesignExplorer.SetupTTDesignExplorer();
+            }
         }
 
         private void UpdateTitle()
