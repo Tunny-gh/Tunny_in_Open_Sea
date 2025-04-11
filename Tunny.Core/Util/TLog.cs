@@ -18,7 +18,7 @@ namespace Tunny.Core.Util
         public static void InitializeLogger()
         {
             SetInitialLogLevels();
-            if(!Directory.Exists(TEnvVariables.LogPath))
+            if (!Directory.Exists(TEnvVariables.LogPath))
             {
                 Directory.CreateDirectory(TEnvVariables.LogPath);
             }

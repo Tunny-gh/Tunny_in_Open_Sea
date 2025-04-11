@@ -33,13 +33,16 @@ namespace Tunny.Core.Storage
         {
             try
             {
-                if (studySummary.UserAttrs["tunny_version"] != null)
+                if (studySummary.UserAttrs.TryGetValue("tunny_version", out object tunnyVersionObj) && tunnyVersionObj != null)
                 {
-                    string versionString = (studySummary.UserAttrs["tunny_version"] as string[])[0];
-                    var version = new Version(versionString);
-                    if (version <= oldFormatVersion)
+                    string versionString = (tunnyVersionObj as string[])?[0];
+                    if (versionString != null)
                     {
-                        UpdateVariableNamesAttr(studySummary);
+                        var version = new Version(versionString);
+                        if (version <= oldFormatVersion)
+                        {
+                            UpdateVariableNamesAttr(studySummary);
+                        }
                     }
                 }
             }
