@@ -108,8 +108,8 @@
                         Command="{Binding SelectSamplerCommand}"
                         CommandParameter="{x:Static common:SelectSamplerType.cTPE}"
                         Label="cTPE"
-                        LargeImageSource="{StaticResource Tree}"
-                        SmallImageSource="{StaticResource Tree}">
+                        LargeImageSource="{StaticResource TreeOutline}"
+                        SmallImageSource="{StaticResource TreeOutline}">
                         <RibbonButton.IsEnabled>
                             <MultiBinding Converter="{StaticResource ValueConvertor}">
                                 <Binding Path="IsMultiObjective" />
