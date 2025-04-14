@@ -22,6 +22,7 @@ namespace Tunny.Core.Settings
         public void ComputeAutoValue()
         {
             Sampler.Tpe.ComputeAutoValue(NumberOfTrials);
+            Sampler.cTPE.ComputeAutoValue(NumberOfTrials);
             Sampler.GP.ComputeAutoValue(NumberOfTrials);
             Sampler.BoTorch.ComputeAutoValue(NumberOfTrials);
 
