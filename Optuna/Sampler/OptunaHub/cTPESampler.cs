@@ -1,3 +1,5 @@
+using System;
+
 using Optuna.Util;
 
 using Python.Runtime;
@@ -27,6 +29,14 @@ namespace Optuna.Sampler.OptunaHub
         public cTPESampler()
             : base(ObjectiveNumberSupport.SingleObjective, ConstraintSupport.OnlyWithConstraint)
         {
+        }
+
+        public void ComputeAutoValue(int numberOfTrials)
+        {
+            if (NStartupTrials == -1)
+            {
+                NStartupTrials = Math.Max(10, Math.Min(100, numberOfTrials / 10));
+            }
         }
 
         public dynamic ToPython(string refCommit, bool hasConstraints)
