@@ -7,17 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Tunny.WPF.ViewModels.Optimize"
     Title="OptimizePage"
-    d:DesignHeight="650"
-    d:DesignWidth="1000"
+    d:DesignHeight="850"
+    d:DesignWidth="1200"
+    MaxHeight="850"
     mc:Ignorable="d">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="AUTO" />
             <RowDefinition Height="3.5*" />
             <RowDefinition Height="3.5*" />
             <RowDefinition Height="2.5*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="AUTO" />
             <RowDefinition Height="9*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
