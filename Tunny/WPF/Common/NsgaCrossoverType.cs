@@ -1,4 +1,4 @@
-﻿namespace Tunny.WPF.Views.Pages.Settings.Sampler
+﻿namespace Tunny.WPF.Common
 {
     internal enum NsgaCrossoverType
     {

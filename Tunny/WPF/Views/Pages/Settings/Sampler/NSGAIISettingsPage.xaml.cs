@@ -7,6 +7,8 @@ using Optuna.Sampler.OptunaHub;
 using Tunny.Core.Input;
 using Tunny.Core.Settings;
 using Tunny.WPF.Common;
+using Tunny.WPF.Views.Pages.Settings.Crossover;
+using Tunny.WPF.Views.Pages.Settings.Mutation;
 
 namespace Tunny.WPF.Views.Pages.Settings.Sampler
 {
@@ -21,6 +23,10 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             InitializeComponent();
             NsgaiiCrossoverComboBox.ItemsSource = Enum.GetNames(typeof(NsgaCrossoverType));
             NsgaiiCrossoverComboBox.SelectedIndex = 0;
+            NsgaiiMutationComboBox.ItemsSource = Enum.GetNames(typeof(NsgaMutationType));
+            NsgaiiMutationComboBox.SelectedIndex = 0;
+            CrossoverSettings.Content = new SBX();
+            MutationSettings.Content = new Polynomial();
         }
 
         internal NSGAIISampler ToSettings()
@@ -34,9 +40,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
                     ? null
                     : (double?)double.Parse(NsgaiiMutationProbabilityTextBox.Text, System.Globalization.CultureInfo.InvariantCulture),
                 CrossoverProb = double.Parse(NsgaiiCrossoverProbabilityTextBox.Text, System.Globalization.CultureInfo.InvariantCulture),
-                SwappingProb = double.Parse(NsgaiiSwappingProbabilityTextBox.Text, System.Globalization.CultureInfo.InvariantCulture),
                 Crossover = ((NsgaCrossoverType)NsgaiiCrossoverComboBox.SelectedIndex).ToString(),
-                ForceReload = NsgaiiForceReloadCheckBox.IsChecked == true
             };
         }
 
@@ -51,10 +55,8 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
                 ? "AUTO"
                 : nsgaii.MutationProb.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
             page.NsgaiiCrossoverProbabilityTextBox.Text = nsgaii.CrossoverProb.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            page.NsgaiiSwappingProbabilityTextBox.Text = nsgaii.SwappingProb.ToString(System.Globalization.CultureInfo.InvariantCulture);
             page.NsgaiiCrossoverComboBox.SelectedIndex = string.IsNullOrEmpty(nsgaii.Crossover)
                 ? 0 : (int)Enum.Parse(typeof(NsgaCrossoverType), nsgaii.Crossover);
-            page.NsgaiiForceReloadCheckBox.IsChecked = false;
             return page;
         }
 
@@ -85,14 +87,21 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             textBox.Text = InputValidator.Is0to1(value) ? value : "0.5";
         }
 
+        private void WallaceiDefaultButton_Click(object sender, RoutedEventArgs e)
+        {
+            NsgaiiSeedTextBox.Text = "AUTO";
+            NsgaiiMutationProbabilityTextBox.Text = "AUTO";
+            NsgaiiCrossoverProbabilityTextBox.Text = "0.9";
+            NsgaiiMutationComboBox.SelectedIndex = 1;
+            NsgaiiCrossoverComboBox.SelectedIndex = 3;
+        }
+
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
             NsgaiiSeedTextBox.Text = "AUTO";
             NsgaiiMutationProbabilityTextBox.Text = "AUTO";
             NsgaiiCrossoverProbabilityTextBox.Text = "0.9";
-            NsgaiiSwappingProbabilityTextBox.Text = "0.5";
             NsgaiiCrossoverComboBox.SelectedIndex = 1;
-            NsgaiiForceReloadCheckBox.IsChecked = false;
         }
     }
 }

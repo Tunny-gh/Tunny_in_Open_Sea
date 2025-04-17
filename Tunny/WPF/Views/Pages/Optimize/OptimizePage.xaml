@@ -7,9 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Tunny.WPF.ViewModels.Optimize"
     Title="OptimizePage"
+    MaxHeight="850"
     d:DesignHeight="850"
     d:DesignWidth="1200"
-    MaxHeight="850"
     mc:Ignorable="d">
 
     <Grid Margin="10">
