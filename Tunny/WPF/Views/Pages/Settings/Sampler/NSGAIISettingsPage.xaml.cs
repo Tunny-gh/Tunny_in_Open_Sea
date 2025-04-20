@@ -98,8 +98,8 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             NsgaiiSeedTextBox.Text = "AUTO";
             NsgaiiMutationProbabilityTextBox.Text = "AUTO";
             NsgaiiCrossoverProbabilityTextBox.Text = "0.9";
+            NsgaiiMutationComboBox.SelectedIndex = 1;
             NsgaiiCrossoverComboBox.SelectedIndex = 1;
-            NsgaiiMutationComboBox.SelectedIndex = 0;
         }
 
         private void CrossoverChanged(object sender, SelectionChangedEventArgs e)
