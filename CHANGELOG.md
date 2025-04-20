@@ -59,8 +59,7 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - Update ConstructFishEgg component
   - Add fill color
   - Add SkipIfExit input
-- Update optuna v4.2
-- Update python v3.10 to v3.12
+- Update optuna v4.3
 
 ### Removed
 
