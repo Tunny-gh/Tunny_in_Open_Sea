@@ -20,7 +20,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Crossover
             double sigmaXi = double.Parse(SigmaXiTextBox.Text, CultureInfo.InvariantCulture);
             double? sigmaEta = SigmaEtaTextBox.Text.Equals("auto", StringComparison.OrdinalIgnoreCase)
                 ? null
-                : double.Parse(SigmaEtaTextBox.Text, CultureInfo.InvariantCulture);
+                : (double?)double.Parse(SigmaEtaTextBox.Text, CultureInfo.InvariantCulture);
             return new double?[] { sigmaXi, sigmaEta };
         }
 

@@ -19,7 +19,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Crossover
         {
             double? eta = EtaTextBox.Text.Equals("auto", StringComparison.OrdinalIgnoreCase)
                 ? null
-                : double.Parse(EtaTextBox.Text, CultureInfo.InvariantCulture);
+                : (double?)double.Parse(EtaTextBox.Text, CultureInfo.InvariantCulture);
             double uniformCrossoverProb = double.Parse(UniformCrossoverProbTextBox.Text, CultureInfo.InvariantCulture);
             double useGenChild = double.Parse(UseGenChildProbTextBox.Text, CultureInfo.InvariantCulture);
             return new double?[] { eta, uniformCrossoverProb, useGenChild };

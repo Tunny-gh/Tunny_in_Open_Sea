@@ -19,7 +19,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Crossover
         {
             double? epsilon = EpsilonTextBox.Text.Equals("auto", StringComparison.OrdinalIgnoreCase)
                 ? null
-                : double.Parse(EpsilonTextBox.Text, CultureInfo.InvariantCulture);
+                : (double?)double.Parse(EpsilonTextBox.Text, CultureInfo.InvariantCulture);
             return new double?[] { epsilon };
         }
 
