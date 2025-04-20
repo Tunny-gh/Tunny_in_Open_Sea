@@ -15,7 +15,7 @@ namespace Tunny.Core.Settings
     public class Sampler
     {
         // OptunaHub
-        public static string OptunaHubRefCommitSHA => "71ff2b7bba783d5b69aeb8ab8335642407285f90";
+        public static string OptunaHubRefCommitSHA => "ad497b67648737059de71541eff0f8e66ac7cc09";
         public AutoSampler Auto { get; set; } = new AutoSampler();
         public MOEADSampler MOEAD { get; set; } = new MOEADSampler();
         public MoCmaEsSampler MoCmaEs { get; set; } = new MoCmaEsSampler();
