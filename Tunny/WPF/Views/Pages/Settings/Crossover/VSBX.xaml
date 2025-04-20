@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Tunny.WPF.Views.Pages.Settings.Crossover.SBX"
+    x:Class="Tunny.WPF.Views.Pages.Settings.Crossover.VSBX"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,7 +12,7 @@
     <GroupBox
         Margin="5"
         Background="#E2E8F4"
-        Header="SBX Crossover">
+        Header="vSBX Crossover">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
@@ -34,32 +34,6 @@
                 Margin="5"
                 LostFocus="EtaTextBox_LostFocus"
                 Text="AUTO"
-                TextAlignment="Right" />
-            <Label
-                Grid.Row="1"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Uniform X Prob" />
-            <TextBox
-                x:Name="UniformCrossoverProbTextBox"
-                Grid.Row="1"
-                Grid.Column="1"
-                Margin="5"
-                LostFocus="UniformCrossoverProbTextBox_LostFocus"
-                Text="0.0"
-                TextAlignment="Right" />
-            <Label
-                Grid.Row="2"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Use Child Prob" />
-            <TextBox
-                x:Name="UseGenChildProbTextBox"
-                Grid.Row="2"
-                Grid.Column="1"
-                Margin="5"
-                LostFocus="UseGenChildTextBox_LostFocus"
-                Text="1.0"
                 TextAlignment="Right" />
         </Grid>
     </GroupBox>

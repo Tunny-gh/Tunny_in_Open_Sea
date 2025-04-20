@@ -18,5 +18,19 @@ namespace Tunny.WPF.Views.Pages.Settings.Crossover
             string value = textBox.Text;
             textBox.Text = InputValidator.IsAutoOrPositiveDouble(value, false) ? value : "AUTO";
         }
+
+        private void UniformCrossoverProbTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            string value = textBox.Text;
+            textBox.Text = InputValidator.IsAutoOr0to1(value, true) ? value : "0.0";
+        }
+
+        private void UseGenChildTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            string value = textBox.Text;
+            textBox.Text = InputValidator.IsAutoOr0to1(value) ? value : "1.0";
+        }
     }
 }
