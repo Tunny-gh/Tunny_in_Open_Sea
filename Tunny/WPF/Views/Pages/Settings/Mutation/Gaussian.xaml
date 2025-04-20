@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="Tunny.WPF.Views.Pages.Settings.Mutation.Gaussian"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Tunny.WPF.Views.Pages.Settings.Mutation"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Gaussian"
+    d:DesignHeight="150"
+    d:DesignWidth="175"
+    mc:Ignorable="d">
+
+    <GroupBox
+        Margin="5"
+        Background="#E2E8F4"
+        Header="Gaussian Mutation">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="SigmaFactor" />
+            <TextBox
+                x:Name="SigmaFactorTextBox"
+                Grid.Column="1"
+                Margin="5"
+                LostFocus="SigmaFactorTextBox_LostFocus"
+                Text="0.033"
+                TextAlignment="Right" />
+        </Grid>
+    </GroupBox>
+</Page>
