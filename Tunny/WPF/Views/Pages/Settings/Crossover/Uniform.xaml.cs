@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 using Tunny.Core.Input;
@@ -15,9 +16,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Crossover
 
         public double?[] ToParameters()
         {
-            double? swappingProb = InputValidator.Is0to1(SwappingProbTextBox.Text)
-                ? double.Parse(SwappingProbTextBox.Text, System.Globalization.CultureInfo.InvariantCulture)
-                : 0.5;
+            double? swappingProb = double.Parse(SwappingProbTextBox.Text, CultureInfo.InvariantCulture);
             return new double?[] { swappingProb };
         }
 

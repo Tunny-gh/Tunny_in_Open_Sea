@@ -16,9 +16,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Crossover
 
         public double?[] ToParameters()
         {
-            double alpha = InputValidator.IsPositiveDouble(AlphaTextBox.Text, false)
-                ? double.Parse(AlphaTextBox.Text, CultureInfo.InvariantCulture)
-                : 0.5;
+            double alpha = double.Parse(AlphaTextBox.Text, CultureInfo.InvariantCulture);
             return new double?[] { alpha };
         }
 

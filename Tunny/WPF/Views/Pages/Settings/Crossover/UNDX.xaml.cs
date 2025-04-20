@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 using Tunny.Core.Input;
@@ -15,12 +17,10 @@ namespace Tunny.WPF.Views.Pages.Settings.Crossover
 
         public double?[] ToParameters()
         {
-            double sigmaXi = InputValidator.IsPositiveDouble(SigmaXiTextBox.Text, false)
-                ? double.Parse(SigmaXiTextBox.Text, System.Globalization.CultureInfo.InvariantCulture)
-                : 0.5;
-            double? sigmaEta = InputValidator.IsAutoOrPositiveDouble(SigmaEtaTextBox.Text, false)
-                ? double.Parse(SigmaEtaTextBox.Text, System.Globalization.CultureInfo.InvariantCulture)
-                : null;
+            double sigmaXi = double.Parse(SigmaXiTextBox.Text, CultureInfo.InvariantCulture);
+            double? sigmaEta = SigmaEtaTextBox.Text.Equals("auto", StringComparison.OrdinalIgnoreCase)
+                ? null
+                : double.Parse(SigmaEtaTextBox.Text, CultureInfo.InvariantCulture);
             return new double?[] { sigmaXi, sigmaEta };
         }
 

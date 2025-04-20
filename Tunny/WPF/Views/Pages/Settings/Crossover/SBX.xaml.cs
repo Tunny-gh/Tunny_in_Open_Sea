@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 using Tunny.Core.Input;
@@ -15,15 +17,11 @@ namespace Tunny.WPF.Views.Pages.Settings.Crossover
 
         public double?[] ToParameters()
         {
-            double? eta = InputValidator.IsAutoOrPositiveDouble(EtaTextBox.Text, false)
-                ? double.Parse(EtaTextBox.Text, System.Globalization.CultureInfo.InvariantCulture)
-                : null;
-            double uniformCrossoverProb = InputValidator.IsAutoOr0to1(UniformCrossoverProbTextBox.Text, true)
-                ? double.Parse(UniformCrossoverProbTextBox.Text, System.Globalization.CultureInfo.InvariantCulture)
-                : 0.0;
-            double useGenChild = InputValidator.IsAutoOr0to1(UseGenChildProbTextBox.Text)
-                ? double.Parse(UseGenChildProbTextBox.Text, System.Globalization.CultureInfo.InvariantCulture)
-                : 1.0;
+            double? eta = EtaTextBox.Text.Equals("auto", StringComparison.OrdinalIgnoreCase)
+                ? null
+                : double.Parse(EtaTextBox.Text, CultureInfo.InvariantCulture);
+            double uniformCrossoverProb = double.Parse(UniformCrossoverProbTextBox.Text, CultureInfo.InvariantCulture);
+            double useGenChild = double.Parse(UseGenChildProbTextBox.Text, CultureInfo.InvariantCulture);
             return new double?[] { eta, uniformCrossoverProb, useGenChild };
         }
 
@@ -38,14 +36,14 @@ namespace Tunny.WPF.Views.Pages.Settings.Crossover
         {
             var textBox = (TextBox)sender;
             string value = textBox.Text;
-            textBox.Text = InputValidator.IsAutoOr0to1(value, true) ? value : "0.0";
+            textBox.Text = InputValidator.Is0to1(value, true) ? value : "0.0";
         }
 
         private void UseGenChildTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             var textBox = (TextBox)sender;
             string value = textBox.Text;
-            textBox.Text = InputValidator.IsAutoOr0to1(value) ? value : "1.0";
+            textBox.Text = InputValidator.Is0to1(value) ? value : "1.0";
         }
     }
 }
