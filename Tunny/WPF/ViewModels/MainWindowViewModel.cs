@@ -118,6 +118,17 @@ namespace Tunny.WPF.ViewModels
             bool isPythonDllExist = File.Exists(TEnvVariables.PythonDllPath);
             if (settings.CheckPythonLibraries || settings.Version != tunnyAssembleVersion || isPythonDllExist == false)
             {
+                if (Directory.Exists(TEnvVariables.PythonPath))
+                {
+                    try
+                    {
+                        Directory.Delete(TEnvVariables.PythonPath);
+                    }
+                    catch
+                    {
+                        TLog.Error("Python directory is used some process. Fail to delete.");
+                    }
+                }
                 InstallPython();
                 settings.CheckPythonLibraries = false;
                 settings.Version = tunnyAssembleVersion;
