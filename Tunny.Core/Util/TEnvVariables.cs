@@ -8,7 +8,13 @@ namespace Tunny.Core.Util
     public static class TEnvVariables
     {
         public static Version Version { get; } = new Version(1, 0, 5);
+        /// <summary>
+        /// Desktop/fish.log is the default path for the log file.
+        /// </summary>
         public static string DefaultStoragePath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "fish.log");
+        /// <summary>
+        /// [UserProfile]/.tunny_dev_env is the default path for the Tunny environment.
+        /// </summary>
         public static string TunnyEnvPath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".tunny_dev_env");
         public static string LogPath { get; } = Path.Combine(TunnyEnvPath, "logs");
         public static string QuitFishingPath { get; } = Path.Combine(TunnyEnvPath, "quit.fishing");
@@ -18,6 +24,9 @@ namespace Tunny.Core.Util
         public static string ExampleDirPath { get; } = Path.Combine(ComponentFolder, "Examples", "Grasshopper");
         public static Version OldStorageVersion { get; } = new Version("0.9.1");
         public static IntPtr GrasshopperWindowHandle { get; set; }
+        /// <summary>
+        /// Python directory path.
+        /// </summary>
         public static string PythonPath
         {
             get
