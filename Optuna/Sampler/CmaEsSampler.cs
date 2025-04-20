@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 using Optuna.Util;
 
 using Python.Runtime;
@@ -12,7 +14,6 @@ namespace Optuna.Sampler
         public bool UseFirstEggToX0 { get; set; } = true;
         public double? Sigma0 { get; set; }
         public int NStartupTrials { get; set; } = 1;
-        public bool WarnIndependentSampling { get; set; } = true;
         public bool ConsiderPrunedTrials { get; set; }
         public string RestartStrategy { get; set; } = string.Empty;
         public int IncPopsize { get; set; } = 2;
@@ -22,6 +23,8 @@ namespace Optuna.Sampler
         public string WarmStartStudyName { get; set; } = string.Empty;
         public bool WithMargin { get; set; }
         public bool LrAdapt { get; set; }
+        [JsonIgnore]
+        public bool WarnIndependentSampling { get; set; } = true;
 
         public CmaEsSampler()
          : base(ObjectiveNumberSupport.SingleObjective, ConstraintSupport.None, HumanInTheLoopSupport.NotRecommended)

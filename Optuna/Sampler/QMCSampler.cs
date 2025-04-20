@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 using Optuna.Util;
 
 using Python.Runtime;
@@ -11,7 +13,9 @@ namespace Optuna.Sampler
     {
         public string QmcType { get; set; } = "sobol";
         public bool Scramble { get; set; }
+        [JsonIgnore]
         public bool WarnIndependentSampling { get; set; } = true;
+        [JsonIgnore]
         public bool WarnAsynchronousSeeding { get; set; } = true;
 
         public QMCSampler()

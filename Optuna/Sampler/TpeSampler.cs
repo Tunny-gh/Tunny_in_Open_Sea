@@ -1,5 +1,7 @@
 using System;
 
+using Newtonsoft.Json;
+
 using Optuna.Util;
 
 using Python.Runtime;
@@ -20,8 +22,9 @@ namespace Optuna.Sampler
         public int Gamma { get; set; } = 25;
         public bool Multivariate { get; set; }
         public bool Group { get; set; }
-        public bool WarnIndependentSampling { get; set; } = true;
         public bool ConstantLiar { get; set; }
+        [JsonIgnore]
+        public bool WarnIndependentSampling { get; set; } = true;
 
         public TpeSampler()
          : base(ObjectiveNumberSupport.Any, ConstraintSupport.Supported, HumanInTheLoopSupport.Recommended)
