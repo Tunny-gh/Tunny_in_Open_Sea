@@ -19,9 +19,9 @@ namespace Optuna.Sampler
                 population_size: PopulationSize,
                 mutation_prob: MutationProb,
                 crossover_prob: CrossoverProb,
-                swapping_prob: SwappingProb,
+                swapping_prob: 0.5,
                 seed: Seed,
-                crossover: SetCrossover(optuna, Crossover),
+                crossover: SetCrossover(Crossover, CrossoverParam),
                 constraints_func: hasConstraints ? ConstraintFunc() : null,
                 reference_points: ReferencePoints == null || ReferencePoints.Length == 0 ? null : ReferencePoints,
                 dividing_parameter: DividingParameter
