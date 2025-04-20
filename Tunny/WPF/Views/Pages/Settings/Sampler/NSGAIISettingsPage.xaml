@@ -81,7 +81,8 @@
                     x:Name="NsgaiiMutationComboBox"
                     Grid.Column="1"
                     Width="90"
-                    Margin="5" />
+                    Margin="5"
+                    SelectionChanged="MutationChanged" />
             </StackPanel>
             <StackPanel
                 Grid.Row="3"
@@ -96,7 +97,8 @@
                     x:Name="NsgaiiCrossoverComboBox"
                     Grid.Column="1"
                     Width="90"
-                    Margin="5" />
+                    Margin="5"
+                    SelectionChanged="CrossoverChanged" />
             </StackPanel>
 
             <Frame
