@@ -2,14 +2,23 @@
 using System.Windows.Controls;
 
 using Tunny.Core.Input;
+using Tunny.WPF.Common;
 
 namespace Tunny.WPF.Views.Pages.Settings.Crossover
 {
-    public partial class VSBX : Page
+    public partial class VSBX : Page, ICrossoverParam
     {
         public VSBX()
         {
             InitializeComponent();
+        }
+
+        public double?[] ToParameters()
+        {
+            double? eta = InputValidator.IsAutoOrPositiveDouble(EtaTextBox.Text, false)
+                ? double.Parse(EtaTextBox.Text, System.Globalization.CultureInfo.InvariantCulture)
+                : null;
+            return new double?[] { eta };
         }
 
         private void EtaTextBox_LostFocus(object sender, RoutedEventArgs e)
