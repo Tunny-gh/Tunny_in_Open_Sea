@@ -52,7 +52,7 @@
     <PackageReference Include="System.Resources.Extensions" Version="7.0.0">
       <TreatAsUsed>true</TreatAsUsed>
     </PackageReference>
-    <PackageReference Include="CefSharp.Wpf" Version="132.3.11" />
+    <PackageReference Include="CefSharp.Wpf" Version="135.0.0170" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
   </ItemGroup>
 
@@ -66,7 +66,7 @@
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework) == 'net7.0-windows' OR $(TargetFramework) == 'net9.0-windows'">
     <PackageReference Include="Grasshopper" Version="8.0.23304.9001" ExcludeAssets="runtime" />
-    <PackageReference Include="CefSharp.Wpf.NETCore" Version="132.3.11">
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="135.0.0170">
       <PrivateAssets>none</PrivateAssets>
     </PackageReference>
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc3.3" />
@@ -207,35 +207,5 @@
       <Pack>True</Pack>
     </Resource>
   </ItemGroup>
-
-  <PropertyGroup Condition="$(Configuration) == 'Debug' AND $([MSBuild]::IsOSPlatform(Windows))">
-    <StartProgram>C:\Program Files\Rhino 7\System\Rhino.exe</StartProgram>
-    <StartArguments></StartArguments>
-    <StartAction>Program</StartAction>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
 
 </Project>
