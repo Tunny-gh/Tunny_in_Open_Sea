@@ -80,13 +80,6 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             textBox.Text = InputValidator.Is0to1(value) ? value : "0.9";
         }
 
-        private void NsgaiiSwappingProbabilityTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            var textBox = (TextBox)sender;
-            string value = textBox.Text;
-            textBox.Text = InputValidator.Is0to1(value) ? value : "0.5";
-        }
-
         private void WallaceiDefaultButton_Click(object sender, RoutedEventArgs e)
         {
             NsgaiiSeedTextBox.Text = "AUTO";

@@ -25,7 +25,6 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -103,12 +102,12 @@
             <Frame
                 x:Name="MutationSettings"
                 Grid.Row="4"
-                Grid.RowSpan="5"
+                Grid.RowSpan="4"
                 NavigationUIVisibility="Hidden" />
             <Frame
                 x:Name="CrossoverSettings"
                 Grid.Row="4"
-                Grid.RowSpan="5"
+                Grid.RowSpan="4"
                 Grid.Column="1"
                 NavigationUIVisibility="Hidden" />
 
