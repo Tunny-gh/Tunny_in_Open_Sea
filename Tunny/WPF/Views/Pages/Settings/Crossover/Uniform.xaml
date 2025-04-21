@@ -33,7 +33,7 @@
                 Grid.Column="1"
                 Margin="5"
                 LostFocus="SwappingProbTextBox_LostFocus"
-                Text="AUTO"
+                Text="0.5"
                 TextAlignment="Right" />
         </Grid>
     </GroupBox>
