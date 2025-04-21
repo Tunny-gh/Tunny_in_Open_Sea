@@ -33,6 +33,8 @@ Please see [here](https://github.com/hrntsm/Tunny/releases) for the data release
 - Added error handling when an unexpected file path is entered in FishPrintByPath
   - support only bitmap type file.
 - Tunny environment directory can open from Tunny fishing component menu items.
+- Enhance GA base algorithm
+  - Add mutation & crossover settings
 
 ### Changed
 
