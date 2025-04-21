@@ -8,6 +8,8 @@ using Optuna.Sampler.OptunaHub;
 using Tunny.Core.Input;
 using Tunny.Core.Settings;
 using Tunny.WPF.Common;
+using Tunny.WPF.Views.Pages.Settings.Crossover;
+using Tunny.WPF.Views.Pages.Settings.Mutation;
 
 namespace Tunny.WPF.Views.Pages.Settings.Sampler
 {
@@ -20,14 +22,25 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
         public MOEADSettingsPage()
         {
             InitializeComponent();
-            MoeadCrossoverComboBox.ItemsSource = Enum.GetNames(typeof(NsgaCrossoverType));
-            MoeadCrossoverComboBox.SelectedIndex = 0;
+            CrossoverComboBox.ItemsSource = Enum.GetNames(typeof(NsgaCrossoverType));
+            CrossoverComboBox.SelectedIndex = 0;
+            MutationComboBox.ItemsSource = new string[]
+            {
+                NsgaMutationType.Uniform.ToString(),
+            };
+            MutationComboBox.SelectedIndex = 0;
             MoeadScalarAggregationComboBox.ItemsSource = Enum.GetNames(typeof(ScalarAggregationType));
             MoeadScalarAggregationComboBox.SelectedIndex = 0;
         }
 
         internal MOEADSampler ToSettings()
         {
+            double?[] crossoverParam = CrossoverSettings.Content == null
+                ? null
+                : ((ICrossoverParam)CrossoverSettings.Content).ToParameters();
+            double mutationParam = MutationSettings.Content == null
+                ? 0
+                : ((IMutationParam)MutationSettings.Content).ToParameter();
             return new MOEADSampler
             {
                 Seed = MoeadSeedTextBox.Text == "AUTO"
@@ -37,13 +50,15 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
                     ? null
                     : (double?)double.Parse(MoeadMutationProbabilityTextBox.Text, CultureInfo.InvariantCulture),
                 CrossoverProb = double.Parse(MoeadCrossoverProbabilityTextBox.Text, CultureInfo.InvariantCulture),
-                SwappingProb = double.Parse(MoeadSwappingProbabilityTextBox.Text, CultureInfo.InvariantCulture),
-                Crossover = ((NsgaCrossoverType)MoeadCrossoverComboBox.SelectedIndex).ToString(),
+                Crossover = ((NsgaCrossoverType)CrossoverComboBox.SelectedIndex).ToString(),
                 NumNeighbors = MoeadNeighborsTextBox.Text == "AUTO"
                     ? -1
                     : int.Parse(MoeadNeighborsTextBox.Text, CultureInfo.InvariantCulture),
                 ScalarAggregation = (ScalarAggregationType)MoeadScalarAggregationComboBox.SelectedIndex,
-                ForceReload = MoeadForceReloadCheckBox.IsChecked == true
+                ForceReload = MoeadForceReloadCheckBox.IsChecked == true,
+                CrossoverParam = crossoverParam,
+                Mutation = ((NsgaMutationType)MutationComboBox.SelectedIndex).ToString(),
+                MutationParam = mutationParam,
             };
         }
 
@@ -58,8 +73,7 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
                 ? "AUTO"
                 : moead.MutationProb.Value.ToString(CultureInfo.InvariantCulture);
             page.MoeadCrossoverProbabilityTextBox.Text = moead.CrossoverProb.ToString(CultureInfo.InvariantCulture);
-            page.MoeadSwappingProbabilityTextBox.Text = moead.SwappingProb.ToString(CultureInfo.InvariantCulture);
-            page.MoeadCrossoverComboBox.SelectedIndex = string.IsNullOrEmpty(moead.Crossover)
+            page.CrossoverComboBox.SelectedIndex = string.IsNullOrEmpty(moead.Crossover)
                 ? 0 : (int)Enum.Parse(typeof(NsgaCrossoverType), moead.Crossover);
             page.MoeadScalarAggregationComboBox.SelectedIndex = (int)moead.ScalarAggregation;
             page.MoeadNeighborsTextBox.Text = moead.NumNeighbors == -1
@@ -109,11 +123,59 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             MoeadSeedTextBox.Text = "AUTO";
             MoeadMutationProbabilityTextBox.Text = "AUTO";
             MoeadCrossoverProbabilityTextBox.Text = "0.9";
-            MoeadSwappingProbabilityTextBox.Text = "0.5";
-            MoeadCrossoverComboBox.SelectedIndex = 1;
+            CrossoverComboBox.SelectedIndex = 1;
             MoeadNeighborsTextBox.Text = "AUTO";
             MoeadScalarAggregationComboBox.SelectedIndex = 1;
             MoeadForceReloadCheckBox.IsChecked = false;
+        }
+
+        private void CrossoverChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var crossoverType = (NsgaCrossoverType)Enum.Parse(typeof(NsgaCrossoverType), CrossoverComboBox.SelectedItem.ToString());
+            switch (crossoverType)
+            {
+                case NsgaCrossoverType.Uniform:
+                    CrossoverSettings.Content = new Crossover.Uniform();
+                    break;
+                case NsgaCrossoverType.BLXAlpha:
+                    CrossoverSettings.Content = new BLXAlpha();
+                    break;
+                case NsgaCrossoverType.SPX:
+                    CrossoverSettings.Content = new SPX();
+                    break;
+                case NsgaCrossoverType.SBX:
+                    CrossoverSettings.Content = new SBX();
+                    break;
+                case NsgaCrossoverType.VSBX:
+                    CrossoverSettings.Content = new VSBX();
+                    break;
+                case NsgaCrossoverType.UNDX:
+                    CrossoverSettings.Content = new UNDX();
+                    break;
+                default:
+                    CrossoverSettings.Content = new SBX();
+                    break;
+            }
+        }
+
+        private void MutationChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var mutationType = (NsgaMutationType)Enum.Parse(typeof(NsgaMutationType), MutationComboBox.SelectedItem.ToString());
+            switch (mutationType)
+            {
+                case NsgaMutationType.Uniform:
+                    MutationSettings.Content = new Mutation.Uniform();
+                    break;
+                case NsgaMutationType.Polynomial:
+                    MutationSettings.Content = new Polynomial();
+                    break;
+                case NsgaMutationType.Gaussian:
+                    MutationSettings.Content = new Gaussian();
+                    break;
+                default:
+                    MutationSettings.Content = new Mutation.Uniform();
+                    break;
+            }
         }
     }
 }

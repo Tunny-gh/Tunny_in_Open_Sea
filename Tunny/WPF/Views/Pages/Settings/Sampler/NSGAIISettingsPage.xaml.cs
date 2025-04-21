@@ -32,10 +32,10 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
         {
             double?[] crossoverParam = CrossoverSettings.Content == null
                 ? null
-                :((ICrossoverParam)CrossoverSettings.Content).ToParameters();
+                : ((ICrossoverParam)CrossoverSettings.Content).ToParameters();
             double mutationParam = MutationSettings.Content == null
                 ? 0
-                :((IMutationParam)MutationSettings.Content).ToParameter();
+                : ((IMutationParam)MutationSettings.Content).ToParameter();
             return new NSGAIISampler
             {
                 Seed = NsgaiiSeedTextBox.Text == "AUTO"

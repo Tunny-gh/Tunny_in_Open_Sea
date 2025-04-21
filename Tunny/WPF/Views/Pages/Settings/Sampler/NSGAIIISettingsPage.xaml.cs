@@ -24,23 +24,21 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             InitializeComponent();
             CrossoverComboBox.ItemsSource = Enum.GetNames(typeof(NsgaCrossoverType));
             CrossoverComboBox.SelectedIndex = 0;
-            CrossoverSettings.Content = new Crossover.Uniform();
             MutationComboBox.ItemsSource = new string[]
             {
                 NsgaMutationType.Uniform.ToString(),
             };
             MutationComboBox.SelectedIndex = 0;
-            MutationSettings.Content = new Mutation.Uniform();
         }
 
         internal NSGAIIISampler ToSettings()
         {
             double?[] crossoverParam = CrossoverSettings.Content == null
                 ? null
-                :((ICrossoverParam)CrossoverSettings.Content).ToParameters();
+                : ((ICrossoverParam)CrossoverSettings.Content).ToParameters();
             double mutationParam = MutationSettings.Content == null
                 ? 0
-                :((IMutationParam)MutationSettings.Content).ToParameter();
+                : ((IMutationParam)MutationSettings.Content).ToParameter();
             return new NSGAIIISampler
             {
                 Seed = NsgaiiiSeedTextBox.Text == "AUTO"
@@ -131,8 +129,6 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
                     CrossoverSettings.Content = new SBX();
                     break;
             }
-            CrossoverSettings.UpdateLayout();
-            CrossoverSettings.InvalidateVisual();
         }
 
         private void MutationChanged(object sender, SelectionChangedEventArgs e)

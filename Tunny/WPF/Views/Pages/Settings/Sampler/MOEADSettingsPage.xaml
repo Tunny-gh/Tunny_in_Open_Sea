@@ -25,6 +25,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -76,55 +78,72 @@
                 Margin="10,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Content="Swapping Probability" />
-            <TextBox
-                x:Name="MoeadSwappingProbabilityTextBox"
-                Grid.Row="3"
-                Grid.Column="1"
-                Margin="5"
-                LostFocus="MoeadSwappingProbabilityTextBox_LostFocus"
-                Text="0.50"
-                TextAlignment="Right" />
-            <Label
-                Grid.Row="4"
-                Margin="10,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Crossover" />
-            <ComboBox
-                x:Name="MoeadCrossoverComboBox"
-                Grid.Row="4"
-                Grid.Column="1"
-                Margin="5" />
-            <Label
-                Grid.Row="5"
-                Margin="10,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
                 Content="Number of Neighbors" />
             <TextBox
                 x:Name="MoeadNeighborsTextBox"
-                Grid.Row="5"
+                Grid.Row="3"
                 Grid.Column="1"
                 Margin="5"
                 LostFocus="MoeadNeighborsTextBox_LostFocus"
                 Text="AUTO"
                 TextAlignment="Right" />
             <Label
-                Grid.Row="6"
+                Grid.Row="4"
                 Margin="10,0,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Content="Scalar Aggregation" />
             <ComboBox
                 x:Name="MoeadScalarAggregationComboBox"
-                Grid.Row="6"
+                Grid.Row="4"
                 Grid.Column="1"
                 Margin="5" />
 
+            <StackPanel Grid.Row="5" Orientation="Horizontal">
+                <Label
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Mutation" />
+                <ComboBox
+                    x:Name="MutationComboBox"
+                    Grid.Column="1"
+                    Width="90"
+                    Margin="5"
+                    SelectionChanged="MutationChanged" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="5"
+                Grid.Column="1"
+                Orientation="Horizontal">
+                <Label
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Crossover" />
+                <ComboBox
+                    x:Name="CrossoverComboBox"
+                    Grid.Column="1"
+                    Width="90"
+                    Margin="5"
+                    SelectionChanged="CrossoverChanged" />
+            </StackPanel>
+
+            <Frame
+                x:Name="MutationSettings"
+                Grid.Row="6"
+                Grid.RowSpan="4"
+                NavigationUIVisibility="Hidden" />
+            <Frame
+                x:Name="CrossoverSettings"
+                Grid.Row="6"
+                Grid.RowSpan="4"
+                Grid.Column="1"
+                NavigationUIVisibility="Hidden" />
+
             <CheckBox
                 x:Name="MoeadForceReloadCheckBox"
-                Grid.Row="8"
+                Grid.Row="10"
                 Grid.Column="0"
                 Margin="5"
                 HorizontalAlignment="Left"
@@ -132,7 +151,7 @@
                 Content="ForceReload"
                 IsChecked="False" />
             <Button
-                Grid.Row="8"
+                Grid.Row="10"
                 Grid.Column="1"
                 Margin="5"
                 Click="DefaultButton_Click"
