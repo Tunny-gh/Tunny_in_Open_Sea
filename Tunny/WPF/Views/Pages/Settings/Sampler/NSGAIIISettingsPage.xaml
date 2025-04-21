@@ -71,34 +71,50 @@
                 LostFocus="NsgaiiiCrossoverProbabilityTextBox_LostFocus"
                 Text="0.90"
                 TextAlignment="Right" />
-            <Label
-                Grid.Row="3"
-                Margin="10,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Swapping Probability" />
-            <TextBox
-                x:Name="NsgaiiiSwappingProbabilityTextBox"
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <Label
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Mutation" />
+                <ComboBox
+                    x:Name="MutationComboBox"
+                    Grid.Column="1"
+                    Width="90"
+                    Margin="5"
+                    SelectionChanged="MutationChanged" />
+            </StackPanel>
+            <StackPanel
                 Grid.Row="3"
                 Grid.Column="1"
-                Margin="5"
-                LostFocus="NsgaiiiSwappingProbabilityTextBox_LostFocus"
-                Text="0.50"
-                TextAlignment="Right" />
-            <Label
+                Orientation="Horizontal">
+                <Label
+                    Margin="5,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Crossover" />
+                <ComboBox
+                    x:Name="CrossoverComboBox"
+                    Grid.Column="1"
+                    Width="90"
+                    Margin="5"
+                    SelectionChanged="CrossoverChanged" />
+            </StackPanel>
+
+            <Frame
+                x:Name="MutationSettings"
                 Grid.Row="4"
-                Margin="10,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Crossover" />
-            <ComboBox
-                x:Name="NsgaiiiCrossoverComboBox"
+                Grid.RowSpan="4"
+                NavigationUIVisibility="Hidden" />
+            <Frame
+                x:Name="CrossoverSettings"
                 Grid.Row="4"
+                Grid.RowSpan="4"
                 Grid.Column="1"
-                Margin="5" />
+                NavigationUIVisibility="Hidden" />
 
             <Button
-                Grid.Row="8"
+                Grid.Row="9"
                 Grid.Column="1"
                 Margin="5"
                 Click="DefaultButton_Click"

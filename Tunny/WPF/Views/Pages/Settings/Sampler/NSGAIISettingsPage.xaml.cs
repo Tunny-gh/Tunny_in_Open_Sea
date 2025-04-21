@@ -30,6 +30,12 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
 
         internal NSGAIISampler ToSettings()
         {
+            double?[] crossoverParam = CrossoverSettings.Content == null
+                ? null
+                :((ICrossoverParam)CrossoverSettings.Content).ToParameters();
+            double mutationParam = MutationSettings.Content == null
+                ? 0
+                :((IMutationParam)MutationSettings.Content).ToParameter();
             return new NSGAIISampler
             {
                 Seed = NsgaiiSeedTextBox.Text == "AUTO"
@@ -40,9 +46,9 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
                     : (double?)double.Parse(NsgaiiMutationProbabilityTextBox.Text, CultureInfo.InvariantCulture),
                 CrossoverProb = double.Parse(NsgaiiCrossoverProbabilityTextBox.Text, CultureInfo.InvariantCulture),
                 Crossover = ((NsgaCrossoverType)NsgaiiCrossoverComboBox.SelectedIndex).ToString(),
-                CrossoverParam = ((ICrossoverParam)CrossoverSettings.Content).ToParameters(),
+                CrossoverParam = crossoverParam,
                 Mutation = ((NsgaMutationType)NsgaiiMutationComboBox.SelectedIndex).ToString(),
-                MutationParam = ((IMutationParam)MutationSettings.Content).ToParameter(),
+                MutationParam = mutationParam,
             };
         }
 

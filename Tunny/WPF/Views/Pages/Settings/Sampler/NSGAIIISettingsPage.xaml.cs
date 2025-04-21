@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,6 +8,8 @@ using Optuna.Sampler;
 using Tunny.Core.Input;
 using Tunny.Core.Settings;
 using Tunny.WPF.Common;
+using Tunny.WPF.Views.Pages.Settings.Crossover;
+using Tunny.WPF.Views.Pages.Settings.Mutation;
 
 namespace Tunny.WPF.Views.Pages.Settings.Sampler
 {
@@ -19,23 +22,38 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
         public NSGAIIISettingsPage()
         {
             InitializeComponent();
-            NsgaiiiCrossoverComboBox.ItemsSource = Enum.GetNames(typeof(NsgaCrossoverType));
-            NsgaiiiCrossoverComboBox.SelectedIndex = 0;
+            CrossoverComboBox.ItemsSource = Enum.GetNames(typeof(NsgaCrossoverType));
+            CrossoverComboBox.SelectedIndex = 0;
+            CrossoverSettings.Content = new Crossover.Uniform();
+            MutationComboBox.ItemsSource = new string[]
+            {
+                NsgaMutationType.Uniform.ToString(),
+            };
+            MutationComboBox.SelectedIndex = 0;
+            MutationSettings.Content = new Mutation.Uniform();
         }
 
         internal NSGAIIISampler ToSettings()
         {
+            double?[] crossoverParam = CrossoverSettings.Content == null
+                ? null
+                :((ICrossoverParam)CrossoverSettings.Content).ToParameters();
+            double mutationParam = MutationSettings.Content == null
+                ? 0
+                :((IMutationParam)MutationSettings.Content).ToParameter();
             return new NSGAIIISampler
             {
                 Seed = NsgaiiiSeedTextBox.Text == "AUTO"
                     ? null
-                    : (int?)int.Parse(NsgaiiiSeedTextBox.Text, System.Globalization.CultureInfo.InvariantCulture),
+                    : (int?)int.Parse(NsgaiiiSeedTextBox.Text, CultureInfo.InvariantCulture),
                 MutationProb = NsgaiiiMutationProbabilityTextBox.Text == "AUTO"
                     ? null
-                    : (double?)double.Parse(NsgaiiiMutationProbabilityTextBox.Text, System.Globalization.CultureInfo.InvariantCulture),
-                CrossoverProb = double.Parse(NsgaiiiCrossoverProbabilityTextBox.Text, System.Globalization.CultureInfo.InvariantCulture),
-                SwappingProb = double.Parse(NsgaiiiSwappingProbabilityTextBox.Text, System.Globalization.CultureInfo.InvariantCulture),
-                Crossover = ((NsgaCrossoverType)NsgaiiiCrossoverComboBox.SelectedIndex).ToString()
+                    : (double?)double.Parse(NsgaiiiMutationProbabilityTextBox.Text, CultureInfo.InvariantCulture),
+                CrossoverProb = double.Parse(NsgaiiiCrossoverProbabilityTextBox.Text, CultureInfo.InvariantCulture),
+                Crossover = ((NsgaCrossoverType)CrossoverComboBox.SelectedIndex).ToString(),
+                CrossoverParam = crossoverParam,
+                Mutation = ((NsgaMutationType)MutationComboBox.SelectedIndex).ToString(),
+                MutationParam = mutationParam,
             };
         }
 
@@ -45,14 +63,15 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             var page = new NSGAIIISettingsPage();
             page.NsgaiiiSeedTextBox.Text = nsgaiii.Seed == null
                 ? "AUTO"
-                : nsgaiii.Seed.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                : nsgaiii.Seed.Value.ToString(CultureInfo.InvariantCulture);
             page.NsgaiiiMutationProbabilityTextBox.Text = nsgaiii.MutationProb == null
                 ? "AUTO"
-                : nsgaiii.MutationProb.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            page.NsgaiiiCrossoverProbabilityTextBox.Text = nsgaiii.CrossoverProb.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            page.NsgaiiiSwappingProbabilityTextBox.Text = nsgaiii.SwappingProb.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            page.NsgaiiiCrossoverComboBox.SelectedIndex = string.IsNullOrEmpty(nsgaiii.Crossover)
+                : nsgaiii.MutationProb.Value.ToString(CultureInfo.InvariantCulture);
+            page.NsgaiiiCrossoverProbabilityTextBox.Text = nsgaiii.CrossoverProb.ToString(CultureInfo.InvariantCulture);
+            page.CrossoverComboBox.SelectedIndex = string.IsNullOrEmpty(nsgaiii.Crossover)
                 ? 0 : (int)Enum.Parse(typeof(NsgaCrossoverType), nsgaiii.Crossover);
+            page.MutationComboBox.SelectedIndex = string.IsNullOrEmpty(nsgaiii.Mutation)
+                ? 0 : (int)Enum.Parse(typeof(NsgaMutationType), nsgaiii.Mutation);
             return page;
         }
 
@@ -77,20 +96,63 @@ namespace Tunny.WPF.Views.Pages.Settings.Sampler
             textBox.Text = InputValidator.Is0to1(value) ? value : "0.9";
         }
 
-        private void NsgaiiiSwappingProbabilityTextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            var textBox = (TextBox)sender;
-            string value = textBox.Text;
-            textBox.Text = InputValidator.Is0to1(value) ? value : "0.5";
-        }
-
         private void DefaultButton_Click(object sender, RoutedEventArgs e)
         {
             NsgaiiiSeedTextBox.Text = "AUTO";
             NsgaiiiMutationProbabilityTextBox.Text = "AUTO";
             NsgaiiiCrossoverProbabilityTextBox.Text = "0.9";
-            NsgaiiiSwappingProbabilityTextBox.Text = "0.5";
-            NsgaiiiCrossoverComboBox.SelectedIndex = 1;
+            CrossoverComboBox.SelectedIndex = 1;
+        }
+
+        private void CrossoverChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var crossoverType = (NsgaCrossoverType)Enum.Parse(typeof(NsgaCrossoverType), CrossoverComboBox.SelectedItem.ToString());
+            switch (crossoverType)
+            {
+                case NsgaCrossoverType.Uniform:
+                    CrossoverSettings.Content = new Crossover.Uniform();
+                    break;
+                case NsgaCrossoverType.BLXAlpha:
+                    CrossoverSettings.Content = new BLXAlpha();
+                    break;
+                case NsgaCrossoverType.SPX:
+                    CrossoverSettings.Content = new SPX();
+                    break;
+                case NsgaCrossoverType.SBX:
+                    CrossoverSettings.Content = new SBX();
+                    break;
+                case NsgaCrossoverType.VSBX:
+                    CrossoverSettings.Content = new VSBX();
+                    break;
+                case NsgaCrossoverType.UNDX:
+                    CrossoverSettings.Content = new UNDX();
+                    break;
+                default:
+                    CrossoverSettings.Content = new SBX();
+                    break;
+            }
+            CrossoverSettings.UpdateLayout();
+            CrossoverSettings.InvalidateVisual();
+        }
+
+        private void MutationChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var mutationType = (NsgaMutationType)Enum.Parse(typeof(NsgaMutationType), MutationComboBox.SelectedItem.ToString());
+            switch (mutationType)
+            {
+                case NsgaMutationType.Uniform:
+                    MutationSettings.Content = new Mutation.Uniform();
+                    break;
+                case NsgaMutationType.Polynomial:
+                    MutationSettings.Content = new Polynomial();
+                    break;
+                case NsgaMutationType.Gaussian:
+                    MutationSettings.Content = new Gaussian();
+                    break;
+                default:
+                    MutationSettings.Content = new Mutation.Uniform();
+                    break;
+            }
         }
     }
 }
