@@ -122,7 +122,7 @@ namespace Tunny.WPF.ViewModels
                 {
                     try
                     {
-                        Directory.Delete(TEnvVariables.PythonPath);
+                        Directory.Delete(TEnvVariables.PythonPath, true);
                     }
                     catch
                     {
