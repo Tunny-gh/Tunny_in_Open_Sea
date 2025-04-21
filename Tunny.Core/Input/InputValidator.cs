@@ -73,7 +73,13 @@ namespace Tunny.Core.Input
             return input.Equals("auto", StringComparison.OrdinalIgnoreCase);
         }
 
-        public static bool Is0to1(string input, bool includeZero = false)
+
+        public static bool Is0to1(string input)
+        {
+            return Is0to1(input, false);
+        }
+
+        public static bool Is0to1(string input, bool includeZero)
         {
             if (string.IsNullOrWhiteSpace(input))
             {
@@ -86,7 +92,12 @@ namespace Tunny.Core.Input
                 : isDouble && result > 0 && result <= 1;
         }
 
-        public static bool IsAutoOr0to1(string input, bool includeZero = false)
+        public static bool IsAutoOr0to1(string input)
+        {
+            return IsAutoOr0to1(input, false);
+        }
+
+        public static bool IsAutoOr0to1(string input, bool includeZero)
         {
             if (string.IsNullOrWhiteSpace(input))
             {
