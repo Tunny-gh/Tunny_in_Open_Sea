@@ -83,7 +83,7 @@ namespace Tunny.Core.Input
             bool isDouble = double.TryParse(input, NumberStyles.Float, CultureInfo.InvariantCulture, out double result);
             return includeZero
                 ? isDouble && result >= 0 && result <= 1
-                : isDouble && result > 0 && result < 1;
+                : isDouble && result > 0 && result <= 1;
         }
 
         public static bool IsAutoOr0to1(string input, bool includeZero = false)
