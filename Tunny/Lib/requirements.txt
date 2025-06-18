@@ -34,7 +34,7 @@ SQLAlchemy==2.0.21
 sympy==1.12
 tenacity==8.2.3
 threadpoolctl==3.2.0
-torch==2.1.2
+torch==2.7.1
 tqdm==4.66.3
 typeguard==2.13.3
 typing_extensions==4.8.0
