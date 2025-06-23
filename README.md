@@ -1,21 +1,14 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/hrntsm/Tunny-docs/main/static/home-og.png" />
+  <img src="https://tunny.hrntsm.com/home-og.png" />
 </p>
 <p align="center">
   <a href="https://github.com/hrntsm/Tunny/blob/master/LICENSE"><img src="https://img.shields.io/github/license/hrntsm/Tunny" alt="License"></a>
   <a href="https://github.com/hrntsm/Tunny/releases"><img src="https://img.shields.io/github/v/release/hrntsm/Tunny" alt="Release"></a>
   <a href="https://github.com/hrntsm/Tunny/releases"><img src="https://img.shields.io/github/downloads/hrntsm/Tunny/total" alt="download"></a>
-</p>
-<p align="center">
-  <a href="https://www.codefactor.io/repository/github/hrntsm/tunny"><img src="https://www.codefactor.io/repository/github/hrntsm/tunny/badge" alt="CodeFactor" /></a>
   <a href="https://www.codacy.com/gh/hrntsm/Tunny/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=hrntsm/Tunny&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/c7947be6770545e88153125060b41284" alt="Codacy Badge"></a>
-  <a href="https://codeclimate.com/github/hrntsm/Tunny/maintainability"><img src="https://api.codeclimate.com/v1/badges/63a5b0a923062d25ad23/maintainability" alt="Maintainability"></a>
-  <img src="https://img.shields.io/codeclimate/tech-debt/hrntsm/Tunny" alt="Code Climate technical debt">
-</p>
 <p align="center">
   <a href="https://github.com/hrntsm/Tunny"><img src="https://img.shields.io/github/stars/hrntsm/Tunny?style=social" alt="GitHub Repo stars"></a>
   <a href="https://github.com/hrntsm/Tunny/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/hrntsm/Tunny?style=social"></a>
-  <a href="https://open.vscode.dev/hrntsm/Tunny"><img src="https://img.shields.io/static/v1?logo=visualstudiocode&amp;label=&amp;message=Open in Visual Studio Code&amp;labelColor=2c2c32&amp;color=007acc&amp;logoColor=007acc" alt="Open in Visual Studio Code"></a></p>
 </p>
 
 :fish:**Tunny**:fish: is Grasshopper's optimization component using Optuna, an open source hyperparameter auto-optimization framework.
@@ -67,7 +60,7 @@ https://user-images.githubusercontent.com/23289252/178105107-5e9dd9f7-5680-40d4-
 
 Please see Tunny documentation page.
 
-- https://tunny-docs.deno.dev/
+- https://tunny.hrntsm.com/
 
 ## :surfer: Contact information
 
@@ -77,4 +70,4 @@ Please see Tunny documentation page.
 - HP : [https://hiron.dev/](https://hiron.dev/)
 - Mail : support(at)hrntsm.com
   - change (at) to @
-- Postings to [the discussion page](https://github.com/hrntsm/Tunny/discussions) are also welcome.
+- Postings to [the forum](https://discourse.mcneel.com/) are also welcome.
